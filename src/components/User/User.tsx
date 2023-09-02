@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import { GET_USER } from '../../endpoints/endpoint';
 import { Link } from 'react-router-dom'
-import { Heading, Flex, Text, Image, Highlight } from '@chakra-ui/react'
+import { Heading, Flex, Text, Image } from '@chakra-ui/react'
 import { IUser } from '../../utils/types/types';
 import { FiUsers } from 'react-icons/fi'
 import { BsDot } from 'react-icons/bs'
@@ -12,10 +12,6 @@ import { FiMail } from 'react-icons/fi'
 export const User = () => {
     const login = "vladyslav-zolotarov";
     const { loading, error, data } = useQuery<IUser>(GET_USER, { variables: { login } });
-
-    // console.log('data', data)
-    // console.log('loading', loading)
-    // console.log('error', error)
 
     if (loading) return <Text>Loading...</Text>
 
@@ -47,13 +43,14 @@ export const User = () => {
                         </Text>
                     </Flex>
                 </Link>
-
-                <Flex alignItems='center'>
-                    <BsDot fontSize='15px' />
-                    <Text display='flex' fontSize='sm'>{data?.user.following.totalCount}
-                        <Text ml='4px' color='blackAlpha.700'>following</Text>
-                    </Text>
-                </Flex>
+                <Link to={`/user/${login}/following`}>
+                    <Flex alignItems='center'>
+                        <BsDot fontSize='15px' />
+                        <Text display='flex' fontSize='sm'>{data?.user.following.totalCount}
+                            <Text ml='4px' color='blackAlpha.700'>following</Text>
+                        </Text>
+                    </Flex>
+                </Link>
             </Flex >
 
             <Flex alignItems='center'>

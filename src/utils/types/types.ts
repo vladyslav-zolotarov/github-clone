@@ -65,3 +65,22 @@ export interface IFollowers {
     };
   };
 }
+
+export interface IFollowing {
+  user: {
+    id: string;
+    following: {
+      nodes: [
+        {
+          login: string;
+          name: string;
+          id: string;
+          avatarUrl: string;
+          bio: string;
+          location: string;
+          company: string;
+        },
+      ];
+    };
+  };
+}

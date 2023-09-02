@@ -3,7 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Grid } from '@chakra-ui/react'
 import { HomePage } from './pages/HomePage/HomePage'
 import { Layout } from './layouts/Layout'
-import { FollowersList, RepositoryList, User } from './components'
+import { FollowersList, FollowingList, RepositoryList, User } from './components'
 
 
 function App() {
@@ -34,6 +34,15 @@ function App() {
             <Grid gap="20px" w="full" templateColumns="minmax(0, 260px) 1fr">
               <User />
               <FollowersList />
+            </Grid>
+          ,
+        },
+        {
+          path: 'user/:userLogin/following',
+          element:
+            <Grid gap="20px" w="full" templateColumns="minmax(0, 260px) 1fr">
+              <User />
+              <FollowingList />
             </Grid>
           ,
         }

@@ -66,3 +66,22 @@ export const GET_FOLLOWERS = gql`
     }
   }
 `;
+
+export const GET_FOLLOWING = gql`
+  query GetFollowing($login: String!) {
+    user(login: $login) {
+      id
+      following(first: 10) {
+        nodes {
+          login
+          name
+          id
+          avatarUrl(size: 100)
+          bio
+          location
+          company
+        }
+      }
+    }
+  }
+`;
