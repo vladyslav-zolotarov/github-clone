@@ -1,5 +1,6 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { TOKEN } from './token';
 
 const cache = new InMemoryCache();
 
@@ -8,13 +9,11 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = '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';
-
   return {
     headers: {
       ...headers,
 
-      authorization: token ? `Bearer ${token}` : '',
+      authorization: TOKEN ? `Bearer ${TOKEN}` : '',
     },
   };
 });
