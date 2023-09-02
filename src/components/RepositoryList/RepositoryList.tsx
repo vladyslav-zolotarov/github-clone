@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { GET_REPOSITORIES } from "../../endpoints/endpoint";
 import { IRepository } from "../../utils/types/types";
 import format from 'date-fns/format';
-import { Card, CardHeader, CardBody, Circle, Text, Heading, Flex, Box } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, Circle, Text, Heading, Flex, Badge } from '@chakra-ui/react'
 
 
 
@@ -27,11 +27,11 @@ export const RepositoryList = () => {
                 return (
                     <Card key={repository.node.id} size="sm" variant="outline" p="10px">
                         <CardHeader borderBottom="1px" borderColor="blackAlpha.100">
-                            <Flex alignItems="center" mb="5px" gap="5px">
+                            <Flex alignItems="center" gap="5px">
                                 <Heading size="md">{repository.node.name}</Heading>
-                                <Box display="flex" alignItems="center" justifyContent="center" color="black" p="1px 8px" border="1px" borderRadius="20px" borderColor="blackAlpha.100">
+                                <Badge variant='outline' colorScheme='blackAlpha' borderRadius='20px' padding='1px 8px' color='black'>
                                     <Text fontSize="sm" textTransform="lowercase">{repository.node.visibility}</Text>
-                                </Box>
+                                </Badge>
                             </Flex>
                             <Text fontSize="sm">{repository.node.description}</Text>
                         </CardHeader>
@@ -46,7 +46,7 @@ export const RepositoryList = () => {
                                     )
                                 })}
                             </Flex>
-                            <Text fontSize="sm">Created on {format(new Date(`${repository.node.createdAt}`), 'MMMM dd, yyyy')}</Text>
+                            <Text fontSize="sm">Updated on {format(new Date(`${repository.node.updatedAt}`), 'MMMM dd, yyyy')}</Text>
                         </CardBody>
                     </Card>)
             })}

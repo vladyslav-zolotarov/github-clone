@@ -28,7 +28,7 @@ export interface IRepository {
             id: string;
             name: string;
             description: string;
-            createdAt: string;
+            updatedAt: string;
             languages: {
               edges: [
                 {
@@ -41,6 +41,25 @@ export interface IRepository {
             };
             visibility: string;
           };
+        },
+      ];
+    };
+  };
+}
+
+export interface IFollowers {
+  user: {
+    id: string;
+    followers: {
+      nodes: [
+        {
+          login: string;
+          name: string;
+          id: string;
+          avatarUrl: string;
+          bio: string;
+          location: string;
+          company: string;
         },
       ];
     };

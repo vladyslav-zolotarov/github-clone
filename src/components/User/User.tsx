@@ -1,8 +1,13 @@
 import { useQuery } from '@apollo/client'
 import { GET_USER } from '../../endpoints/endpoint';
-
-import { Flex, Text, Image } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
+import { Heading, Flex, Text, Image, Highlight } from '@chakra-ui/react'
 import { IUser } from '../../utils/types/types';
+import { FiUsers } from 'react-icons/fi'
+import { BsDot } from 'react-icons/bs'
+import { BiMap } from 'react-icons/bi'
+import { FiMail } from 'react-icons/fi'
+
 
 export const User = () => {
     const login = "vladyslav-zolotarov";
@@ -21,20 +26,46 @@ export const User = () => {
             <Flex>
                 <Image
                     rounded={'50%'}
-                    boxSize='150px'
+                    boxSize='260px'
                     src={data?.user.avatarUrl}
                     alt={data?.user.name}
                 />
             </Flex>
-            <Text>{data?.user.name}</Text>
-            <Text>{data?.user.login}</Text>
-            <Text>{data?.user.bio}</Text>
-            <Text>{data?.user.followers.totalCount} followers</Text>
-            <Text>{data?.user.following.totalCount} following</Text>
-            <Text>{data?.user.location}</Text>
-            <Text>{data?.user.email}</Text>
+            <Flex direction='column' mb='20px'>
+                <Heading size='md'>{data?.user.name}</Heading>
+                <Text fontSize='xl' color='blackAlpha.700'>{data?.user.login}</Text>
+            </Flex>
+
+            <Text mb='20px'>{data?.user.bio}</Text>
+
+            <Flex mb='20px'>
+                <Link to={`/user/${login}/followers`}>
+                    <Flex gap='4px' alignItems='center'>
+                        <FiUsers fontSize='15px' />
+                        <Text display='flex' fontSize='sm'>{data?.user.followers.totalCount}
+                            <Text ml='4px' color='blackAlpha.700'>followers</Text>
+                        </Text>
+                    </Flex>
+                </Link>
+
+                <Flex alignItems='center'>
+                    <BsDot fontSize='15px' />
+                    <Text display='flex' fontSize='sm'>{data?.user.following.totalCount}
+                        <Text ml='4px' color='blackAlpha.700'>following</Text>
+                    </Text>
+                </Flex>
+            </Flex >
+
+            <Flex alignItems='center'>
+                <BiMap fontSize='18px' />
+                <Text ml='5px'>{data?.user.location}</Text>
+            </Flex>
+            <Flex alignItems='center'>
+                <FiMail fontSize='18px' />
+                <Text ml='5px'>{data?.user.email}</Text>
+            </Flex>
             <Text>{data?.user.company}</Text>
-        </Flex>
+        </Flex >
 
     );
 };

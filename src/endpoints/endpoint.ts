@@ -1,7 +1,5 @@
 import { gql } from '@apollo/client';
 
-// const LOGIN = 'vladyslav-zolotarov';
-
 export const GET_USER = gql`
   query GetUser($login: String!) {
     user(login: $login) {
@@ -27,13 +25,13 @@ export const GET_USER = gql`
 export const GET_REPOSITORIES = gql`
   query GetRepositories($login: String!) {
     user(login: $login) {
-      repositories(first: 20, orderBy: { field: CREATED_AT, direction: DESC }) {
+      repositories(first: 20, orderBy: { field: UPDATED_AT, direction: DESC }) {
         edges {
           node {
             id
             name
             description
-            createdAt
+            updatedAt
             languages(first: 5) {
               edges {
                 node {
@@ -44,6 +42,25 @@ export const GET_REPOSITORIES = gql`
             }
             visibility
           }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_FOLLOWERS = gql`
+  query GetFollowers($login: String!) {
+    user(login: $login) {
+      id
+      followers(first: 10) {
+        nodes {
+          login
+          name
+          id
+          avatarUrl(size: 100)
+          bio
+          location
+          company
         }
       }
     }
