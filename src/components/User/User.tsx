@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import { GET_USER } from '../../endpoints/endpoint';
-import { Link } from 'react-router-dom'
-import { Heading, Flex, Text, Image } from '@chakra-ui/react'
+import { Link as RouterDomLink } from 'react-router-dom'
+import { Heading, Flex, Text, Image, Link } from '@chakra-ui/react'
 import { IUser } from '../../utils/types/types';
 import { FiUsers } from 'react-icons/fi'
 import { BsDot } from 'react-icons/bs'
@@ -35,20 +35,16 @@ export const User = () => {
             <Text mb='20px'>{data?.user.bio}</Text>
 
             <Flex mb='20px'>
-                <Link to={`/user/${login}/followers`}>
+                <Link as={RouterDomLink} to={`/user/${login}/followers`}>
                     <Flex gap='4px' alignItems='center'>
                         <FiUsers fontSize='15px' />
-                        <Text display='flex' fontSize='sm'>{data?.user.followers.totalCount}
-                            <Text ml='4px' color='blackAlpha.700'>followers</Text>
-                        </Text>
+                        <Text display='flex' fontSize='sm'>{data?.user.followers.totalCount} followers</Text>
                     </Flex>
                 </Link>
-                <Link to={`/user/${login}/following`}>
+                <Link as={RouterDomLink} to={`/user/${login}/following`}>
                     <Flex alignItems='center'>
                         <BsDot fontSize='15px' />
-                        <Text display='flex' fontSize='sm'>{data?.user.following.totalCount}
-                            <Text ml='4px' color='blackAlpha.700'>following</Text>
-                        </Text>
+                        <Text display='flex' fontSize='sm'>{data?.user.following.totalCount} following</Text>
                     </Flex>
                 </Link>
             </Flex >

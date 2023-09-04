@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_USER = gql`
-  query GetUser($login: String!) {
+  query getUser($login: String!) {
     user(login: $login) {
       id
       email
@@ -23,7 +23,7 @@ export const GET_USER = gql`
 `;
 
 export const GET_REPOSITORIES = gql`
-  query GetRepositories($login: String!) {
+  query getRepositories($login: String!) {
     user(login: $login) {
       repositories(first: 20, orderBy: { field: UPDATED_AT, direction: DESC }) {
         edges {
@@ -49,10 +49,30 @@ export const GET_REPOSITORIES = gql`
 `;
 
 export const GET_FOLLOWERS = gql`
-  query GetFollowers($login: String!) {
+  query getFollowers($login: String!) {
     user(login: $login) {
       id
       followers(first: 10) {
+        nodes {
+          login
+          name
+          id
+          avatarUrl(size: 100)
+          bio
+          location
+          company
+          viewerIsFollowing
+        }
+      }
+    }
+  }
+`;
+
+export const GET_FOLLOWING = gql`
+  query getFollowing($login: String!) {
+    user(login: $login) {
+      id
+      following(first: 10) {
         nodes {
           login
           name
@@ -67,21 +87,18 @@ export const GET_FOLLOWERS = gql`
   }
 `;
 
-export const GET_FOLLOWING = gql`
-  query GetFollowing($login: String!) {
-    user(login: $login) {
-      id
-      following(first: 10) {
-        nodes {
-          login
-          name
-          id
-          avatarUrl(size: 100)
-          bio
-          location
-          company
-        }
-      }
+export const FOLLOW_USER = gql`
+  mutation followUser($userId: ID!) {
+    followUser(input: { userId: $userId }) {
+      clientMutationId
+    }
+  }
+`;
+
+export const UNFOLLOW_USER = gql`
+  mutation unfollowUser($userId: ID!) {
+    unfollowUser(input: { userId: $userId }) {
+      clientMutationId
     }
   }
 `;

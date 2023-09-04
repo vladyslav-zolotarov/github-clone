@@ -60,6 +60,7 @@ export interface IFollowers {
           bio: string;
           location: string;
           company: string;
+          viewerIsFollowing: boolean;
         },
       ];
     };
