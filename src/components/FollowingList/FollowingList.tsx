@@ -1,14 +1,30 @@
 import { IFollowing } from '../../utils/types/types';
 import { GET_FOLLOWING } from '../../endpoints/endpoint';
 import { useQuery } from '@apollo/client';
-import { Card, CardHeader, Image, Text, Flex, Button } from '@chakra-ui/react';
+import {
+  Link,
+  Card,
+  CardHeader,
+  Image,
+  Text,
+  Flex,
+  Button,
+} from '@chakra-ui/react';
 import { BiBuildingHouse, BiMap } from 'react-icons/bi';
+import { useFollowToggler } from '../../hooks/useFollowToggler';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export const FollowingList = () => {
-  const login = 'vladyslav-zolotarov';
+  const { userLogin } = useParams();
+
   const { data, loading, error } = useQuery<IFollowing>(GET_FOLLOWING, {
-    variables: { login },
+    variables: { login: userLogin },
   });
+
+  const { clickedBtnId, followLoading, unfollowLoading, handleFollowToggler } =
+    useFollowToggler();
+
+  const navigate = useNavigate();
 
   if (loading) return <Text>Loading...</Text>;
 
@@ -19,7 +35,7 @@ export const FollowingList = () => {
       direction='column'
       rowGap='20px'>
       {data &&
-        data.user.following.nodes.map(following => {
+        data.user.following.nodes.map((following, index) => {
           return (
             <Card
               key={following.id}
@@ -38,7 +54,15 @@ export const FollowingList = () => {
                     <Flex
                       gap='10px'
                       alignItems='center'>
-                      <Text fontSize='md'>{following.name}</Text>
+                      <Link
+                        onClick={() =>
+                          navigate(`/user/${following.login}/overview`, {
+                            replace: true,
+                          })
+                        }>
+                        <Text fontSize='md'>{following.name}</Text>
+                      </Link>
+
                       <Text
                         color='blackAlpha.700'
                         fontSize='sm'>
@@ -78,11 +102,27 @@ export const FollowingList = () => {
                   </Flex>
 
                   <Flex ml='auto'>
-                    <Button
-                      size='sm'
-                      variant='outline'>
-                      Unfollow
-                    </Button>
+                    {following.viewerCanFollow && (
+                      <Button
+                        onClick={() =>
+                          handleFollowToggler(
+                            index,
+                            following.id,
+                            following.viewerIsFollowing
+                          )
+                        }
+                        isLoading={
+                          clickedBtnId === index
+                            ? followLoading || unfollowLoading
+                            : false
+                        }
+                        loadingText='Loading'
+                        spinnerPlacement='end'
+                        size='sm'
+                        variant='outline'>
+                        {following.viewerIsFollowing ? 'Unfollow' : 'Follow'}
+                      </Button>
+                    )}
                   </Flex>
                 </Flex>
               </CardHeader>

@@ -1,29 +1,22 @@
-import { NavLink } from 'react-router-dom'
-import { Tabs, TabList, Tab } from '@chakra-ui/react'
-
+import { NavLink, useParams } from 'react-router-dom';
+import { Tabs, TabList, Tab } from '@chakra-ui/react';
 
 export const Navigation = () => {
-    const USER_LOGIN = 'vladyslav-zolotarov';
+  const { userLogin } = useParams();
 
-    return (
-        <Tabs colorScheme='blackAlpha'>
-            <TabList>
-                <NavLink to='/home-page'>
-                    <Tab>
-                        HomePage
-                    </Tab>
-                </NavLink>
-                {/* <NavLink to={`/user/${USER_LOGIN}`}>
-                    <Tab>
-                        User
-                    </Tab>
-                </NavLink> */}
-                <NavLink to={`/user/${USER_LOGIN}/repositories`}>
-                    <Tab>
-                        Repositories
-                    </Tab>
-                </NavLink>
-            </TabList>
-        </Tabs>
-    );
+  return (
+    <Tabs colorScheme='blackAlpha'>
+      <TabList>
+        <NavLink to='/home-page'>
+          <Tab>HomePage</Tab>
+        </NavLink>
+        <NavLink to={`/user/${userLogin}/overview`}>
+          <Tab>Overview</Tab>
+        </NavLink>
+        <NavLink to={`/user/${userLogin}/repositories`}>
+          <Tab>Repositories</Tab>
+        </NavLink>
+      </TabList>
+    </Tabs>
+  );
 };

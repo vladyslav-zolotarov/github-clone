@@ -1,19 +1,30 @@
 import { IFollowers } from '../../utils/types/types';
 import { GET_FOLLOWERS } from '../../endpoints/endpoint';
 import { useQuery } from '@apollo/client';
-import { Card, CardHeader, Image, Text, Flex, Button } from '@chakra-ui/react';
+import {
+  Link,
+  Card,
+  CardHeader,
+  Image,
+  Text,
+  Flex,
+  Button,
+} from '@chakra-ui/react';
 import { BiBuildingHouse, BiMap } from 'react-icons/bi';
-import { useFollowToggler } from '../../utils/hooks/useFollowToggler';
+import { useFollowToggler } from '../../hooks/useFollowToggler';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const FollowersList = () => {
-  const login = 'vladyslav-zolotarov';
+  const { userLogin } = useParams();
 
   const { data, loading, error } = useQuery<IFollowers>(GET_FOLLOWERS, {
-    variables: { login },
+    variables: { login: userLogin },
   });
 
   const { clickedBtnId, followLoading, unfollowLoading, handleFollowToggler } =
     useFollowToggler();
+
+  const navigate = useNavigate();
 
   if (loading) return <Text>Loading...</Text>;
 
@@ -43,7 +54,14 @@ export const FollowersList = () => {
                     <Flex
                       gap='10px'
                       alignItems='center'>
-                      <Text fontSize='md'>{follower.name}</Text>
+                      <Link
+                        onClick={() =>
+                          navigate(`/user/${follower.login}/overview`, {
+                            replace: true,
+                          })
+                        }>
+                        <Text fontSize='md'>{follower.name}</Text>
+                      </Link>
                       <Text
                         color='blackAlpha.700'
                         fontSize='sm'>
@@ -82,25 +100,27 @@ export const FollowersList = () => {
                     </Flex>
                   </Flex>
                   <Flex ml='auto'>
-                    <Button
-                      onClick={() =>
-                        handleFollowToggler(
-                          index,
-                          follower.id,
-                          follower.viewerIsFollowing
-                        )
-                      }
-                      isLoading={
-                        clickedBtnId === index
-                          ? followLoading || unfollowLoading
-                          : false
-                      }
-                      loadingText='Loading'
-                      spinnerPlacement='end'
-                      size='sm'
-                      variant='outline'>
-                      {follower.viewerIsFollowing ? 'Unfollow' : 'Follow'}
-                    </Button>
+                    {follower.viewerCanFollow && (
+                      <Button
+                        onClick={() =>
+                          handleFollowToggler(
+                            index,
+                            follower.id,
+                            follower.viewerIsFollowing
+                          )
+                        }
+                        isLoading={
+                          clickedBtnId === index
+                            ? followLoading || unfollowLoading
+                            : false
+                        }
+                        loadingText='Loading'
+                        spinnerPlacement='end'
+                        size='sm'
+                        variant='outline'>
+                        {follower.viewerIsFollowing ? 'Unfollow' : 'Follow'}
+                      </Button>
+                    )}
                   </Flex>
                 </Flex>
               </CardHeader>

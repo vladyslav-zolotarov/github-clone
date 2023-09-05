@@ -1,10 +1,9 @@
-
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Grid } from '@chakra-ui/react'
-import { HomePage } from './pages/HomePage/HomePage'
-import { Layout } from './layouts/Layout'
-import { FollowersList, FollowingList, RepositoryList, User } from './components'
-
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Grid } from '@chakra-ui/react';
+import { HomePage } from './pages/HomePage/HomePage';
+import { Layout } from './layouts/Layout';
+import { User } from './components';
+import { Followers, Following, Overview, Repositories } from './templates/user';
 
 function App() {
   const router = createBrowserRouter([
@@ -17,42 +16,63 @@ function App() {
           element: <HomePage />,
         },
         {
-          path: 'user/:userLogin',
-          element: <User />,
+          path: 'user/:userLogin/overview',
+          element: (
+            <Grid
+              gap='20px'
+              w='full'
+              templateColumns='minmax(0, 260px) 1fr'>
+              <User />
+              <Overview />
+            </Grid>
+          ),
         },
         {
           path: 'user/:userLogin/repositories',
-          element:
-            <Grid gap="20px" w="full" templateColumns="minmax(0, 260px) 1fr">
+          element: (
+            <Grid
+              gap='20px'
+              w='full'
+              templateColumns='minmax(0, 260px) 1fr'>
               <User />
-              <RepositoryList />
-            </Grid>,
+              <Repositories />
+            </Grid>
+          ),
         },
         {
           path: 'user/:userLogin/followers',
-          element:
-            <Grid gap="20px" w="full" templateColumns="minmax(0, 260px) 1fr">
+          element: (
+            <Grid
+              gap='20px'
+              w='full'
+              templateColumns='minmax(0, 260px) 1fr'>
               <User />
-              <FollowersList />
+              <Followers />
             </Grid>
-          ,
+          ),
         },
         {
           path: 'user/:userLogin/following',
-          element:
-            <Grid gap="20px" w="full" templateColumns="minmax(0, 260px) 1fr">
+          element: (
+            <Grid
+              gap='20px'
+              w='full'
+              templateColumns='minmax(0, 260px) 1fr'>
               <User />
-              <FollowingList />
+              <Following />
             </Grid>
-          ,
-        }
-      ]
-    }
-  ])
+          ),
+        },
+      ],
+    },
+  ]);
 
   return (
-    <RouterProvider router={router} fallbackElement={<h1>Loading...</h1>} />
-  )
+    <RouterProvider
+      router={router}
+      fallbackElement={<h1>Loading...</h1>}
+    />
+  );
 }
 
-export default App
+export default App;

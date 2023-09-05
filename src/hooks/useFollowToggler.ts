@@ -3,18 +3,19 @@ import { useState } from 'react';
 import {
   FOLLOW_USER,
   GET_FOLLOWERS,
+  GET_FOLLOWING,
   UNFOLLOW_USER,
-} from '../../endpoints/endpoint';
+} from '../endpoints/endpoint';
 
 export const useFollowToggler = () => {
   const [followUser, { loading: followLoading, error: followError }] =
     useMutation(FOLLOW_USER, {
-      refetchQueries: [GET_FOLLOWERS],
+      refetchQueries: [GET_FOLLOWERS, GET_FOLLOWING],
       awaitRefetchQueries: true,
     });
   const [unfollowUser, { loading: unfollowLoading, error: unfollowError }] =
     useMutation(UNFOLLOW_USER, {
-      refetchQueries: [GET_FOLLOWERS],
+      refetchQueries: [GET_FOLLOWERS, GET_FOLLOWING],
       awaitRefetchQueries: true,
     });
 

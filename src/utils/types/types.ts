@@ -61,6 +61,7 @@ export interface IFollowers {
           location: string;
           company: string;
           viewerIsFollowing: boolean;
+          viewerCanFollow: boolean;
         },
       ];
     };
@@ -80,6 +81,8 @@ export interface IFollowing {
           bio: string;
           location: string;
           company: string;
+          viewerIsFollowing: boolean;
+          viewerCanFollow: boolean;
         },
       ];
     };

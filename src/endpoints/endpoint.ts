@@ -62,6 +62,7 @@ export const GET_FOLLOWERS = gql`
           location
           company
           viewerIsFollowing
+          viewerCanFollow
         }
       }
     }
@@ -81,6 +82,8 @@ export const GET_FOLLOWING = gql`
           bio
           location
           company
+          viewerIsFollowing
+          viewerCanFollow
         }
       }
     }
