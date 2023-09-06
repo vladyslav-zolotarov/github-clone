@@ -11,10 +11,12 @@ import {
   Heading,
   Flex,
   Badge,
+  Link,
 } from '@chakra-ui/react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export const RepositoryList = () => {
+  const navigate = useNavigate();
   const { userLogin } = useParams();
 
   const { data, loading, error } = useQuery<IRepository>(GET_REPOSITORIES, {
@@ -43,7 +45,14 @@ export const RepositoryList = () => {
                 <Flex
                   alignItems='center'
                   gap='5px'>
-                  <Heading size='md'>{repository.node.name}</Heading>
+                  <Link
+                    onClick={() =>
+                      navigate(`/${userLogin}/${repository.node.name}`, {
+                        replace: true,
+                      })
+                    }>
+                    <Heading size='md'>{repository.node.name}</Heading>
+                  </Link>
                   <Badge
                     variant='outline'
                     colorScheme='blackAlpha'

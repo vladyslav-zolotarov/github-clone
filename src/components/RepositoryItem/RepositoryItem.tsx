@@ -1,11 +1,18 @@
 import { useQuery } from '@apollo/client';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { IRepositoryInfo } from '../../utils/types/types';
 import { GET_REPOSITORY_INFO } from '../../endpoints/endpoint';
-import { Text } from '@chakra-ui/react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import 'github-markdown-css';
+import { ReadMe, FileItem, FolderItem } from './index';
+import {
+  Text,
+  Flex,
+  TableContainer,
+  Table,
+  Thead,
+  Tr,
+  Tbody,
+  Td,
+} from '@chakra-ui/react';
 
 export const RepositoryItem = () => {
   const { userLogin, repositoryName } = useParams();
@@ -23,25 +30,71 @@ export const RepositoryItem = () => {
 
   console.log('data', data);
 
+  const RepositoryReadMeFile = data?.repository.object.entries.filter(
+    rep => rep.extension === '.md'
+  );
+
+  const RepositoryFolders = data?.repository.object.entries.filter(
+    rep => rep.extension === ''
+  );
+
+  const RepositoryFiles = data?.repository.object.entries.filter(
+    rep => rep.extension !== ''
+  );
+
   return (
-    <div>
-      RepositoryItem
-      <div>
-        {data?.repository.object.entries.map(rep => {
-          if (rep.extension === '.md') {
-            console.log('ex', rep.extension);
-            return (
-              <div
-                className='markdown-body'
-                key={rep.name}>
-                <ReactMarkdown className='markdown'>
-                  {rep.object.text}
-                </ReactMarkdown>
-              </div>
-            );
-          }
-        })}
-      </div>
-    </div>
+    <Flex
+      direction='column'
+      gap='20px'>
+      <TableContainer
+        border='1px'
+        rounded='md'
+        borderColor='blackAlpha.300'>
+        <Table variant='simple'>
+          <Thead>
+            <Tr>
+              <Td padding='10px 20px'>
+                <Flex>Test</Flex>
+              </Td>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {RepositoryFolders?.map(folder => {
+              return (
+                <Tr>
+                  <Td padding='10px 20px'>
+                    <FolderItem
+                      key={folder.name}
+                      data={folder}
+                    />
+                  </Td>
+                </Tr>
+              );
+            })}
+            {RepositoryFiles?.map(file => {
+              return (
+                <Tr>
+                  <Td padding='10px 20px'>
+                    <FileItem
+                      key={file.name}
+                      data={file}
+                    />
+                  </Td>
+                </Tr>
+              );
+            })}
+          </Tbody>
+        </Table>
+      </TableContainer>
+
+      {RepositoryReadMeFile?.map(file => {
+        return (
+          <ReadMe
+            key={file.name}
+            data={file}
+          />
+        );
+      })}
+    </Flex>
   );
 };
