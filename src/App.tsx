@@ -2,7 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Grid } from '@chakra-ui/react';
 import { HomePage } from './pages/HomePage/HomePage';
 import { Layout } from './layouts/Layout';
-import { User } from './components';
+import { RepositoryItem, User } from './components';
 import { Followers, Following, Overview, Repositories } from './templates/user';
 
 function App() {
@@ -24,6 +24,16 @@ function App() {
               templateColumns='minmax(0, 260px) 1fr'>
               <User />
               <Overview />
+            </Grid>
+          ),
+        },
+        {
+          path: '/:userLogin/:repositoryName',
+          element: (
+            <Grid
+              gap='20px'
+              w='full'>
+              <RepositoryItem />
             </Grid>
           ),
         },

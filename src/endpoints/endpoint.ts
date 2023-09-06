@@ -105,3 +105,35 @@ export const UNFOLLOW_USER = gql`
     }
   }
 `;
+
+export const GET_REPOSITORY_INFO = gql`
+  query getRepositoryInfo($name: String!, $owner: String!) {
+    repository(name: $name, owner: $owner) {
+      name
+      object(expression: "HEAD:") {
+        ... on Tree {
+          id
+          entries {
+            extension
+            lineCount
+            path
+            pathRaw
+            size
+            type
+            mode
+            name
+            nameRaw
+            oid
+            object {
+              ... on Blob {
+                id
+                text
+              }
+            }
+          }
+          oid
+        }
+      }
+    }
+  }
+`;

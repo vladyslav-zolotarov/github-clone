@@ -88,3 +88,30 @@ export interface IFollowing {
     };
   };
 }
+
+export interface IRepositoryInfo {
+  repository: {
+    name: string;
+    object: {
+      id: string;
+      entries: [
+        {
+          extension: string;
+          lineCount: number;
+          path: string;
+          pathRaw: string;
+          size: number;
+          type: string;
+          mode: number;
+          name: string;
+          nameRaw: string;
+          oid: string;
+          object: {
+            id: string;
+            text: string;
+          };
+        },
+      ];
+    };
+  };
+}
