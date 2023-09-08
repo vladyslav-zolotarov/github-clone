@@ -4,3 +4,7 @@ export * from './User/User';
 export * from './FollowersList/FollowersList';
 export * from './FollowingList/FollowingList';
 export * from './RepositoryItem/RepositoryItem';
+export * from './RepositoryItem/FileItem/FileItem';
+export * from './RepositoryItem/FolderItem/FolderItem';
+export * from './RepositoryItem/ReadMe/ReadMe';
+export * from './RepositoryItem/AdditionalInformation/AdditionalInformation';

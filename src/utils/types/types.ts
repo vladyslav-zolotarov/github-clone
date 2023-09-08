@@ -89,9 +89,10 @@ export interface IFollowing {
   };
 }
 
-export interface IRepositoryInfo {
+export interface IRepositoryInfoTree {
   repository: {
     name: string;
+    description: string;
     object: {
       id: string;
       entries: [
@@ -112,6 +113,21 @@ export interface IRepositoryInfo {
           };
         },
       ];
+    };
+  };
+}
+
+export interface IRepositoryInfoCommit {
+  repository: {
+    owner: {
+      id: string;
+      avatarUrl: string;
+      login: string;
+    };
+    object: {
+      message: string;
+      abbreviatedOid: string;
+      committedDate: string;
     };
   };
 }

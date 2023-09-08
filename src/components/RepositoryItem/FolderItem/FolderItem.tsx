@@ -1,8 +1,9 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { FcFolder } from 'react-icons/fc';
-import { IRepositoryInfo } from '../../../utils/types/types';
+import { IRepositoryInfoTree } from '../../../utils/types/types';
 
-type FolderItemProps = IRepositoryInfo['repository']['object']['entries'][0];
+type FolderItemProps =
+  IRepositoryInfoTree['repository']['object']['entries'][0];
 
 export const FolderItem = ({ data }: { data: FolderItemProps }) => {
   return (

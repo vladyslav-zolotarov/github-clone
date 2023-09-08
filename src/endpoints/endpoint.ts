@@ -106,10 +106,11 @@ export const UNFOLLOW_USER = gql`
   }
 `;
 
-export const GET_REPOSITORY_INFO = gql`
-  query getRepositoryInfo($name: String!, $owner: String!) {
+export const GET_REPOSITORY_INFO_TREE = gql`
+  query getRepositoryInfoTree($name: String!, $owner: String!) {
     repository(name: $name, owner: $owner) {
       name
+      description
       object(expression: "HEAD:") {
         ... on Tree {
           id
@@ -132,6 +133,25 @@ export const GET_REPOSITORY_INFO = gql`
             }
           }
           oid
+        }
+      }
+    }
+  }
+`;
+
+export const GET_REPOSITORY_INFO_COMMIT = gql`
+  query getRepositoryInfoCommit($name: String!, $owner: String!) {
+    repository(name: $name, owner: $owner) {
+      owner {
+        id
+        avatarUrl(size: 50)
+        login
+      }
+      object(expression: "main") {
+        ... on Commit {
+          message
+          abbreviatedOid
+          committedDate
         }
       }
     }
