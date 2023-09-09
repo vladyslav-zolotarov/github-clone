@@ -128,6 +128,14 @@ export interface IRepositoryInfoCommit {
       message: string;
       abbreviatedOid: string;
       committedDate: string;
+      history: {
+        totalCount: number;
+        edges: {
+          node: {
+            message: string;
+          };
+        };
+      };
     };
   };
 }

@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import {
   IRepositoryInfoCommit,
   IRepositoryInfoTree,
@@ -20,8 +20,10 @@ import {
   Td,
   Grid,
   Image,
+  Link,
 } from '@chakra-ui/react';
 import { format } from 'date-fns';
+import { BiGitCommit } from 'react-icons/bi';
 
 export const RepositoryItem = () => {
   const { userLogin, repositoryName } = useParams();
@@ -42,9 +44,11 @@ export const RepositoryItem = () => {
     variables: { name: repositoryName, owner: userLogin },
   });
 
-  if (loadingTree) return <Text>Loading...</Text>;
+  const navigate = useNavigate();
 
-  if (errorTree) return <Text>Error - {errorTree.message}</Text>;
+  if (loadingTree || loadingCommit) return <Text>Loading...</Text>;
+
+  if (errorTree || errorCommit) return <Text>Error ...</Text>;
 
   const RepositoryReadMeFile = dataTree?.repository.object.entries.filter(
     rep => rep.extension === '.md'
@@ -89,11 +93,21 @@ export const RepositoryItem = () => {
                           src={dataCommit?.repository.owner.avatarUrl}
                           alt={dataCommit?.repository.owner.id}
                         />
-                        <Text
-                          fontSize='md'
-                          fontWeight='medium'>
-                          {dataCommit?.repository.owner.login}
-                        </Text>
+                        <Link
+                          onClick={() =>
+                            navigate(
+                              `/user/${dataCommit?.repository.owner.login}/overview`,
+                              {
+                                replace: true,
+                              }
+                            )
+                          }>
+                          <Text
+                            fontSize='md'
+                            fontWeight='medium'>
+                            {dataCommit?.repository.owner.login}
+                          </Text>
+                        </Link>
                       </Flex>
                       <Text fontSize='xs'>
                         {dataCommit?.repository.object.message}
@@ -112,6 +126,18 @@ export const RepositoryItem = () => {
                           ),
                           'MMMM dd, yyyy'
                         )}
+                      </Text>
+                      <Text
+                        display='flex'
+                        alignItems='center'
+                        gap='5px'
+                        fontSize='sm'>
+                        <BiGitCommit size='16px' />
+                        <Text fontWeight='semibold'>
+                          {' '}
+                          {dataCommit?.repository.object.history.totalCount}
+                        </Text>
+                        commits
                       </Text>
                     </Flex>
                   </Flex>

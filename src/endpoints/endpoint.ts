@@ -147,11 +147,19 @@ export const GET_REPOSITORY_INFO_COMMIT = gql`
         avatarUrl(size: 50)
         login
       }
-      object(expression: "main") {
+      object(expression: "HEAD") {
         ... on Commit {
           message
           abbreviatedOid
           committedDate
+          history {
+            totalCount
+            edges {
+              node {
+                message
+              }
+            }
+          }
         }
       }
     }
