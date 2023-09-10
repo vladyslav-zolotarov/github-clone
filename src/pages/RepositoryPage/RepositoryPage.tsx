@@ -6,7 +6,7 @@ export const RepositoryPage = () => {
     <Grid
       gap='20px'
       w='full'
-      templateColumns='1fr minmax(0, 260px) '>
+      templateColumns='1fr 260px'>
       <FileFolderList />
       <AdditionalInformation />
     </Grid>

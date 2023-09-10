@@ -93,6 +93,20 @@ export interface IRepositoryInfo {
   repository: {
     name: string;
     description: string;
+    languages: {
+      totalCount: number;
+      totalSize: number;
+      edges: [
+        {
+          node: {
+            name: string;
+            id: string;
+            color: string;
+          };
+          size: number;
+        },
+      ];
+    };
   };
 }
 

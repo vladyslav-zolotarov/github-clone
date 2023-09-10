@@ -2,8 +2,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Grid } from '@chakra-ui/react';
 import { HomePage, RepositoryPage } from './pages/index';
 import { Layout } from './layouts/Layout';
-import { User } from './components';
-import { Followers, Following, Overview, Repositories } from './templates/user';
+import { User, RepositoryList } from './components';
+import { Followers, Following, Overview } from './templates/user';
 
 function App() {
   const router = createBrowserRouter([
@@ -21,7 +21,7 @@ function App() {
             <Grid
               gap='20px'
               w='full'
-              templateColumns='minmax(0, 260px) 1fr'>
+              templateColumns='260px 1fr'>
               <User />
               <Overview />
             </Grid>
@@ -43,9 +43,9 @@ function App() {
             <Grid
               gap='20px'
               w='full'
-              templateColumns='minmax(0, 260px) 1fr'>
+              templateColumns='260px 1fr'>
               <User />
-              <Repositories />
+              <RepositoryList />
             </Grid>
           ),
         },
@@ -55,7 +55,7 @@ function App() {
             <Grid
               gap='20px'
               w='full'
-              templateColumns='minmax(0, 260px) 1fr'>
+              templateColumns='260px 1fr'>
               <User />
               <Followers />
             </Grid>
@@ -67,7 +67,7 @@ function App() {
             <Grid
               gap='20px'
               w='full'
-              templateColumns='minmax(0, 260px) 1fr'>
+              templateColumns='260px 1fr'>
               <User />
               <Following />
             </Grid>

@@ -32,7 +32,7 @@ export const GET_REPOSITORIES = gql`
             name
             description
             updatedAt
-            languages(first: 5) {
+            languages(first: 5, orderBy: { field: SIZE, direction: DESC }) {
               edges {
                 node {
                   name
@@ -111,6 +111,18 @@ export const GET_REPOSITORY_INFO = gql`
     repository(name: $name, owner: $owner) {
       name
       description
+      languages(first: 10, orderBy: { field: SIZE, direction: DESC }) {
+        totalCount
+        totalSize
+        edges {
+          node {
+            name
+            id
+            color
+          }
+          size
+        }
+      }
     }
   }
 `;
