@@ -28,7 +28,7 @@ export interface IRepository {
             id: string;
             name: string;
             description: string;
-            updatedAt: string;
+            pushedAt: string;
             languages: {
               edges: [
                 {

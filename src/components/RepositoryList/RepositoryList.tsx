@@ -1,7 +1,11 @@
 import { useQuery } from '@apollo/client';
 import { GET_REPOSITORIES } from '../../endpoints/endpoint';
 import { IRepository } from '../../utils/types/types';
-import format from 'date-fns/format';
+import {
+  format,
+  formatDistanceToNow,
+  differenceInCalendarDays,
+} from 'date-fns';
 import {
   Card,
   CardHeader,
@@ -88,10 +92,29 @@ export const RepositoryList = () => {
                   })}
                 </Flex>
                 <Text fontSize='sm'>
-                  Updated on{' '}
-                  {format(
-                    new Date(`${repository.node.updatedAt}`),
-                    'MMMM dd, yyyy'
+                  Updated{' '}
+                  {differenceInCalendarDays(
+                    new Date(),
+                    new Date(`${repository.node.pushedAt}`)
+                  ) < 14 ? (
+                    formatDistanceToNow(
+                      new Date(`${repository.node.pushedAt}`),
+                      {
+                        includeSeconds: true,
+                      }
+                    )
+                  ) : (
+                    <Text as='span'>
+                      on
+                      <Text
+                        ml='4px'
+                        as='span'>
+                        {format(
+                          new Date(`${repository.node.pushedAt}`),
+                          'dd MMM yyyy'
+                        )}
+                      </Text>
+                    </Text>
                   )}
                 </Text>
               </CardBody>

@@ -25,14 +25,18 @@ export const GET_USER = gql`
 export const GET_REPOSITORIES = gql`
   query getRepositories($login: String!) {
     user(login: $login) {
-      repositories(first: 20, orderBy: { field: UPDATED_AT, direction: DESC }) {
+      repositories(
+        first: 20
+        orderBy: { field: PUSHED_AT, direction: DESC }
+        affiliations: OWNER
+      ) {
         edges {
           node {
             id
             name
             description
-            updatedAt
-            languages(first: 5, orderBy: { field: SIZE, direction: DESC }) {
+            pushedAt
+            languages(first: 1, orderBy: { field: SIZE, direction: DESC }) {
               edges {
                 node {
                   name
