@@ -1,8 +1,8 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Grid } from '@chakra-ui/react';
-import { HomePage } from './pages/HomePage/HomePage';
+import { HomePage, RepositoryPage } from './pages/index';
 import { Layout } from './layouts/Layout';
-import { RepositoryItem, User } from './components';
+import { User } from './components';
 import { Followers, Following, Overview, Repositories } from './templates/user';
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
             <Grid
               gap='20px'
               w='full'>
-              <RepositoryItem />
+              <RepositoryPage />
             </Grid>
           ),
         },

@@ -89,10 +89,15 @@ export interface IFollowing {
   };
 }
 
-export interface IRepositoryInfoTree {
+export interface IRepositoryInfo {
   repository: {
     name: string;
     description: string;
+  };
+}
+
+export interface IRepositoryInfoTree {
+  repository: {
     object: {
       id: string;
       entries: [

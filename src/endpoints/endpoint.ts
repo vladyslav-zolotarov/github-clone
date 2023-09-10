@@ -106,11 +106,18 @@ export const UNFOLLOW_USER = gql`
   }
 `;
 
-export const GET_REPOSITORY_INFO_TREE = gql`
+export const GET_REPOSITORY_INFO = gql`
   query getRepositoryInfoTree($name: String!, $owner: String!) {
     repository(name: $name, owner: $owner) {
       name
       description
+    }
+  }
+`;
+
+export const GET_REPOSITORY_INFO_TREE = gql`
+  query getRepositoryInfoTree($name: String!, $owner: String!) {
+    repository(name: $name, owner: $owner) {
       object(expression: "HEAD:") {
         ... on Tree {
           id
