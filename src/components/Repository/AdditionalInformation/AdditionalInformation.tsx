@@ -19,7 +19,6 @@ export const AdditionalInformation = () => {
   if (error) return <Text>Error ...</Text>;
 
   const LANGUAGE_TOTAL_SIZE = data?.repository.languages.totalSize;
-  console.log('data', data);
 
   return (
     <Flex

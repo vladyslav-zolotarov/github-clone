@@ -93,6 +93,12 @@ export interface IRepositoryInfo {
   repository: {
     name: string;
     description: string;
+    visibility: string;
+    owner: {
+      id: string;
+      avatarUrl: string;
+      login: string;
+    };
     languages: {
       totalCount: number;
       totalSize: number;

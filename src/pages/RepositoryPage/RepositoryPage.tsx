@@ -1,5 +1,9 @@
 import { Grid } from '@chakra-ui/react';
-import { AdditionalInformation, FileFolderList } from '../../components';
+import {
+  AdditionalInformation,
+  FileFolderList,
+  RepositoryHeader,
+} from '../../components';
 
 export const RepositoryPage = () => {
   return (
@@ -7,6 +11,9 @@ export const RepositoryPage = () => {
       gap='20px'
       w='full'
       templateColumns='1fr 260px'>
+      <Grid gridArea='1 / span 2'>
+        <RepositoryHeader />
+      </Grid>
       <FileFolderList />
       <AdditionalInformation />
     </Grid>

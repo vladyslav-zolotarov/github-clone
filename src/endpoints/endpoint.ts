@@ -25,11 +25,7 @@ export const GET_USER = gql`
 export const GET_REPOSITORIES = gql`
   query getRepositories($login: String!) {
     user(login: $login) {
-      repositories(
-        first: 20
-        orderBy: { field: PUSHED_AT, direction: DESC }
-        affiliations: OWNER
-      ) {
+      repositories(first: 20, orderBy: { field: PUSHED_AT, direction: DESC }) {
         edges {
           node {
             id
@@ -115,6 +111,12 @@ export const GET_REPOSITORY_INFO = gql`
     repository(name: $name, owner: $owner) {
       name
       description
+      visibility
+      owner {
+        id
+        avatarUrl(size: 50)
+        login
+      }
       languages(first: 10, orderBy: { field: SIZE, direction: DESC }) {
         totalCount
         totalSize
