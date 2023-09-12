@@ -91,16 +91,19 @@ export interface IFollowing {
 
 export interface IRepositoryInfo {
   repository: {
+    id: string;
     name: string;
-    description: string;
     visibility: string;
     viewerHasStarred: boolean;
     stargazerCount: number;
+    description: string;
+
     owner: {
       id: string;
       avatarUrl: string;
       login: string;
     };
+
     languages: {
       totalCount: number;
       totalSize: number;
@@ -151,6 +154,7 @@ export interface IRepositoryInfoCommit {
       avatarUrl: string;
       login: string;
     };
+
     object: {
       message: string;
       abbreviatedOid: string;

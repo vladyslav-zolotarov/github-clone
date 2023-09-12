@@ -89,13 +89,13 @@ export const FileFolderList = () => {
                       <Image
                         rounded={'50%'}
                         boxSize='24px'
-                        src={dataCommit?.repository.owner.avatarUrl}
-                        alt={dataCommit?.repository.owner.id}
+                        src={dataCommit?.repository?.owner?.avatarUrl}
+                        alt={dataCommit?.repository?.owner?.id}
                       />
                       <Link
                         onClick={() =>
                           navigate(
-                            `/user/${dataCommit?.repository.owner.login}/overview`,
+                            `/user/${dataCommit?.repository?.owner?.login}/overview`,
                             {
                               replace: true,
                             }
@@ -104,7 +104,7 @@ export const FileFolderList = () => {
                         <Text
                           fontSize='sm'
                           fontWeight='semibold'>
-                          {dataCommit?.repository.owner.login}
+                          {dataCommit?.repository?.owner?.login}
                         </Text>
                       </Link>
                     </Flex>

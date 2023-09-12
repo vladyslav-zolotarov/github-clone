@@ -3,7 +3,7 @@ import { Grid } from '@chakra-ui/react';
 import { HomePage, RepositoryPage } from './pages/index';
 import { Layout } from './layouts/Layout';
 import { User, RepositoryList } from './components';
-import { Followers, Following, Overview } from './templates/user';
+import { Followers, Following, Overview } from './templates/User';
 
 function App() {
   const router = createBrowserRouter([

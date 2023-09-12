@@ -8,4 +8,4 @@ export * from './Repository/FileItem/FileItem';
 export * from './Repository/FolderItem/FolderItem';
 export * from './Repository/ReadMe/ReadMe';
 export * from './Repository/AdditionalInformation/AdditionalInformation';
-export * from './Repository/RepositoryHeader/RepositoryHeader';
+export * from './Buttons/StarButton/StarButton';

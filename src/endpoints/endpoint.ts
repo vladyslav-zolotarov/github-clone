@@ -109,16 +109,19 @@ export const UNFOLLOW_USER = gql`
 export const GET_REPOSITORY_INFO = gql`
   query getRepositoryInfoTree($name: String!, $owner: String!) {
     repository(name: $name, owner: $owner) {
+      id
       name
-      description
       visibility
       viewerHasStarred
       stargazerCount
+
       owner {
         id
         avatarUrl(size: 50)
         login
       }
+
+      description
       languages(first: 10, orderBy: { field: SIZE, direction: DESC }) {
         totalCount
         totalSize
@@ -166,14 +169,16 @@ export const GET_REPOSITORY_INFO_TREE = gql`
   }
 `;
 
+// // // // // // // // // // // // // // // // //
+// owner {
+//   id
+//   avatarUrl(size: 50)
+//   login
+// }
+
 export const GET_REPOSITORY_INFO_COMMIT = gql`
   query getRepositoryInfoCommit($name: String!, $owner: String!) {
     repository(name: $name, owner: $owner) {
-      owner {
-        id
-        avatarUrl(size: 50)
-        login
-      }
       object(expression: "HEAD") {
         ... on Commit {
           message
