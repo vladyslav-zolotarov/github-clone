@@ -112,6 +112,8 @@ export const GET_REPOSITORY_INFO = gql`
       name
       description
       visibility
+      viewerHasStarred
+      stargazerCount
       owner {
         id
         avatarUrl(size: 50)

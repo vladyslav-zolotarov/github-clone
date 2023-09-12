@@ -94,6 +94,8 @@ export interface IRepositoryInfo {
     name: string;
     description: string;
     visibility: string;
+    viewerHasStarred: boolean;
+    stargazerCount: number;
     owner: {
       id: string;
       avatarUrl: string;

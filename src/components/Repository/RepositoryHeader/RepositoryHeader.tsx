@@ -1,8 +1,20 @@
-import { Flex, Heading, Text, Badge, Avatar } from '@chakra-ui/react';
+import {
+  Flex,
+  Heading,
+  Text,
+  Badge,
+  Avatar,
+  Button,
+  ButtonGroup,
+  IconButton,
+  Circle,
+} from '@chakra-ui/react';
 import { useQuery } from '@apollo/client';
 import { IRepositoryInfo } from '../../../utils/types/types';
 import { GET_REPOSITORY_INFO } from '../../../endpoints/endpoint';
 import { useParams } from 'react-router-dom';
+import { ImStarEmpty, ImStarFull } from 'react-icons/im';
+import { RiArrowDownSLine } from 'react-icons/ri';
 
 export const RepositoryHeader = () => {
   const { userLogin, repositoryName } = useParams();
@@ -19,9 +31,11 @@ export const RepositoryHeader = () => {
   if (error) return <Text>Error ...</Text>;
   return (
     <Flex
-      paddingBlock='15px'
+      paddingBlock='20px'
       borderBottom='1px'
-      borderColor='blackAlpha.300'>
+      borderColor='blackAlpha.300'
+      justifyContent='space-between'
+      alignItems='center'>
       <Flex
         gap='10px'
         alignItems='center'>
@@ -44,6 +58,37 @@ export const RepositoryHeader = () => {
             {data?.repository.visibility}
           </Text>
         </Badge>
+      </Flex>
+
+      <Flex alignItems='center'>
+        <ButtonGroup
+          isAttached
+          variant='outline'
+          size='sm'>
+          <Button gap='10px'>
+            {data?.repository.viewerHasStarred ? (
+              <ImStarFull
+                size='16px'
+                color='#eac54f'
+              />
+            ) : (
+              <ImStarEmpty size='16px' />
+            )}
+            <Text fontSize='sm'>
+              {data?.repository.viewerHasStarred ? 'Stared' : 'Star'}
+            </Text>
+            <Circle
+              size='21px'
+              background='blackAlpha.100'
+              color='black'>
+              <Text fontSize='xs'>{data?.repository.stargazerCount}</Text>
+            </Circle>
+          </Button>
+          <IconButton
+            aria-label='Add to friends'
+            icon={<RiArrowDownSLine />}
+          />
+        </ButtonGroup>
       </Flex>
     </Flex>
   );
