@@ -7,7 +7,6 @@ import {
   Tr,
   Tbody,
   Td,
-  Image,
   Link,
 } from '@chakra-ui/react';
 import {
@@ -25,7 +24,7 @@ import {
 } from '../../../endpoints/endpoint';
 import { useQuery } from '@apollo/client';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ReadMe, FileItem, FolderItem } from '../../index';
+import { ReadMe, FileItem, FolderItem, Avatar } from '../../../components';
 import { VscGitCommit } from 'react-icons/vsc';
 
 export const FileFolderList = () => {
@@ -86,11 +85,9 @@ export const FileFolderList = () => {
                     <Flex
                       gap='10px'
                       alignItems='center'>
-                      <Image
-                        rounded={'50%'}
-                        boxSize='24px'
+                      <Avatar
+                        name={dataCommit?.repository?.owner?.login}
                         src={dataCommit?.repository?.owner?.avatarUrl}
-                        alt={dataCommit?.repository?.owner?.id}
                       />
                       <Link
                         onClick={() =>

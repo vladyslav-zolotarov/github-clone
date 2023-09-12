@@ -14,10 +14,10 @@ import {
   Text,
   Heading,
   Flex,
-  Badge,
   Link,
 } from '@chakra-ui/react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Badge } from '..';
 
 export const RepositoryList = () => {
   const navigate = useNavigate();
@@ -57,18 +57,8 @@ export const RepositoryList = () => {
                     }>
                     <Heading size='md'>{repository.node.name}</Heading>
                   </Link>
-                  <Badge
-                    variant='outline'
-                    colorScheme='blackAlpha'
-                    borderRadius='20px'
-                    padding='1px 8px'
-                    color='black'>
-                    <Text
-                      fontSize='sm'
-                      textTransform='lowercase'>
-                      {repository.node.visibility}
-                    </Text>
-                  </Badge>
+
+                  <Badge visibility={repository.node.visibility} />
                 </Flex>
                 <Text fontSize='sm'>{repository.node.description}</Text>
               </CardHeader>

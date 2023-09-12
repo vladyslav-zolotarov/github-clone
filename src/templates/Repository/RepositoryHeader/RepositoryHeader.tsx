@@ -1,7 +1,7 @@
-import { Flex, Heading, Text, Badge, Avatar } from '@chakra-ui/react';
+import { Flex, Heading } from '@chakra-ui/react';
 import { IRepositoryInfo } from '../../../utils/types/types';
 
-import { StarButton } from '../../../components';
+import { StarButton, Avatar, Badge } from '../../../components';
 
 interface RepositoryHeaderProps {
   data: IRepositoryInfo;
@@ -19,24 +19,11 @@ export const RepositoryHeader = ({ data }: RepositoryHeaderProps) => {
         gap='10px'
         alignItems='center'>
         <Avatar
-          size='xs'
           name={data?.repository.owner.login}
           src={data?.repository.owner.avatarUrl}
         />
         <Heading size='md'>{data?.repository.name}</Heading>
-
-        <Badge
-          variant='outline'
-          colorScheme='blackAlpha'
-          borderRadius='20px'
-          padding='1px 8px'
-          color='blackAlpha.700'>
-          <Text
-            fontSize='10px'
-            textTransform='lowercase'>
-            {data?.repository.visibility}
-          </Text>
-        </Badge>
+        <Badge visibility={data?.repository.visibility} />
       </Flex>
 
       <Flex

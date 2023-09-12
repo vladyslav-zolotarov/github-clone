@@ -1,4 +1,4 @@
-import { FileFolderList } from '../../../components';
+import { FileFolderList } from '../../Repository';
 
 export const Repositories = () => {
   return (

@@ -1,4 +1,7 @@
-import { AdditionalInformation, FileFolderList } from '../../components';
+import {
+  AdditionalInformation,
+  FileFolderList,
+} from '../../templates/Repository';
 import { Grid, Text } from '@chakra-ui/react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';

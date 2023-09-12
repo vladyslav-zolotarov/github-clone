@@ -1,23 +1,16 @@
-import { IFollowing } from '../../utils/types/types';
-import { GET_FOLLOWING } from '../../endpoints/endpoint';
+import { IFollowers } from '../../utils/types/types';
+import { GET_FOLLOWERS } from '../../endpoints/endpoint';
 import { useQuery } from '@apollo/client';
-import {
-  Link,
-  Card,
-  CardHeader,
-  Image,
-  Text,
-  Flex,
-  Button,
-} from '@chakra-ui/react';
+import { Link, Card, CardHeader, Text, Flex, Button } from '@chakra-ui/react';
 import { BiBuildingHouse, BiMap } from 'react-icons/bi';
 import { useFollowToggler } from '../../hooks/useFollowToggler';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Avatar } from '../../components';
 
-export const FollowingList = () => {
+export const FollowersList = () => {
   const { userLogin } = useParams();
 
-  const { data, loading, error } = useQuery<IFollowing>(GET_FOLLOWING, {
+  const { data, loading, error } = useQuery<IFollowers>(GET_FOLLOWERS, {
     variables: { login: userLogin },
   });
 
@@ -35,20 +28,19 @@ export const FollowingList = () => {
       direction='column'
       rowGap='20px'>
       {data &&
-        data.user.following.nodes.map((following, index) => {
+        data.user.followers.nodes.map((follower, index) => {
           return (
             <Card
-              key={following.id}
+              key={follower.id}
               size='sm'
               variant='outline'
               p='10px'>
               <CardHeader>
                 <Flex gap='20px'>
-                  <Image
-                    rounded={'50%'}
-                    boxSize='50px'
-                    src={following.avatarUrl}
-                    alt={following.name}
+                  <Avatar
+                    size='md'
+                    name={follower.name}
+                    src={follower.avatarUrl}
                   />
                   <Flex direction='column'>
                     <Flex
@@ -56,59 +48,57 @@ export const FollowingList = () => {
                       alignItems='center'>
                       <Link
                         onClick={() =>
-                          navigate(`/user/${following.login}/overview`, {
+                          navigate(`/user/${follower.login}/overview`, {
                             replace: true,
                           })
                         }>
-                        <Text fontSize='md'>{following.name}</Text>
+                        <Text fontSize='md'>{follower.name}</Text>
                       </Link>
-
                       <Text
                         color='blackAlpha.700'
                         fontSize='sm'>
-                        {following.login}
+                        {follower.login}
                       </Text>
                     </Flex>
-                    {following.bio && (
+                    {follower.bio && (
                       <Text
                         color='blackAlpha.700'
                         fontSize='sm'>
-                        {following.bio}
+                        {follower.bio}
                       </Text>
                     )}
 
                     <Flex gap='10px'>
-                      {following.company && (
+                      {follower.company && (
                         <Flex alignItems='center'>
                           <BiBuildingHouse />
                           <Text
                             color='blackAlpha.700'
                             fontSize='sm'>
-                            {following.company}
+                            {follower.company}
                           </Text>
                         </Flex>
                       )}
-                      {following.location && (
+                      {follower.location && (
                         <Flex alignItems='center'>
                           <BiMap />
                           <Text
                             color='blackAlpha.700'
                             fontSize='sm'>
-                            {following.location}
+                            {follower.location}
                           </Text>
                         </Flex>
                       )}
                     </Flex>
                   </Flex>
-
                   <Flex ml='auto'>
-                    {following.viewerCanFollow && (
+                    {follower.viewerCanFollow && (
                       <Button
                         onClick={() =>
                           handleFollowToggler(
                             index,
-                            following.id,
-                            following.viewerIsFollowing
+                            follower.id,
+                            follower.viewerIsFollowing
                           )
                         }
                         isLoading={
@@ -120,7 +110,7 @@ export const FollowingList = () => {
                         spinnerPlacement='end'
                         size='sm'
                         variant='outline'>
-                        {following.viewerIsFollowing ? 'Unfollow' : 'Follow'}
+                        {follower.viewerIsFollowing ? 'Unfollow' : 'Follow'}
                       </Button>
                     )}
                   </Flex>

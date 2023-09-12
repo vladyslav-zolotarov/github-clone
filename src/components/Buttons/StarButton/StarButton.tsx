@@ -29,7 +29,7 @@ export const StarButton = ({
     errorRemoveStart,
   } = useStarToggler();
 
-  console.log('StarButton - error', errorAddStart, errorRemoveStart);
+  if (errorAddStart || errorRemoveStart) return <Text>Error...</Text>;
 
   return (
     <ButtonGroup

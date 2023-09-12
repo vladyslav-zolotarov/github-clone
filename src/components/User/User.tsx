@@ -1,12 +1,13 @@
 import { useQuery } from '@apollo/client';
 import { GET_USER } from '../../endpoints/endpoint';
 import { Link as RouterDomLink, useParams } from 'react-router-dom';
-import { Heading, Flex, Text, Image, Link } from '@chakra-ui/react';
+import { Heading, Flex, Text, Link } from '@chakra-ui/react';
 import { IUser } from '../../utils/types/types';
 import { FiUsers } from 'react-icons/fi';
 import { BsDot } from 'react-icons/bs';
 import { BiMap } from 'react-icons/bi';
 import { FiMail } from 'react-icons/fi';
+import { Avatar } from '..';
 
 export const User = () => {
   const { userLogin } = useParams();
@@ -22,11 +23,10 @@ export const User = () => {
   return (
     <Flex direction={'column'}>
       <Flex>
-        <Image
-          rounded={'50%'}
-          boxSize='260px'
+        <Avatar
+          size='full'
+          name={data?.user.name}
           src={data?.user.avatarUrl}
-          alt={data?.user.name}
         />
       </Flex>
       <Flex
