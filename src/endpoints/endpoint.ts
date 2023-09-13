@@ -115,6 +115,13 @@ export const GET_REPOSITORY_INFO = gql`
       viewerHasStarred
       stargazerCount
 
+      watchers {
+        totalCount
+      }
+
+      forkCount
+      forkingAllowed
+
       owner {
         id
         avatarUrl(size: 50)

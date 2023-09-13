@@ -1,7 +1,13 @@
 import { Flex, Heading } from '@chakra-ui/react';
 import { IRepositoryInfo } from '../../../utils/types/types';
 
-import { StarButton, Avatar, Badge } from '../../../components';
+import { Avatar, Badge } from '../../../components';
+import {
+  ForkButton,
+  PinButton,
+  StarButton,
+  WatchButton,
+} from '../../../components/Buttons';
 
 interface RepositoryHeaderProps {
   data: IRepositoryInfo;
@@ -29,6 +35,12 @@ export const RepositoryHeader = ({ data }: RepositoryHeaderProps) => {
       <Flex
         alignItems='center'
         gap='10px'>
+        <PinButton />
+        <WatchButton totalCount={data?.repository.watchers.totalCount} />
+        <ForkButton
+          forkCount={data?.repository.forkCount}
+          forkingAllowed={data?.repository.forkingAllowed}
+        />
         <StarButton
           id={data?.repository.id}
           viewerHasStarred={data?.repository.viewerHasStarred}

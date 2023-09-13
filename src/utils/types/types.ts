@@ -98,6 +98,13 @@ export interface IRepositoryInfo {
     stargazerCount: number;
     description: string;
 
+    watchers: {
+      totalCount: number;
+    };
+
+    forkCount: number;
+    forkingAllowed: boolean;
+
     owner: {
       id: string;
       avatarUrl: string;
