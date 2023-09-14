@@ -33,7 +33,7 @@ export const RepositoryPage = () => {
       </Grid>
 
       <FileFolderList />
-      <AdditionalInformation />
+      {data && <AdditionalInformation data={data} />}
     </Grid>
   );
 };

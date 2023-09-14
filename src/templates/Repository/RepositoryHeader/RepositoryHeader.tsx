@@ -16,7 +16,7 @@ interface RepositoryHeaderProps {
 export const RepositoryHeader = ({ data }: RepositoryHeaderProps) => {
   return (
     <Flex
-      paddingBlock='20px'
+      paddingBottom='20px'
       borderBottom='1px'
       borderColor='blackAlpha.300'
       justifyContent='space-between'

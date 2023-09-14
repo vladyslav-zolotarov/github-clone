@@ -1,23 +1,14 @@
 import { Flex, Heading, Text, Circle } from '@chakra-ui/react';
-import { useQuery } from '@apollo/client';
 import { IRepositoryInfo } from '../../../utils/types/types';
-import { GET_REPOSITORY_INFO } from '../../../endpoints/endpoint';
-import { useParams } from 'react-router-dom';
+import { ImStarEmpty } from 'react-icons/im';
+import { LuEye } from 'react-icons/lu';
+import { GoRepoForked } from 'react-icons/go';
 
-export const AdditionalInformation = () => {
-  const { userLogin, repositoryName } = useParams();
+interface AdditionalInformationProps {
+  data: IRepositoryInfo;
+}
 
-  const { data, error, loading } = useQuery<IRepositoryInfo>(
-    GET_REPOSITORY_INFO,
-    {
-      variables: { name: repositoryName, owner: userLogin },
-    }
-  );
-
-  if (loading) return <Text>Loading...</Text>;
-
-  if (error) return <Text>Error ...</Text>;
-
+export const AdditionalInformation = ({ data }: AdditionalInformationProps) => {
   const LANGUAGE_TOTAL_SIZE = data?.repository.languages.totalSize;
 
   return (
@@ -36,6 +27,59 @@ export const AdditionalInformation = () => {
           fontSize='sm'>
           {data?.repository.description}
         </Text>
+
+        <Flex
+          direction='column'
+          gap='10px'>
+          <Flex
+            alignItems='center'
+            gap='5px'
+            color='blackAlpha.700'
+            fontSize='15px'>
+            <ImStarEmpty
+              fontWeight='medium'
+              size='15px'
+            />
+            <Text
+              ml='3px'
+              fontWeight='bold'>
+              {data.repository.stargazerCount}
+            </Text>
+            <Text fontWeight='medium'>stars</Text>
+          </Flex>
+          <Flex
+            alignItems='center'
+            gap='5px'
+            color='blackAlpha.700'
+            fontSize='14px'>
+            <LuEye
+              fontWeight='medium'
+              size='15px'
+            />
+            <Text
+              ml='3px'
+              fontWeight='bold'>
+              {data.repository.watchers.totalCount}
+            </Text>
+            <Text fontWeight='medium'>watching</Text>
+          </Flex>
+          <Flex
+            alignItems='center'
+            gap='5px'
+            color='blackAlpha.700'
+            fontSize='14px'>
+            <GoRepoForked
+              fontWeight='medium'
+              size='15px'
+            />
+            <Text
+              ml='3px'
+              fontWeight='bold'>
+              {data.repository.forkCount}
+            </Text>
+            <Text fontWeight='medium'>forks</Text>
+          </Flex>
+        </Flex>
       </Flex>
 
       <Flex

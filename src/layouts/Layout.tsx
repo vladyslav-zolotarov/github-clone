@@ -10,7 +10,7 @@ export const Layout = () => {
         w='full'
         maxW='1200px'
         gap='20px'
-        m='50px auto'
+        m='20px auto'
         direction='column'>
         <Outlet />
       </Flex>
