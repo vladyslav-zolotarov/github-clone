@@ -5,7 +5,7 @@ import { Link, Card, CardHeader, Text, Flex, Button } from '@chakra-ui/react';
 import { BiBuildingHouse, BiMap } from 'react-icons/bi';
 import { useFollowToggler } from '../../hooks/useFollowToggler';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Avatar } from '../../components';
+import { Avatar } from '..';
 
 export const FollowersList = () => {
   const { userLogin } = useParams();

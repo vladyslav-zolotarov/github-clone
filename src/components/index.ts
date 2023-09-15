@@ -7,7 +7,7 @@ export * from './Repository/Badge/Badge';
 export * from './User/User';
 export * from './User/Avatar/Avatar';
 
-export * from '../templates/FollowersList/FollowersList';
+export * from './FollowersList/FollowersList';
 export * from '../templates/FollowingList/FollowingList';
 
 export * from './RepositoryCard/RepositoryCard';
