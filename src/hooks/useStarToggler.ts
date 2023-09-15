@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { GET_REPOSITORY_INFO } from '../endpoints/endpoint';
+import { GET_REPOSITORY_INFO } from '../endpoints/queries';
 import {
   ADD_STAR_MUTATION,
   REMOVE_STAR_MUTATION,

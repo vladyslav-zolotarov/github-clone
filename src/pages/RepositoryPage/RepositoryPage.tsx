@@ -6,7 +6,7 @@ import { Grid, Text } from '@chakra-ui/react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { IRepositoryInfo } from '../../utils/types/types';
-import { GET_REPOSITORY_INFO } from '../../endpoints/endpoint';
+import { GET_REPOSITORY_INFO } from '../../endpoints/queries';
 import { RepositoryHeader } from '../../templates/Repository';
 
 export const RepositoryPage = () => {

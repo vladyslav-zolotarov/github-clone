@@ -6,8 +6,6 @@ export * from './Repository/ReadMe/ReadMe';
 export * from './Repository/Badge/Badge';
 export * from './User/User';
 export * from './User/Avatar/Avatar';
-
 export * from './FollowersList/FollowersList';
-export * from '../templates/FollowingList/FollowingList';
-
+export * from './FollowingList/FollowingList';
 export * from './RepositoryCard/RepositoryCard';

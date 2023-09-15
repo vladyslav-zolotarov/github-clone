@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { GET_REPOSITORIES } from '../../endpoints/endpoint';
+import { GET_REPOSITORIES } from '../../endpoints/queries';
 import { IRepository } from '../../utils/types/types';
 import {
   format,

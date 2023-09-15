@@ -21,7 +21,7 @@ import {
 import {
   GET_REPOSITORY_INFO_COMMIT,
   GET_REPOSITORY_INFO_TREE,
-} from '../../../endpoints/endpoint';
+} from '../../../endpoints/queries';
 import { useQuery } from '@apollo/client';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ReadMe, FileItem, FolderItem, Avatar } from '../../../components';

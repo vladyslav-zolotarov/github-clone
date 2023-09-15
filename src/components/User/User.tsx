@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { GET_USER } from '../../endpoints/endpoint';
+import { GET_USER } from '../../endpoints/queries';
 import { Link as RouterDomLink, useParams } from 'react-router-dom';
 import { Heading, Flex, Text, Link } from '@chakra-ui/react';
 import { IUser } from '../../utils/types/types';

@@ -1,5 +1,5 @@
 import { IFollowing } from '../../utils/types/types';
-import { GET_FOLLOWING } from '../../endpoints/endpoint';
+import { GET_FOLLOWING } from '../../endpoints/queries';
 import { useQuery } from '@apollo/client';
 import { Link, Card, CardHeader, Text, Flex, Button } from '@chakra-ui/react';
 import { BiBuildingHouse, BiMap } from 'react-icons/bi';
