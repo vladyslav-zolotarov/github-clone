@@ -37,6 +37,7 @@ export const GET_REPOSITORIES = gql`
                 node {
                   name
                   color
+                  id
                 }
               }
             }
@@ -192,11 +193,13 @@ export const GET_PINNED_ITEMS_REPOSITORY = gql`
               id
               name
               description
-              languages(orderBy: { field: SIZE, direction: DESC }, first: 1) {
-                nodes {
-                  name
-                  id
-                  color
+              languages(first: 1, orderBy: { field: SIZE, direction: DESC }) {
+                edges {
+                  node {
+                    name
+                    color
+                    id
+                  }
                 }
               }
               visibility
@@ -207,3 +210,13 @@ export const GET_PINNED_ITEMS_REPOSITORY = gql`
     }
   }
 `;
+
+// languages(first: 1, orderBy: { field: SIZE, direction: DESC }) {
+//   edges {
+//     node {
+//       name
+//       color
+//       id
+//     }
+//   }
+// }

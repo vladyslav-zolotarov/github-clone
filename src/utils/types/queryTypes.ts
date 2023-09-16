@@ -8,11 +8,13 @@ export interface IPinnedItemsRepository {
             name: string;
             description: string;
             languages: {
-              nodes: [
+              edges: [
                 {
-                  name: string;
-                  id: string;
-                  color: string;
+                  node: {
+                    name: string;
+                    color: string;
+                    id: string;
+                  };
                 },
               ];
             };

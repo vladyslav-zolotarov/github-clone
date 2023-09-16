@@ -34,15 +34,15 @@ export const Overview = () => {
         gap='20px'>
         {pinnedRepositoryData?.user.pinnedItems.edges.map(item => {
           const currentItem = item.node;
-
           return (
             <RepositoryCard
               key={currentItem.id}
               id={currentItem.id}
               description={currentItem.description}
               visibility={currentItem.visibility}
-              languages={currentItem.languages.nodes}
+              languages={currentItem.languages}
               name={currentItem.name}
+              icon={true}
             />
           );
         })}

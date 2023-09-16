@@ -35,6 +35,7 @@ export interface IRepository {
                   node: {
                     name: string;
                     color: string;
+                    id: string;
                   };
                 },
               ];
