@@ -211,12 +211,32 @@ export const GET_PINNED_ITEMS_REPOSITORY = gql`
   }
 `;
 
-// languages(first: 1, orderBy: { field: SIZE, direction: DESC }) {
-//   edges {
-//     node {
-//       name
-//       color
-//       id
-//     }
-//   }
-// }
+export const GET_CONTRIBUTION_CALENDAR_INFO = gql`
+  query contributionCalendarInfo($login: String!) {
+    user(login: $login) {
+      contributionsCollection {
+        contributionCalendar {
+          colors
+          isHalloween
+          months {
+            firstDay
+            name
+            totalWeeks
+            year
+          }
+          totalContributions
+          weeks {
+            contributionDays {
+              color
+              contributionCount
+              contributionLevel
+              date
+              weekday
+            }
+            firstDay
+          }
+        }
+      }
+    }
+  }
+`;

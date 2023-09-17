@@ -9,3 +9,4 @@ export * from './User/Avatar/Avatar';
 export * from './FollowersList/FollowersList';
 export * from './FollowingList/FollowingList';
 export * from './RepositoryCard/RepositoryCard';
+export * from './ContributionCalendar/ContributionCalendar';

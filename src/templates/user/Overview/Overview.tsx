@@ -3,7 +3,7 @@ import { GET_PINNED_ITEMS_REPOSITORY } from '../../../endpoints/queries';
 import { useParams } from 'react-router-dom';
 import { IPinnedItemsRepository } from '../../../utils/types/queryTypes';
 import { Flex, Grid, Heading, Text } from '@chakra-ui/react';
-import { RepositoryCard } from '../../../components';
+import { ContributionCalendar, RepositoryCard } from '../../../components';
 
 export const Overview = () => {
   const { userLogin } = useParams();
@@ -47,6 +47,8 @@ export const Overview = () => {
           );
         })}
       </Grid>
+
+      <ContributionCalendar />
     </Flex>
   );
 };
