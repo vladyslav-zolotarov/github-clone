@@ -16,9 +16,8 @@ export const Overview = () => {
   });
 
   if (pinnedRepositoryLoading) return <Text>Loading...</Text>;
-  if (pinnedRepositoryError) return <Text>Error...</Text>;
 
-  console.log('pinnedRepositoryData', pinnedRepositoryData);
+  if (pinnedRepositoryError) return <Text>Error...</Text>;
 
   return (
     <Flex direction='column'>

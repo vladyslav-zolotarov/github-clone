@@ -67,7 +67,9 @@ export const ContributionCalendar = () => {
           )}
         </Flex>
 
-        <Flex direction='column'>
+        <Flex
+          direction='column'
+          mb='20px'>
           <Flex gap='5px'>
             <Flex
               gap='5px'
@@ -116,6 +118,7 @@ export const ContributionCalendar = () => {
 
                       return (
                         <Tooltip
+                          key={i.date}
                           fontSize='xs'
                           hasArrow
                           arrowSize={10}
@@ -123,7 +126,6 @@ export const ContributionCalendar = () => {
                           label={currentTooltipLabel}
                           aria-label='A tooltip'>
                           <Flex
-                            key={i.date}
                             height='11px'
                             width='11px'
                             rounded='3px'
@@ -139,6 +141,48 @@ export const ContributionCalendar = () => {
               }
             )}
           </Flex>
+        </Flex>
+
+        <Flex
+          alignItems='center'
+          gap='5px'
+          ml='auto'>
+          <Text
+            height='11px'
+            fontSize='xs'
+            lineHeight={1}>
+            Less
+          </Text>
+
+          <Flex
+            height='10px'
+            width='10px'
+            rounded='3px'
+            border='1px solid'
+            borderColor='blackAlpha.100'
+            backgroundColor='#ebedf0'
+          />
+          {data?.user.contributionsCollection.contributionCalendar.colors.map(
+            item => {
+              return (
+                <Flex
+                  key={item}
+                  height='10px'
+                  width='10px'
+                  rounded='3px'
+                  border='1px solid'
+                  borderColor='blackAlpha.100'
+                  backgroundColor={item}
+                />
+              );
+            }
+          )}
+          <Text
+            height='11px'
+            fontSize='xs'
+            lineHeight={1}>
+            More
+          </Text>
         </Flex>
       </Card>
     </>
