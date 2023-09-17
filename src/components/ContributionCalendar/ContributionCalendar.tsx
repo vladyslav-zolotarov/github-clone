@@ -1,8 +1,9 @@
+import format from 'date-fns/format';
 import { useQuery } from '@apollo/client';
 import { GET_CONTRIBUTION_CALENDAR_INFO } from '../../endpoints/queries';
 import { useParams } from 'react-router-dom';
 import { IContributionCalendarInfo } from '../../utils/types/queryTypes';
-import { Flex, Text, Card } from '@chakra-ui/react';
+import { Flex, Text, Card, Tooltip, Heading } from '@chakra-ui/react';
 
 export const ContributionCalendar = () => {
   const { userLogin } = useParams();
@@ -17,28 +18,60 @@ export const ContributionCalendar = () => {
   );
 
   if (loading) return <Text>Loading...</Text>;
+
   if (error) return <Text>Error...</Text>;
 
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   return (
     <>
-      <Text>ContributionCalendar</Text>
-      <Text>
+      <Heading
+        as='h2'
+        size='sm'
+        fontWeight='medium'
+        mb='15px'>
         {
           data?.user.contributionsCollection.contributionCalendar
             .totalContributions
         }
-      </Text>
+        <Text
+          as='span'
+          ml='5px'>
+          contributions in last year
+        </Text>
+      </Heading>
 
       <Card
         size='sm'
         variant='outline'
         p='15px'>
+        <Flex
+          gap='5px'
+          marginLeft='35px'>
+          {data?.user.contributionsCollection.contributionCalendar.months.map(
+            item => {
+              return (
+                <Text
+                  key={`${item.name}${item.firstDay}`}
+                  height='11px'
+                  fontSize='xs'
+                  lineHeight={1}
+                  marginBottom='10px'
+                  w={`calc((11px * ${item.totalWeeks}) + 5px * ${
+                    item.totalWeeks - 1
+                  })`}>
+                  {item.name}
+                </Text>
+              );
+            }
+          )}
+        </Flex>
+
         <Flex direction='column'>
           <Flex gap='5px'>
             <Flex
               gap='5px'
+              marginRight='5px'
               direction='column'>
               {daysOfWeek.map((item, index) => {
                 if (index === 1 || index === 3 || index === 5) {
@@ -74,15 +107,31 @@ export const ContributionCalendar = () => {
                     direction='column'
                     key={index}>
                     {item.contributionDays.map(i => {
+                      const currentTooltipLabel = `${
+                        i.contributionCount === 0 ? `No` : i.contributionCount
+                      } contributions on ${daysOfWeek[i.weekday]}, ${format(
+                        new Date(`${i.date}`),
+                        'MMMM d, yyyy'
+                      )}`;
+
                       return (
-                        <Flex
-                          key={i.date}
-                          height='11px'
-                          width='11px'
-                          rounded='3px'
-                          border='1px solid'
-                          borderColor='blackAlpha.100'
-                          backgroundColor={i.color}></Flex>
+                        <Tooltip
+                          fontSize='xs'
+                          hasArrow
+                          arrowSize={10}
+                          placement='top'
+                          label={currentTooltipLabel}
+                          aria-label='A tooltip'>
+                          <Flex
+                            key={i.date}
+                            height='11px'
+                            width='11px'
+                            rounded='3px'
+                            border='1px solid'
+                            borderColor='blackAlpha.100'
+                            backgroundColor={i.color}
+                          />
+                        </Tooltip>
                       );
                     })}
                   </Flex>

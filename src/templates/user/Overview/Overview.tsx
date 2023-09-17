@@ -25,13 +25,15 @@ export const Overview = () => {
       <Heading
         as='h2'
         size='sm'
-        mb='15px'>
+        mb='15px'
+        fontWeight='medium'>
         Pinned
       </Heading>
 
       <Grid
         templateColumns='1fr 1fr'
-        gap='20px'>
+        gap='20px'
+        mb='50px'>
         {pinnedRepositoryData?.user.pinnedItems.edges.map(item => {
           const currentItem = item.node;
           return (
