@@ -15,6 +15,20 @@ export interface IUser {
     following: {
       totalCount: number;
     };
+
+    pronouns: string;
+    websiteUrl: string;
+    socialAccounts: {
+      edges: [
+        {
+          node: {
+            displayName: string;
+            provider: string;
+            url: string;
+          };
+        },
+      ];
+    };
   };
 }
 

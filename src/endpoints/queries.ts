@@ -18,6 +18,19 @@ export const GET_USER = gql`
       following {
         totalCount
       }
+
+      pronouns
+      websiteUrl
+      socialAccounts(first: 10) {
+        totalCount
+        edges {
+          node {
+            displayName
+            provider
+            url
+          }
+        }
+      }
     }
   }
 `;
