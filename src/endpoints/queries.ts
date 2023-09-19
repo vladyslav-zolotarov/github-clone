@@ -31,6 +31,12 @@ export const GET_USER = gql`
           }
         }
       }
+
+      status {
+        emojiHTML
+        expiresAt
+        message
+      }
     }
   }
 `;

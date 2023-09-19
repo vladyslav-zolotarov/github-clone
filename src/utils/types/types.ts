@@ -29,6 +29,12 @@ export interface IUser {
         },
       ];
     };
+
+    status: {
+      emojiHTML: string;
+      expiresAt: string;
+      message: string;
+    };
   };
 }
 

@@ -10,9 +10,11 @@ import { MdMailOutline } from 'react-icons/md';
 import { PiUsersBold } from 'react-icons/pi';
 import { LuBuilding } from 'react-icons/lu';
 import { Avatar } from '../../../components';
+import { useState } from 'react';
 
 export const User = () => {
   const { userLogin } = useParams();
+  const [openedStatus, setOpenedStatus] = useState(false);
 
   const { loading, error, data } = useQuery<IUser>(GET_USER, {
     variables: { login: userLogin },
@@ -24,12 +26,47 @@ export const User = () => {
 
   return (
     <Flex direction='column'>
-      <Flex mb='20px'>
-        <Avatar
-          size='full'
-          name={data?.user.name}
-          src={data?.user.avatarUrl}
-        />
+      <Flex
+        mb='20px'
+        position='relative'>
+        {data && (
+          <>
+            <Avatar
+              size='full'
+              name={data.user.name}
+              src={data.user.avatarUrl}
+            />
+            <Flex
+              position='absolute'
+              bottom='30px'
+              left='0'
+              zIndex={1}
+              alignItems='center'
+              justifyContent='center'
+              h='38px'
+              minW='38px'
+              width='auto'
+              rounded='full'
+              border='1px solid'
+              backgroundColor='white'
+              borderColor='blackAlpha.400'
+              padding='10px'
+              _hover={{ cursor: 'pointer' }}
+              onMouseEnter={() => setOpenedStatus(true)}
+              onMouseLeave={() => setOpenedStatus(false)}>
+              <Flex
+                fontSize='xs'
+                fontWeight='medium'
+                alignItems='center'
+                dangerouslySetInnerHTML={{
+                  __html: !openedStatus
+                    ? data.user.status.emojiHTML
+                    : `${data.user.status.emojiHTML} ${data.user.status.message}`,
+                }}
+              />
+            </Flex>
+          </>
+        )}
       </Flex>
 
       <Flex
@@ -48,13 +85,16 @@ export const User = () => {
             fontWeight='medium'>
             {data?.user.login}
           </Text>
-          <BsDot fontSize='15px' />
+
           {data?.user.pronouns && (
-            <Text
-              fontSize='md'
-              fontWeight='medium'>
-              {data?.user.pronouns}
-            </Text>
+            <>
+              <BsDot fontSize='15px' />
+              <Text
+                fontSize='md'
+                fontWeight='medium'>
+                {data?.user.pronouns}
+              </Text>
+            </>
           )}
         </Flex>
       </Flex>
@@ -90,7 +130,7 @@ export const User = () => {
               fontSize='sm'
               fontWeight='medium'
               color='blackAlpha.900'>
-              {data?.user.followers.totalCount}{' '}
+              {data?.user.followers.totalCount}
               <Text
                 ml='4px'
                 color='blackAlpha.700'>
@@ -111,7 +151,7 @@ export const User = () => {
               fontSize='sm'
               fontWeight='medium'
               color='blackAlpha.900'>
-              {data?.user.following.totalCount}{' '}
+              {data?.user.following.totalCount}
               <Text
                 ml='4px'
                 color='blackAlpha.700'>
@@ -196,9 +236,9 @@ export const User = () => {
           data?.user.socialAccounts.edges.map(item => {
             const currentSocialIcon =
               item.node.provider === 'TWITTER' ? (
-                <BiLogoLinkedinSquare fontSize='17px' />
-              ) : (
                 <BiLogoTwitter fontSize='17px' />
+              ) : (
+                <BiLogoLinkedinSquare fontSize='17px' />
               );
 
             return (
