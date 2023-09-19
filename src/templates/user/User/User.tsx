@@ -34,7 +34,7 @@ export const User = () => {
               name={data.user.name}
               src={data.user.avatarUrl}
             />
-            <Status status={data.user.status} />
+            {data.user.status && <Status status={data.user.status} />}
           </>
         )}
       </Flex>

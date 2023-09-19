@@ -19,35 +19,44 @@ export const Overview = () => {
 
   if (pinnedRepositoryError) return <Text>Error...</Text>;
 
+  console.log('pinnedRepositoryData', pinnedRepositoryData);
+
   return (
     <Flex direction='column'>
-      <Heading
-        as='h2'
-        size='sm'
-        mb='15px'
-        fontWeight='medium'>
-        Pinned
-      </Heading>
-
-      <Grid
-        templateColumns='1fr 1fr'
-        gap='20px'
-        mb='50px'>
-        {pinnedRepositoryData?.user.pinnedItems.edges.map(item => {
-          const currentItem = item.node;
-          return (
-            <RepositoryCard
-              key={currentItem.id}
-              id={currentItem.id}
-              description={currentItem.description}
-              visibility={currentItem.visibility}
-              languages={currentItem.languages}
-              name={currentItem.name}
-              icon={true}
-            />
-          );
-        })}
-      </Grid>
+      {pinnedRepositoryData?.user.pinnedItems.edges.length ? (
+        <Grid
+          templateColumns='1fr 1fr'
+          gap='20px'
+          mb='50px'>
+          <>
+            <Grid gridColumn='1 / span 2'>
+              <Heading
+                as='h2'
+                size='sm'
+                mb='15px'
+                fontWeight='medium'>
+                Pinned
+              </Heading>
+            </Grid>
+            {pinnedRepositoryData.user.pinnedItems.edges.map(item => {
+              const currentItem = item.node;
+              return (
+                <RepositoryCard
+                  key={currentItem.id}
+                  id={currentItem.id}
+                  description={currentItem.description}
+                  visibility={currentItem.visibility}
+                  languages={currentItem.languages}
+                  name={currentItem.name}
+                  icon={true}
+                />
+              );
+            })}
+          </>
+        </Grid>
+      ) : (
+        <></>
+      )}
 
       <ContributionCalendar />
     </Flex>
