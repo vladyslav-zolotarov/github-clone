@@ -9,12 +9,10 @@ import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { MdMailOutline } from 'react-icons/md';
 import { PiUsersBold } from 'react-icons/pi';
 import { LuBuilding } from 'react-icons/lu';
-import { Avatar } from '../../../components';
-import { useState } from 'react';
+import { Avatar, Status } from '../../../components';
 
 export const User = () => {
   const { userLogin } = useParams();
-  const [openedStatus, setOpenedStatus] = useState(false);
 
   const { loading, error, data } = useQuery<IUser>(GET_USER, {
     variables: { login: userLogin },
@@ -36,35 +34,7 @@ export const User = () => {
               name={data.user.name}
               src={data.user.avatarUrl}
             />
-            <Flex
-              position='absolute'
-              bottom='30px'
-              left='0'
-              zIndex={1}
-              alignItems='center'
-              justifyContent='center'
-              h='38px'
-              minW='38px'
-              width='auto'
-              rounded='full'
-              border='1px solid'
-              backgroundColor='white'
-              borderColor='blackAlpha.400'
-              padding='10px'
-              _hover={{ cursor: 'pointer' }}
-              onMouseEnter={() => setOpenedStatus(true)}
-              onMouseLeave={() => setOpenedStatus(false)}>
-              <Flex
-                fontSize='xs'
-                fontWeight='medium'
-                alignItems='center'
-                dangerouslySetInnerHTML={{
-                  __html: !openedStatus
-                    ? data.user.status.emojiHTML
-                    : `${data.user.status.emojiHTML} ${data.user.status.message}`,
-                }}
-              />
-            </Flex>
+            <Status status={data.user.status} />
           </>
         )}
       </Flex>
