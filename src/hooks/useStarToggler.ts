@@ -1,20 +1,24 @@
+import { DocumentNode } from 'graphql';
 import { useMutation } from '@apollo/client';
-import { GET_REPOSITORY_INFO } from '../endpoints/queries';
 import {
   ADD_STAR_MUTATION,
   REMOVE_STAR_MUTATION,
 } from '../endpoints/mutations';
 
-export const useStarToggler = () => {
+export const useStarToggler = ({
+  endpointQueryUpdate,
+}: {
+  endpointQueryUpdate: DocumentNode | undefined;
+}) => {
   const [addStar, { loading: loadingAddStart, error: errorAddStart }] =
     useMutation(ADD_STAR_MUTATION, {
-      refetchQueries: [GET_REPOSITORY_INFO],
+      refetchQueries: endpointQueryUpdate ? [endpointQueryUpdate] : [],
       awaitRefetchQueries: true,
     });
 
   const [removeStar, { loading: loadingRemoveStart, error: errorRemoveStart }] =
     useMutation(REMOVE_STAR_MUTATION, {
-      refetchQueries: [GET_REPOSITORY_INFO],
+      refetchQueries: endpointQueryUpdate ? [endpointQueryUpdate] : [],
       awaitRefetchQueries: true,
     });
 

@@ -8,6 +8,7 @@ import {
   StarButton,
   WatchButton,
 } from '../../../components/Buttons';
+import { GET_REPOSITORY_INFO } from '../../../endpoints/queries';
 
 interface RepositoryHeaderProps {
   data: IRepositoryInfo;
@@ -45,6 +46,8 @@ export const RepositoryHeader = ({ data }: RepositoryHeaderProps) => {
           id={data?.repository.id}
           viewerHasStarred={data?.repository.viewerHasStarred}
           stargazerCount={data?.repository.stargazerCount}
+          endpointQueryUpdate={GET_REPOSITORY_INFO}
+          variant='starButton'
         />
       </Flex>
     </Flex>

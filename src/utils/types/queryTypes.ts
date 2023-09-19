@@ -1,27 +1,32 @@
 export interface IPinnedItemsRepository {
   user: {
-    pinnedItems: {
-      edges: [
-        {
-          node: {
-            id: string;
-            name: string;
-            description: string;
-            languages: {
-              edges: [
-                {
-                  node: {
-                    name: string;
-                    color: string;
-                    id: string;
-                  };
-                },
-              ];
+    itemShowcase: {
+      hasPinnedItems: boolean;
+      items: {
+        edges: [
+          {
+            node: {
+              id: string;
+              name: string;
+              description: string;
+              stargazerCount: number;
+              viewerHasStarred: boolean;
+              languages: {
+                edges: [
+                  {
+                    node: {
+                      name: string;
+                      color: string;
+                      id: string;
+                    };
+                  },
+                ];
+              };
+              visibility: string;
             };
-            visibility: string;
-          };
-        },
-      ];
+          },
+        ];
+      };
     };
   };
 }

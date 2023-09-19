@@ -23,7 +23,7 @@ export const Overview = () => {
 
   return (
     <Flex direction='column'>
-      {pinnedRepositoryData?.user.pinnedItems.edges.length ? (
+      {pinnedRepositoryData?.user.itemShowcase.items.edges.length ? (
         <Grid
           templateColumns='1fr 1fr'
           gap='20px'
@@ -33,12 +33,13 @@ export const Overview = () => {
               <Heading
                 as='h2'
                 size='sm'
-                mb='15px'
                 fontWeight='medium'>
-                Pinned
+                {pinnedRepositoryData?.user.itemShowcase.hasPinnedItems
+                  ? 'Pinned'
+                  : 'Popular repositories'}
               </Heading>
             </Grid>
-            {pinnedRepositoryData.user.pinnedItems.edges.map(item => {
+            {pinnedRepositoryData?.user.itemShowcase.items.edges.map(item => {
               const currentItem = item.node;
               return (
                 <RepositoryCard
@@ -49,6 +50,10 @@ export const Overview = () => {
                   languages={currentItem.languages}
                   name={currentItem.name}
                   icon={true}
+                  isStarIcon={{
+                    stargazerCount: currentItem.stargazerCount,
+                    viewerHasStarred: currentItem.viewerHasStarred,
+                  }}
                 />
               );
             })}

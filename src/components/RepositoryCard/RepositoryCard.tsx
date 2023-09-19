@@ -17,6 +17,8 @@ import {
   formatDistanceToNow,
   differenceInCalendarDays,
 } from 'date-fns';
+import { StarButton } from '../Buttons';
+import { GET_PINNED_ITEMS_REPOSITORY } from '../../endpoints/queries';
 
 interface RepositoryCardProps {
   id: string;
@@ -36,13 +38,30 @@ interface RepositoryCardProps {
 
   visibility: string;
 
+  isStarIcon?: {
+    viewerHasStarred: boolean;
+    stargazerCount: number;
+  };
+  isStarButton?: {
+    viewerHasStarred: boolean;
+    stargazerCount: number;
+  };
   icon?: boolean;
   pushedAt?: string;
 }
 
 export const RepositoryCard = (props: RepositoryCardProps) => {
-  const { id, name, description, languages, visibility, icon, pushedAt } =
-    props;
+  const {
+    id,
+    name,
+    description,
+    languages,
+    visibility,
+    icon,
+    pushedAt,
+    isStarIcon,
+    isStarButton,
+  } = props;
   const navigate = useNavigate();
   const { userLogin } = useParams();
 
@@ -96,6 +115,18 @@ export const RepositoryCard = (props: RepositoryCardProps) => {
             </Heading>
           </Link>
           <Badge visibility={visibility} />
+
+          {isStarButton && (
+            <Flex ml='auto'>
+              <StarButton
+                id={id}
+                viewerHasStarred={isStarButton.viewerHasStarred}
+                stargazerCount={isStarButton.stargazerCount}
+                endpointQueryUpdate={GET_PINNED_ITEMS_REPOSITORY}
+                variant='starButton'
+              />
+            </Flex>
+          )}
         </Flex>
       </CardHeader>
       <CardBody p='5px'>
@@ -130,7 +161,15 @@ export const RepositoryCard = (props: RepositoryCardProps) => {
               </Flex>
             );
           })}
-
+          {isStarIcon && (
+            <StarButton
+              id={id}
+              viewerHasStarred={isStarIcon.viewerHasStarred}
+              stargazerCount={isStarIcon.stargazerCount}
+              endpointQueryUpdate={GET_PINNED_ITEMS_REPOSITORY}
+              variant='starIcon'
+            />
+          )}
           {pushedAt && dateContent()}
         </Flex>
       </CardFooter>

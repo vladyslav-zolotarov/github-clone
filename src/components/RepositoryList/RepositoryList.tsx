@@ -32,6 +32,10 @@ export const RepositoryList = () => {
             languages={currentItem.languages}
             name={currentItem.name}
             pushedAt={currentItem.pushedAt}
+            isStarButton={{
+              stargazerCount: currentItem.stargazerCount,
+              viewerHasStarred: currentItem.viewerHasStarred,
+            }}
           />
         );
       })}

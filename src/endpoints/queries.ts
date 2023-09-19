@@ -51,6 +51,8 @@ export const GET_REPOSITORIES = gql`
             name
             description
             pushedAt
+            stargazerCount
+            viewerHasStarred
             languages(first: 1, orderBy: { field: SIZE, direction: DESC }) {
               edges {
                 node {
@@ -205,23 +207,29 @@ export const GET_REPOSITORY_INFO_COMMIT = gql`
 export const GET_PINNED_ITEMS_REPOSITORY = gql`
   query getPinnedItemsRepository($login: String!) {
     user(login: $login) {
-      pinnedItems(first: 10) {
-        edges {
-          node {
-            ... on Repository {
-              id
-              name
-              description
-              languages(first: 1, orderBy: { field: SIZE, direction: DESC }) {
-                edges {
-                  node {
-                    name
-                    color
-                    id
+      itemShowcase {
+        hasPinnedItems
+        items(first: 6) {
+          totalCount
+          edges {
+            node {
+              ... on Repository {
+                id
+                name
+                description
+                stargazerCount
+                viewerHasStarred
+                languages(first: 1, orderBy: { field: SIZE, direction: DESC }) {
+                  edges {
+                    node {
+                      name
+                      color
+                      id
+                    }
                   }
                 }
+                visibility
               }
-              visibility
             }
           }
         }

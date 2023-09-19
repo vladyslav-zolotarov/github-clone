@@ -49,6 +49,10 @@ export interface IRepository {
             name: string;
             description: string;
             pushedAt: string;
+
+            stargazerCount: number;
+            viewerHasStarred: boolean;
+
             languages: {
               edges: [
                 {
