@@ -64,3 +64,13 @@ export interface IContributionCalendarInfo {
     };
   };
 }
+
+export interface IContributionsCollectionInfo {
+  user: {
+    contributionsCollection: {
+      startedAt: string;
+      endedAt: string;
+      contributionYears: [];
+    };
+  };
+}

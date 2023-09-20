@@ -267,3 +267,55 @@ export const GET_CONTRIBUTION_CALENDAR_INFO = gql`
     }
   }
 `;
+
+export const GET_CONTRIBUTION_COLLECTION_INFO = gql`
+  query contributionsCollection($login: String!) {
+    user(login: $login) {
+      contributionsCollection {
+        startedAt
+        endedAt
+        contributionYears
+
+        latestRestrictedContributionDate
+
+        doesEndInCurrentMonth
+        earliestRestrictedContributionDate
+
+        isSingleDay
+        joinedGitHubContribution {
+          url
+        }
+
+        firstIssueContribution {
+          ... on Contribution {
+            url
+          }
+        }
+
+        commitContributionsByRepository {
+          repository {
+            name
+          }
+          contributions {
+            totalCount
+          }
+          resourcePath
+          url
+        }
+
+        contributionCalendar {
+          totalContributions
+        }
+        totalCommitContributions
+      }
+    }
+  }
+`;
+
+export const GET_VIEWER = gql`
+  query getViewer {
+    viewer {
+      email
+    }
+  }
+`;
