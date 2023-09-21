@@ -37,3 +37,24 @@ export const REMOVE_STAR_MUTATION = gql`
     }
   }
 `;
+
+export const CHANGE_USER_STATUS = gql`
+  mutation changeUserStatus(
+    $clientMutationId: ID!
+    $emoji: String
+    $message: String
+  ) {
+    changeUserStatus(
+      input: {
+        clientMutationId: $clientMutationId
+        emoji: $emoji
+        message: $message
+      }
+    ) {
+      clientMutationId
+      status {
+        id
+      }
+    }
+  }
+`;
