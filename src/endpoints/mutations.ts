@@ -40,7 +40,7 @@ export const REMOVE_STAR_MUTATION = gql`
 
 export const CHANGE_USER_STATUS = gql`
   mutation changeUserStatus(
-    $clientMutationId: ID!
+    $clientMutationId: String!
     $emoji: String
     $message: String
   ) {

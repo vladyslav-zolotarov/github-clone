@@ -31,7 +31,7 @@ export interface IUser {
     };
 
     status: {
-      emojiHTML: string;
+      emoji: string;
       expiresAt: string;
       message: string;
     };

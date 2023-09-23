@@ -33,7 +33,7 @@ export const GET_USER = gql`
       }
 
       status {
-        emojiHTML
+        emoji
         expiresAt
         message
       }

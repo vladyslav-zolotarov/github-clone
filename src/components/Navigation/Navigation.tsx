@@ -54,7 +54,7 @@ export const Navigation = () => {
         </Button>
       </NavLink>
       <NavLink
-        to={`/user/${userLogin}/repositories`}
+        to={`/user/${userLogin}/projects`}
         style={({ isActive }) => activeNavLinkStyle(isActive)}>
         <Button
           marginBottom='10px'
@@ -65,7 +65,7 @@ export const Navigation = () => {
         </Button>
       </NavLink>
       <NavLink
-        to={`/user/${userLogin}/repositories`}
+        to={`/user/${userLogin}/packages`}
         style={({ isActive }) => activeNavLinkStyle(isActive)}>
         <Button
           marginBottom='10px'
@@ -76,7 +76,7 @@ export const Navigation = () => {
         </Button>
       </NavLink>
       <NavLink
-        to={`/user/${userLogin}/repositories`}
+        to={`/user/${userLogin}/starsś`}
         style={({ isActive }) => activeNavLinkStyle(isActive)}>
         <Button
           marginBottom='10px'
