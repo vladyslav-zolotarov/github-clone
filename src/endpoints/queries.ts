@@ -1,5 +1,25 @@
 import { gql } from '@apollo/client';
 
+export const GET_USER_INFO_FOR_NAVIGATION = gql`
+  query getUserInfoForNavigation($login: String!) {
+    user(login: $login) {
+      login
+      repositories {
+        totalCount
+      }
+      starredRepositories {
+        totalCount
+      }
+      projects {
+        totalCount
+      }
+      packages {
+        totalCount
+      }
+    }
+  }
+`;
+
 export const GET_USER = gql`
   query getUser($login: String!) {
     user(login: $login) {

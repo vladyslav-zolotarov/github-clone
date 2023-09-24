@@ -1,3 +1,22 @@
+export interface IUserInfoForNavigation {
+  user: {
+    id: string;
+    login: string;
+    repositories: {
+      totalCount: number;
+    };
+    starredRepositories: {
+      totalCount: number;
+    };
+    projects: {
+      totalCount: number;
+    };
+    packages: {
+      totalCount: number;
+    };
+  };
+}
+
 export interface IUser {
   user: {
     id: string;
