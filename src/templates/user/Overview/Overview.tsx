@@ -19,8 +19,6 @@ export const Overview = () => {
 
   if (pinnedRepositoryError) return <Text>Error...</Text>;
 
-  console.log('pinnedRepositoryData', pinnedRepositoryData);
-
   return (
     <Flex direction='column'>
       {pinnedRepositoryData?.user.itemShowcase.items.edges.length ? (

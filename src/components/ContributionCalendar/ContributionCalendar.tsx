@@ -222,6 +222,7 @@ export const ContributionCalendar = () => {
               item => {
                 return (
                   <Button
+                    key={item}
                     size='xs'
                     variant='outline'
                     justifyContent='flex-start'>
