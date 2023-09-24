@@ -1,24 +1,6 @@
-import {
-  Button,
-  Flex,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  Link,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Flex, Link, useDisclosure } from '@chakra-ui/react';
 import { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { GET_USER } from '../../../endpoints/queries';
-import { CHANGE_USER_STATUS } from '../../../endpoints/mutations';
-import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
+import { StatusModal } from './StatusModal';
 
 interface StatusProps {
   id: string;
@@ -37,8 +19,6 @@ interface statusFormDataProps {
 
 export const Status = ({ id, status }: StatusProps) => {
   const [hoveredStatus, setHoveredStatus] = useState<boolean>(false);
-  const [isOpenedEmojiPicker, setIsOpenedEmojiPicker] =
-    useState<boolean>(false);
 
   const [statusFormData, setStatusFormData] = useState<statusFormDataProps>({
     clientMutationId: id,
@@ -47,20 +27,10 @@ export const Status = ({ id, status }: StatusProps) => {
   });
 
   const {
-    isOpen: isOpenModal,
     onOpen: onOpenModal,
+    isOpen: isOpenModal,
     onClose: onCloseModal,
   } = useDisclosure();
-
-  const [changeUserStatus, { loading }] = useMutation(CHANGE_USER_STATUS, {
-    refetchQueries: [GET_USER],
-    awaitRefetchQueries: true,
-  });
-
-  const emojiPickerHandler = (emojiData: EmojiClickData) => {
-    setStatusFormData({ ...statusFormData, emoji: emojiData.emoji });
-    setIsOpenedEmojiPicker(false);
-  };
 
   const onOpenModalHandler = () => {
     setStatusFormData({
@@ -69,22 +39,6 @@ export const Status = ({ id, status }: StatusProps) => {
       message: status.message ? status.message : '',
     });
     onOpenModal();
-  };
-
-  const onSubmitStatusHandler = () => {
-    changeUserStatus({
-      variables: {
-        clientMutationId: statusFormData.clientMutationId,
-        message: statusFormData.message,
-        emoji: statusFormData.emoji,
-      },
-    });
-
-    onCloseModal();
-  };
-
-  const onClearStatusHandler = () => {
-    setStatusFormData({ ...statusFormData, emoji: '', message: '' });
   };
 
   return (
@@ -134,78 +88,12 @@ export const Status = ({ id, status }: StatusProps) => {
         </Link>
       </Flex>
 
-      <Modal
-        isOpen={loading || isOpenModal}
-        onClose={onCloseModal}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader
-            p='15px 20px'
-            backgroundColor='blackAlpha.100'
-            borderBottom='1px solid'
-            borderColor='blackAlpha.300'
-            fontSize='md'
-            fontWeight='medium'
-            lineHeight={1}>
-            Edit status
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody position='relative'>
-            <InputGroup
-              size='sm'
-              rounded='md'>
-              <InputLeftAddon>
-                {
-                  <Button
-                    variant='unstyled'
-                    onClick={() => setIsOpenedEmojiPicker(true)}>
-                    {statusFormData.emoji ? statusFormData.emoji : '🫥'}
-                  </Button>
-                }
-              </InputLeftAddon>
-              <Input
-                type='text'
-                placeholder='Whats happening?'
-                value={statusFormData.message}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setStatusFormData({
-                    ...statusFormData,
-                    message: e.target.value,
-                  })
-                }
-              />
-            </InputGroup>
-
-            {isOpenedEmojiPicker && (
-              <Flex
-                position='absolute'
-                zIndex={1}>
-                <EmojiPicker
-                  lazyLoadEmojis={true}
-                  onEmojiClick={(emojiData: EmojiClickData) =>
-                    emojiPickerHandler(emojiData)
-                  }
-                />
-              </Flex>
-            )}
-          </ModalBody>
-
-          <ModalFooter justifyContent='center'>
-            <Button
-              isLoading={loading}
-              colorScheme='green'
-              mr={3}
-              onClick={onSubmitStatusHandler}>
-              Set status
-            </Button>
-            <Button
-              variant='ghost'
-              onClick={onClearStatusHandler}>
-              Clear status
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <StatusModal
+        id={id}
+        status={status}
+        isOpenModal={isOpenModal}
+        onCloseModal={onCloseModal}
+      />
     </>
   );
 };
