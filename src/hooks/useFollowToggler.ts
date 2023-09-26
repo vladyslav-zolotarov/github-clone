@@ -18,14 +18,10 @@ export const useFollowToggler = () => {
       awaitRefetchQueries: true,
     });
 
-  const [clickedBtnId, setclickedBtnId] = useState<number>();
+  const [clickedBtnId, setclickedBtnId] = useState<string>();
 
-  const handleFollowToggler = (
-    index: number,
-    userId: string,
-    isFollowing: boolean
-  ) => {
-    setclickedBtnId(index);
+  const handleFollowToggler = (userId: string, isFollowing: boolean) => {
+    setclickedBtnId(userId);
 
     if (isFollowing) {
       unfollowUser({ variables: { userId: userId } });

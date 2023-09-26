@@ -12,3 +12,4 @@ export * from './RepositoryCard/RepositoryCard';
 export * from './ContributionCalendar/ContributionCalendar';
 export * from './User/Status/Status';
 export * from './HeaderTopBelt/HeaderTopBelt';
+export * from './UserCard/UserCard';

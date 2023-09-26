@@ -106,6 +106,7 @@ export const User = () => {
               color='blackAlpha.900'>
               {data?.user.followers.totalCount}
               <Text
+                as='span'
                 ml='4px'
                 color='blackAlpha.700'>
                 followers
@@ -127,6 +128,7 @@ export const User = () => {
               color='blackAlpha.900'>
               {data?.user.following.totalCount}
               <Text
+                as='span'
                 ml='4px'
                 color='blackAlpha.700'>
                 following
