@@ -1,11 +1,11 @@
 import { Flex } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
-import { Header } from './Header/Header';
+import { HeaderLayout } from './HeaderLayout/HeaderLayout';
 
-export const Layout = () => {
+export const AppLayout = () => {
   return (
     <Flex direction='column'>
-      <Header />
+      <HeaderLayout />
       <Flex
         w='full'
         maxW='1200px'

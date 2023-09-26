@@ -1,10 +1,10 @@
-import { User } from '../../components/';
+import { User } from '../../components';
 
 export const UserPage = () => {
-    return (
-        <div>
-            userPage
-            <User />
-        </div>
-    );
+  return (
+    <div>
+      userPage
+      <User />
+    </div>
+  );
 };

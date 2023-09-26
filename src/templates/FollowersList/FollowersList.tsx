@@ -3,7 +3,7 @@ import { GET_FOLLOWERS } from '../../endpoints/queries';
 import { useQuery } from '@apollo/client';
 import { Text, Flex } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
-import { UserCard } from '..';
+import { UserCard } from '../../components';
 
 export const FollowersList = () => {
   const { userLogin } = useParams();

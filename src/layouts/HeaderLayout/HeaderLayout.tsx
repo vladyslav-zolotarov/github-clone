@@ -5,7 +5,7 @@ import { GET_USER_INFO_FOR_NAVIGATION } from '../../endpoints/queries';
 import { IUserInfoForNavigation } from '../../utils/types/types';
 import { useParams } from 'react-router-dom';
 
-export const Header = () => {
+export const HeaderLayout = () => {
   const { userLogin } = useParams();
 
   const { data, loading, error } = useQuery<IUserInfoForNavigation>(

@@ -1,15 +1,16 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Grid } from '@chakra-ui/react';
 import { HomePage, RepositoryPage } from './pages/index';
-import { Layout } from './layouts/Layout';
-import { User, RepositoryList } from './components';
-import { Followers, Following, Overview } from './templates/User';
+import { AppLayout } from './layouts/AppLayout';
+import { FollowersList, FollowingList, RepositoryList } from './components';
+import { Overview } from './templates/User';
+import { UserLayout } from './layouts/UserLayout/UserLayout';
+import { Grid } from '@chakra-ui/react';
 
 function App() {
   const router = createBrowserRouter([
     {
       path: '',
-      element: <Layout />,
+      element: <AppLayout />,
       children: [
         {
           path: 'home-page',
@@ -18,13 +19,9 @@ function App() {
         {
           path: 'user/:userLogin/overview',
           element: (
-            <Grid
-              gap='20px'
-              w='full'
-              templateColumns='260px 1fr'>
-              <User />
+            <UserLayout>
               <Overview />
-            </Grid>
+            </UserLayout>
           ),
         },
         {
@@ -40,37 +37,25 @@ function App() {
         {
           path: 'user/:userLogin/repositories',
           element: (
-            <Grid
-              gap='20px'
-              w='full'
-              templateColumns='260px 1fr'>
-              <User />
+            <UserLayout>
               <RepositoryList />
-            </Grid>
+            </UserLayout>
           ),
         },
         {
           path: 'user/:userLogin/followers',
           element: (
-            <Grid
-              gap='20px'
-              w='full'
-              templateColumns='260px 1fr'>
-              <User />
-              <Followers />
-            </Grid>
+            <UserLayout>
+              <FollowersList />
+            </UserLayout>
           ),
         },
         {
           path: 'user/:userLogin/following',
           element: (
-            <Grid
-              gap='20px'
-              w='full'
-              templateColumns='260px 1fr'>
-              <User />
-              <Following />
-            </Grid>
+            <UserLayout>
+              <FollowingList />
+            </UserLayout>
           ),
         },
       ],
