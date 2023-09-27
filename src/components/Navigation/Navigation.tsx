@@ -38,17 +38,23 @@ export const Navigation = ({ user }: IUserInfoForNavigationState) => {
           gap='10px'>
           <BiBookBookmark />
           Repositories
-          {user?.repositories.totalCount ? (
-            <Circle
-              size='23px'
-              bg='blackAlpha.200'>
+          <Circle
+            size='23px'
+            bg='blackAlpha.200'>
+            {user?.repositories.totalCount ? (
               <Text
                 fontSize='xs'
                 fontWeight='semibold'>
                 {user.repositories.totalCount - 1}
               </Text>
-            </Circle>
-          ) : null}
+            ) : (
+              <Text
+                fontSize='xs'
+                fontWeight='semibold'>
+                0
+              </Text>
+            )}
+          </Circle>
         </Button>
       </NavLink>
       <NavLink
@@ -60,17 +66,23 @@ export const Navigation = ({ user }: IUserInfoForNavigationState) => {
           gap='10px'>
           <GoProjectRoadmap />
           Projects
-          {user?.projects.totalCount ? (
-            <Circle
-              size='23px'
-              bg='blackAlpha.200'>
+          <Circle
+            size='23px'
+            bg='blackAlpha.200'>
+            {user?.projects.totalCount ? (
               <Text
                 fontSize='xs'
                 fontWeight='semibold'>
                 {user.projects.totalCount}
               </Text>
-            </Circle>
-          ) : null}
+            ) : (
+              <Text
+                fontSize='xs'
+                fontWeight='semibold'>
+                0
+              </Text>
+            )}
+          </Circle>
         </Button>
       </NavLink>
       <NavLink
@@ -82,17 +94,23 @@ export const Navigation = ({ user }: IUserInfoForNavigationState) => {
           gap='10px'>
           <FiPackage />
           Packages
-          {user?.packages.totalCount ? (
-            <Circle
-              size='23px'
-              bg='blackAlpha.200'>
+          <Circle
+            size='23px'
+            bg='blackAlpha.200'>
+            {user?.packages.totalCount ? (
               <Text
                 fontSize='xs'
                 fontWeight='semibold'>
                 {user.packages.totalCount}
               </Text>
-            </Circle>
-          ) : null}
+            ) : (
+              <Text
+                fontSize='xs'
+                fontWeight='semibold'>
+                0
+              </Text>
+            )}
+          </Circle>
         </Button>
       </NavLink>
       <NavLink
@@ -104,17 +122,23 @@ export const Navigation = ({ user }: IUserInfoForNavigationState) => {
           gap='10px'>
           <FiStar />
           Stars
-          {user?.starredRepositories.totalCount ? (
-            <Circle
-              size='23px'
-              bg='blackAlpha.200'>
+          <Circle
+            size='23px'
+            bg='blackAlpha.200'>
+            {user?.starredRepositories.totalCount ? (
               <Text
                 fontSize='xs'
                 fontWeight='semibold'>
                 {user.starredRepositories.totalCount - 1}
               </Text>
-            </Circle>
-          ) : null}
+            ) : (
+              <Text
+                fontSize='xs'
+                fontWeight='semibold'>
+                0
+              </Text>
+            )}
+          </Circle>
         </Button>
       </NavLink>
     </Flex>
