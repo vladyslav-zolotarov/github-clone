@@ -8,16 +8,12 @@ import { useParams } from 'react-router-dom';
 export const HeaderLayout = () => {
   const { userLogin } = useParams();
 
-  const { data, loading, error } = useQuery<IUserInfoForNavigation>(
+  const { data } = useQuery<IUserInfoForNavigation>(
     GET_USER_INFO_FOR_NAVIGATION,
     {
       variables: { login: userLogin },
     }
   );
-
-  if (loading) return null;
-
-  if (error) return null;
 
   return (
     <Flex
@@ -29,12 +25,8 @@ export const HeaderLayout = () => {
       borderBottom='1px'
       borderColor='blackAlpha.300'
       backgroundColor='blackAlpha'>
-      {data && (
-        <>
-          <HeaderTopBelt user={data?.user} />
-          <Navigation user={data?.user} />
-        </>
-      )}
+      <HeaderTopBelt />
+      <Navigation user={data?.user} />
     </Flex>
   );
 };

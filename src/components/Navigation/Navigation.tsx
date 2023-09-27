@@ -5,7 +5,7 @@ import { GoProjectRoadmap } from 'react-icons/go';
 import { FiPackage, FiStar } from 'react-icons/fi';
 import { IUserInfoForNavigation } from '../../utils/types/types';
 
-type IUserInfoForNavigationState = Pick<IUserInfoForNavigation, 'user'>;
+type IUserInfoForNavigationState = Partial<IUserInfoForNavigation>;
 
 export const Navigation = ({ user }: IUserInfoForNavigationState) => {
   const { userLogin } = useParams();
@@ -38,7 +38,7 @@ export const Navigation = ({ user }: IUserInfoForNavigationState) => {
           gap='10px'>
           <BiBookBookmark />
           Repositories
-          {user.repositories.totalCount ? (
+          {user?.repositories.totalCount ? (
             <Circle
               size='23px'
               bg='blackAlpha.200'>
@@ -60,7 +60,7 @@ export const Navigation = ({ user }: IUserInfoForNavigationState) => {
           gap='10px'>
           <GoProjectRoadmap />
           Projects
-          {user.projects.totalCount ? (
+          {user?.projects.totalCount ? (
             <Circle
               size='23px'
               bg='blackAlpha.200'>
@@ -82,7 +82,7 @@ export const Navigation = ({ user }: IUserInfoForNavigationState) => {
           gap='10px'>
           <FiPackage />
           Packages
-          {user.packages.totalCount ? (
+          {user?.packages.totalCount ? (
             <Circle
               size='23px'
               bg='blackAlpha.200'>
@@ -104,7 +104,7 @@ export const Navigation = ({ user }: IUserInfoForNavigationState) => {
           gap='10px'>
           <FiStar />
           Stars
-          {user.starredRepositories.totalCount ? (
+          {user?.starredRepositories.totalCount ? (
             <Circle
               size='23px'
               bg='blackAlpha.200'>
