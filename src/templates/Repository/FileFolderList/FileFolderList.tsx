@@ -85,10 +85,12 @@ export const FileFolderList = () => {
                     <Flex
                       gap='10px'
                       alignItems='center'>
-                      <Avatar
-                        name={dataCommit?.repository?.owner?.login}
-                        src={dataCommit?.repository?.owner?.avatarUrl}
-                      />
+                      {dataCommit && dataCommit.repository.owner ? (
+                        <Avatar
+                          name={dataCommit?.repository?.owner?.login}
+                          src={dataCommit?.repository?.owner?.avatarUrl}
+                        />
+                      ) : null}
                       <Link
                         onClick={() =>
                           navigate(

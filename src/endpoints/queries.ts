@@ -32,6 +32,7 @@ export const GET_USER = gql`
       login
       name
       location
+      isViewer
       followers {
         totalCount
       }
@@ -53,6 +54,7 @@ export const GET_USER = gql`
       }
 
       status {
+        emojiHTML
         emoji
         expiresAt
         message

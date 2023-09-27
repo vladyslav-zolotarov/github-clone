@@ -1,14 +1,16 @@
 import { Flex, Link, useDisclosure } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StatusModal } from './StatusModal';
 
 interface StatusProps {
   id: string;
   status: {
+    emojiHTML: string;
     emoji: string;
     expiresAt: string;
     message: string;
   };
+  isViewer: boolean;
 }
 
 interface statusFormDataProps {
@@ -17,13 +19,13 @@ interface statusFormDataProps {
   message: string;
 }
 
-export const Status = ({ id, status }: StatusProps) => {
+export const Status = ({ id, status, isViewer }: StatusProps) => {
   const [hoveredStatus, setHoveredStatus] = useState<boolean>(false);
 
   const [statusFormData, setStatusFormData] = useState<statusFormDataProps>({
-    clientMutationId: id,
-    emoji: status.emoji ? status.emoji : '',
-    message: status.message ? status.message : '',
+    clientMutationId: '',
+    emoji: '',
+    message: '',
   });
 
   const {
@@ -32,10 +34,22 @@ export const Status = ({ id, status }: StatusProps) => {
     onClose: onCloseModal,
   } = useDisclosure();
 
+  useEffect(() => {
+    if (!status) {
+      return;
+    }
+
+    setStatusFormData({
+      clientMutationId: id,
+      emoji: status.emojiHTML ? status.emojiHTML : '',
+      message: status.message ? status.message : '',
+    });
+  }, [id, status]);
+
   const onOpenModalHandler = () => {
     setStatusFormData({
       ...statusFormData,
-      emoji: status.emoji ? status.emoji : '',
+      emoji: status.emojiHTML ? status.emojiHTML : '',
       message: status.message ? status.message : '',
     });
     onOpenModal();
@@ -43,38 +57,44 @@ export const Status = ({ id, status }: StatusProps) => {
 
   return (
     <>
-      <Flex
-        position='absolute'
-        bottom='30px'
-        left='0'
-        zIndex={1}
-        alignItems='center'
-        justifyContent='center'
-        h='38px'
-        minW='38px'
-        width='auto'
-        rounded='full'
-        border='1px solid'
-        backgroundColor='white'
-        borderColor='blackAlpha.400'
-        padding='10px'
-        _hover={{ cursor: 'pointer' }}
-        onMouseEnter={() => setHoveredStatus(true)}
-        onMouseLeave={() => setHoveredStatus(false)}>
-        <Link
-          textDecoration='none'
-          onClick={onOpenModalHandler}>
+      {!isViewer && !status ? null : (
+        <Flex
+          position='absolute'
+          bottom='30px'
+          left='0'
+          zIndex={1}
+          alignItems='center'
+          justifyContent='center'
+          h='38px'
+          minW='38px'
+          width='auto'
+          rounded='full'
+          border='1px solid'
+          backgroundColor='white'
+          borderColor='blackAlpha.400'
+          padding='10px'
+          onMouseEnter={() => setHoveredStatus(true)}
+          onMouseLeave={() => setHoveredStatus(false)}>
           {status ? (
-            <Flex
-              fontSize='xs'
-              fontWeight='medium'
-              alignItems='center'
-              dangerouslySetInnerHTML={{
-                __html: !hoveredStatus
-                  ? status.emoji
-                  : `${status.emoji} ${status.message}`,
-              }}
-            />
+            <Link
+              _hover={{ cursor: 'pointer' }}
+              textDecoration='none'
+              onClick={onOpenModalHandler}>
+              <Flex
+                fontSize='xs'
+                fontWeight='medium'
+                alignItems='center'
+                dangerouslySetInnerHTML={{
+                  __html: !hoveredStatus
+                    ? status.emojiHTML
+                      ? status.emojiHTML
+                      : '💭'
+                    : `${status.emojiHTML ? status.emojiHTML : '💭'} ${
+                        status.message ? status.message : ''
+                      }`,
+                }}
+              />
+            </Link>
           ) : (
             <Flex
               fontSize='xs'
@@ -85,15 +105,16 @@ export const Status = ({ id, status }: StatusProps) => {
               }}
             />
           )}
-        </Link>
-      </Flex>
-
-      <StatusModal
-        id={id}
-        status={status}
-        isOpenModal={isOpenModal}
-        onCloseModal={onCloseModal}
-      />
+        </Flex>
+      )}
+      {isViewer && (
+        <StatusModal
+          id={id}
+          status={status}
+          isOpenModal={isOpenModal}
+          onCloseModal={onCloseModal}
+        />
+      )}
     </>
   );
 };

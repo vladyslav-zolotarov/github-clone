@@ -12,6 +12,7 @@ import {
   Input,
   Flex,
   ModalFooter,
+  Text,
 } from '@chakra-ui/react';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import React, { useState } from 'react';
@@ -21,6 +22,7 @@ import { GET_USER } from '../../../endpoints/queries';
 interface StatusModalProps {
   id: string;
   status: {
+    emojiHTML: string;
     emoji: string;
     expiresAt: string;
     message: string;
@@ -46,7 +48,7 @@ export const StatusModal = ({
 
   const [statusFormData, setStatusFormData] = useState<statusFormDataProps>({
     clientMutationId: id,
-    emoji: status.emoji ? status.emoji : '',
+    emoji: status.emojiHTML ? status.emojiHTML : '',
     message: status.message ? status.message : '',
   });
 
@@ -102,7 +104,13 @@ export const StatusModal = ({
                 <Button
                   variant='unstyled'
                   onClick={() => setIsOpenedEmojiPicker(true)}>
-                  {statusFormData.emoji ? statusFormData.emoji : '🫥'}
+                  <Text
+                    dangerouslySetInnerHTML={{
+                      __html: statusFormData.emoji
+                        ? statusFormData.emoji
+                        : '🫥',
+                    }}
+                  />
                 </Button>
               }
             </InputLeftAddon>

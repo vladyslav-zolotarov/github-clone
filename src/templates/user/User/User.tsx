@@ -34,10 +34,10 @@ export const User = () => {
               name={data.user.name}
               src={data.user.avatarUrl}
             />
-
             <Status
               id={data.user.id}
               status={data.user.status}
+              isViewer={data.user.isViewer}
             />
           </>
         )}

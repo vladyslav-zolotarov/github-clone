@@ -1,10 +1,12 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { HomePage, RepositoryPage } from './pages/index';
 import { AppLayout } from './layouts/AppLayout';
-import { FollowersList, FollowingList, RepositoryList } from './components';
+import { FollowersList } from './components';
 import { Overview } from './templates/User';
 import { UserLayout } from './layouts/UserLayout/UserLayout';
 import { Grid } from '@chakra-ui/react';
+import { FollowingList } from './templates/FollowingList/FollowingList';
+import { RepositoryList } from './templates/RepositoryList/RepositoryList';
 
 function App() {
   const router = createBrowserRouter([

@@ -28,6 +28,7 @@ export interface IUser {
     login: string;
     name: string;
     location: string;
+    isViewer: boolean;
     followers: {
       totalCount: number;
     };
@@ -50,6 +51,7 @@ export interface IUser {
     };
 
     status: {
+      emojiHTML: string;
       emoji: string;
       expiresAt: string;
       message: string;

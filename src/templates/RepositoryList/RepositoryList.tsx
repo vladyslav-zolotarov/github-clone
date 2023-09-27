@@ -3,7 +3,7 @@ import { GET_REPOSITORIES } from '../../endpoints/queries';
 import { IRepository } from '../../utils/types/types';
 import { Text, Flex } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
-import { RepositoryCard } from '..';
+import { RepositoryCard } from '../../components';
 
 export const RepositoryList = () => {
   const { userLogin } = useParams();
