@@ -26,7 +26,6 @@ export const UserCard = (data: UserCardProps) => {
 
   return (
     <Card
-      key={data.user.id}
       size='sm'
       variant='outline'
       p='10px'>
@@ -50,25 +49,29 @@ export const UserCard = (data: UserCardProps) => {
                 <Flex
                   gap='10px'
                   alignItems='center'>
-                  <Text fontSize='md'>{data.user.name}</Text>
-                  <Text
-                    color='blackAlpha.700'
-                    fontSize='sm'>
-                    {data.user.login}
-                  </Text>
+                  {data.user.name ? (
+                    <Text fontSize='md'>{data.user.name}</Text>
+                  ) : null}
+                  {data.user.login ? (
+                    <Text
+                      color='blackAlpha.700'
+                      fontSize='sm'>
+                      {data.user.login}
+                    </Text>
+                  ) : null}
                 </Flex>
               </Link>
             </Flex>
-            {data.user.bio && (
+            {data.user.bio ? (
               <Text
                 color='blackAlpha.700'
                 fontSize='sm'>
                 {data.user.bio}
               </Text>
-            )}
+            ) : null}
 
             <Flex gap='10px'>
-              {data.user.company && (
+              {data.user.company ? (
                 <Flex alignItems='center'>
                   <BiBuildingHouse />
                   <Text
@@ -77,8 +80,8 @@ export const UserCard = (data: UserCardProps) => {
                     {data.user.company}
                   </Text>
                 </Flex>
-              )}
-              {data.user.location && (
+              ) : null}
+              {data.user.location ? (
                 <Flex alignItems='center'>
                   <BiMap />
                   <Text
@@ -87,11 +90,11 @@ export const UserCard = (data: UserCardProps) => {
                     {data.user.location}
                   </Text>
                 </Flex>
-              )}
+              ) : null}
             </Flex>
           </Flex>
           <Flex ml='auto'>
-            {data.user.viewerCanFollow && (
+            {data.user.viewerCanFollow ? (
               <Button
                 onClick={() =>
                   handleFollowToggler(data.user.id, data.user.viewerIsFollowing)
@@ -107,7 +110,7 @@ export const UserCard = (data: UserCardProps) => {
                 variant='outline'>
                 {data.user.viewerIsFollowing ? 'Unfollow' : 'Follow'}
               </Button>
-            )}
+            ) : null}
           </Flex>
         </Flex>
       </CardHeader>

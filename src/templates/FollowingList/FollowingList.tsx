@@ -3,7 +3,7 @@ import { GET_FOLLOWING } from '../../endpoints/queries';
 import { useQuery } from '@apollo/client';
 import { Text, Flex } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
-import { UserCard } from '../../components';
+import { UserCard, UserCardSkeleton } from '../../components';
 
 export const FollowingList = () => {
   const { userLogin } = useParams();
@@ -12,7 +12,17 @@ export const FollowingList = () => {
     variables: { login: userLogin },
   });
 
-  if (loading) return <Text>Loading...</Text>;
+  if (loading) {
+    return (
+      <Flex
+        direction='column'
+        rowGap='20px'>
+        {[...Array(6)].map((_, index) => {
+          return <UserCardSkeleton key={index} />;
+        })}
+      </Flex>
+    );
+  }
 
   if (error) return <Text>Error - {error.message}</Text>;
 

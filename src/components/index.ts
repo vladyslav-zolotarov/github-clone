@@ -11,3 +11,4 @@ export * from '../templates/ContributionCalendar/ContributionCalendar';
 export * from './User/Status/Status';
 export * from './HeaderTopBelt/HeaderTopBelt';
 export * from './UserCard/UserCard';
+export * from './UserCard/UserCardSkeleton';
