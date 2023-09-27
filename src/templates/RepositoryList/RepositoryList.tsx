@@ -3,7 +3,7 @@ import { GET_REPOSITORIES } from '../../endpoints/queries';
 import { IRepository } from '../../utils/types/types';
 import { Text, Flex } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
-import { RepositoryCard } from '../../components';
+import { RepositoryCard, RepositoryCardSkeleton } from '../../components';
 
 export const RepositoryList = () => {
   const { userLogin } = useParams();
@@ -12,7 +12,17 @@ export const RepositoryList = () => {
     variables: { login: userLogin },
   });
 
-  if (loading) return <Text>Loading...</Text>;
+  if (loading) {
+    return (
+      <Flex
+        direction='column'
+        rowGap='20px'>
+        {[...Array(6)].map((_, index) => {
+          return <RepositoryCardSkeleton key={index} />;
+        })}
+      </Flex>
+    );
+  }
 
   if (error) return <Text>Error - {error.message}</Text>;
 
