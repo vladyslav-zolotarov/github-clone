@@ -1,11 +1,5 @@
-import {
-  Avatar,
-  Button,
-  Card,
-  CardHeader,
-  Flex,
-  Skeleton,
-} from '@chakra-ui/react';
+import { Button, Card, CardHeader, Flex, Skeleton } from '@chakra-ui/react';
+import { UserAvatar } from '..';
 
 export const UserCardSkeleton = () => {
   return (
@@ -15,7 +9,7 @@ export const UserCardSkeleton = () => {
       p='10px'>
       <CardHeader>
         <Flex gap='20px'>
-          <Avatar size='md' />
+          <UserAvatar size='md' />
           <Flex direction='column'>
             <Flex
               gap='10px'

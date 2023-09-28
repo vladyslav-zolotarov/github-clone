@@ -24,7 +24,7 @@ import {
 } from '../../../endpoints/queries';
 import { useQuery } from '@apollo/client';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ReadMe, FileItem, FolderItem, Avatar } from '../../../components';
+import { ReadMe, FileItem, FolderItem, UserAvatar } from '../../../components';
 import { VscGitCommit } from 'react-icons/vsc';
 
 export const FileFolderList = () => {
@@ -86,7 +86,7 @@ export const FileFolderList = () => {
                       gap='10px'
                       alignItems='center'>
                       {dataCommit && dataCommit.repository.owner ? (
-                        <Avatar
+                        <UserAvatar
                           name={dataCommit?.repository?.owner?.login}
                           src={dataCommit?.repository?.owner?.avatarUrl}
                         />

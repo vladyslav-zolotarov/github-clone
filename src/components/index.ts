@@ -4,7 +4,7 @@ export * from './Repository/FolderItem/FolderItem';
 export * from './Repository/ReadMe/ReadMe';
 export * from './Repository/Badge/Badge';
 export * from '../templates/User/User/User';
-export * from './User/Avatar/Avatar';
+export * from './User/UserAvatar/UserAvatar';
 export * from '../templates/FollowersList/FollowersList';
 export * from './RepositoryCard/RepositoryCard';
 export * from '../templates/ContributionCalendar/ContributionCalendar';

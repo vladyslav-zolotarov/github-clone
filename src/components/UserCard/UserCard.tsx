@@ -1,6 +1,6 @@
 import { Card, CardHeader, Flex, Button, Text, Link } from '@chakra-ui/react';
 import { BiBuildingHouse, BiMap } from 'react-icons/bi';
-import { Avatar } from '..';
+import { UserAvatar } from '..';
 import { useFollowToggler } from '../../hooks/useFollowToggler';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,7 +31,7 @@ export const UserCard = (data: UserCardProps) => {
       p='10px'>
       <CardHeader>
         <Flex gap='20px'>
-          <Avatar
+          <UserAvatar
             size='md'
             name={data.user.name}
             src={data.user.avatarUrl}

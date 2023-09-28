@@ -1,7 +1,7 @@
 import { Flex, Heading } from '@chakra-ui/react';
 import { IRepositoryInfo } from '../../../utils/types/types';
 
-import { Avatar, Badge } from '../../../components';
+import { UserAvatar, Badge } from '../../../components';
 import {
   ForkButton,
   PinButton,
@@ -25,7 +25,7 @@ export const RepositoryHeader = ({ data }: RepositoryHeaderProps) => {
       <Flex
         gap='10px'
         alignItems='center'>
-        <Avatar
+        <UserAvatar
           name={data?.repository.owner.login}
           src={data?.repository.owner.avatarUrl}
         />
