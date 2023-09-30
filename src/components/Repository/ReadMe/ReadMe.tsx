@@ -1,6 +1,6 @@
 import { Text, Flex } from '@chakra-ui/react';
 import ReactMarkdown from 'react-markdown';
-import { IRepositoryInfoTree } from '../../../utils/types/types';
+import { IRepositoryInfoTree } from '../../../utils/types/queryTypes';
 import 'github-markdown-css';
 
 type ReadMeProps = IRepositoryInfoTree['repository']['object']['entries'][0];

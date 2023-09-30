@@ -17,7 +17,7 @@ import {
 import {
   IRepositoryInfoCommit,
   IRepositoryInfoTree,
-} from '../../../utils/types/types';
+} from '../../../utils/types/queryTypes';
 import {
   GET_REPOSITORY_INFO_COMMIT,
   GET_REPOSITORY_INFO_TREE,

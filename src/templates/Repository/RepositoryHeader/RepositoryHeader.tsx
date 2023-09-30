@@ -1,5 +1,5 @@
 import { Flex, Heading } from '@chakra-ui/react';
-import { IRepositoryInfo } from '../../../utils/types/types';
+import { IRepositoryInfo } from '../../../utils/types/queryTypes';
 
 import { UserAvatar, Badge } from '../../../components';
 import {

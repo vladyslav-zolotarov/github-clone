@@ -1,6 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { FcFile } from 'react-icons/fc';
-import { IRepositoryInfoTree } from '../../../utils/types/types';
+import { IRepositoryInfoTree } from '../../../utils/types/queryTypes';
 
 type FileItemProps = IRepositoryInfoTree['repository']['object']['entries'][0];
 

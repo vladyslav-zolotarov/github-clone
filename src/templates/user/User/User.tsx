@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { GET_USER } from '../../../endpoints/queries';
 import { Link as RouterDomLink, useParams } from 'react-router-dom';
 import { Heading, Flex, Text, Link, Button } from '@chakra-ui/react';
-import { IUser } from '../../../utils/types/types';
+import { IUser } from '../../../utils/types/queryTypes';
 import { BiLink, BiLogoLinkedinSquare, BiLogoTwitter } from 'react-icons/bi';
 import { BsDot } from 'react-icons/bs';
 import { HiOutlineLocationMarker } from 'react-icons/hi';

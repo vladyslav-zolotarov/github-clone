@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/react';
 import { useQuery } from '@apollo/client';
 import { Navigation, HeaderTopBelt } from '../../components';
 import { GET_USER_INFO_FOR_NAVIGATION } from '../../endpoints/queries';
-import { IUserInfoForNavigation } from '../../utils/types/types';
+import { IUserInfoForNavigation } from '../../utils/types/queryTypes';
 import { useParams } from 'react-router-dom';
 
 export const HeaderLayout = () => {

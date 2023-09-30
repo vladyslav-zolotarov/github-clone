@@ -1,4 +1,4 @@
-import { IFollowers } from '../../utils/types/types';
+import { IFollowers } from '../../utils/types/queryTypes';
 import { GET_FOLLOWERS } from '../../endpoints/queries';
 import { useQuery } from '@apollo/client';
 import { Text, Flex } from '@chakra-ui/react';

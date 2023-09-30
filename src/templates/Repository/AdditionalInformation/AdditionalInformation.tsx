@@ -1,5 +1,5 @@
 import { Flex, Heading, Text, Circle } from '@chakra-ui/react';
-import { IRepositoryInfo } from '../../../utils/types/types';
+import { IRepositoryInfo } from '../../../utils/types/queryTypes';
 import { ImStarEmpty } from 'react-icons/im';
 import { LuEye } from 'react-icons/lu';
 import { GoRepoForked } from 'react-icons/go';

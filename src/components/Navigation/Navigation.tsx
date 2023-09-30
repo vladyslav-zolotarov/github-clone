@@ -3,7 +3,7 @@ import { Flex, Button, Circle, Text } from '@chakra-ui/react';
 import { BiBookReader, BiBookBookmark } from 'react-icons/bi';
 import { GoProjectRoadmap } from 'react-icons/go';
 import { FiPackage, FiStar } from 'react-icons/fi';
-import { IUserInfoForNavigation } from '../../utils/types/types';
+import { IUserInfoForNavigation } from '../../utils/types/queryTypes';
 
 type IUserInfoForNavigationState = Partial<IUserInfoForNavigation>;
 
