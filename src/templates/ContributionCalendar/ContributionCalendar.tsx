@@ -39,6 +39,9 @@ export const ContributionCalendar = () => {
     variables: { login: userLogin },
   });
 
+  const ITEM_STYLE_SIZE = '9px';
+  const ITEM_GAP_STYLE_SIZE = '3px';
+
   if (loading || contributionsCollectionLoading) return <Text>Loading...</Text>;
 
   if (error || contributionsCollectionError) return <Text>Error...</Text>;
@@ -47,21 +50,25 @@ export const ContributionCalendar = () => {
 
   return (
     <>
-      <Heading
-        as='h2'
-        size='sm'
-        fontWeight='medium'
-        mb='15px'>
-        {
-          data?.user.contributionsCollection.contributionCalendar
-            .totalContributions
-        }
-        <Text
-          as='span'
-          ml='5px'>
-          contributions in last year
-        </Text>
-      </Heading>
+      {data &&
+      data.user.contributionsCollection.contributionCalendar
+        .totalContributions ? (
+        <Heading
+          as='h2'
+          size='sm'
+          fontWeight='medium'
+          mb='15px'>
+          {
+            data.user.contributionsCollection.contributionCalendar
+              .totalContributions
+          }
+          <Text
+            as='span'
+            ml='5px'>
+            contributions in last year
+          </Text>
+        </Heading>
+      ) : null}
 
       <Grid
         gridTemplateColumns='1fr 100px'
@@ -72,30 +79,36 @@ export const ContributionCalendar = () => {
           p='15px'>
           <Flex
             direction='column'
-            overflowX='scroll'>
-            <Flex marginLeft='35px'>
-              <Flex gap='5px'>
-                {data?.user.contributionsCollection.contributionCalendar.months.map(
-                  item => {
-                    if (item.totalWeeks < 4) {
-                      return;
-                    }
+            // overflowX='scroll'
+          >
+            <Flex marginLeft='33px'>
+              <Flex gap={ITEM_GAP_STYLE_SIZE}>
+                {data &&
+                data.user.contributionsCollection.contributionCalendar.months
+                  ? data.user.contributionsCollection.contributionCalendar.months.map(
+                      item => {
+                        if (item.totalWeeks < 4) {
+                          return;
+                        }
 
-                    return (
-                      <Text
-                        key={`${item.name}${item.firstDay}`}
-                        height='11px'
-                        fontSize='xs'
-                        lineHeight={1}
-                        marginBottom='10px'
-                        w={`calc((11px * ${item.totalWeeks}) + 5px * ${
-                          item.totalWeeks - 1
-                        })`}>
-                        {item.name}
-                      </Text>
-                    );
-                  }
-                )}
+                        return (
+                          <Text
+                            key={`${item.name}${item.firstDay}`}
+                            height={ITEM_STYLE_SIZE}
+                            fontSize='xs'
+                            lineHeight={1}
+                            marginBottom='10px'
+                            w={`calc((${ITEM_STYLE_SIZE} * ${
+                              item.totalWeeks
+                            }) + ${ITEM_GAP_STYLE_SIZE} * ${
+                              item.totalWeeks - 1
+                            })`}>
+                            {item.name}
+                          </Text>
+                        );
+                      }
+                    )
+                  : null}
               </Flex>
             </Flex>
 
@@ -103,7 +116,7 @@ export const ContributionCalendar = () => {
               direction='column'
               mb='20px'>
               <Flex
-                gap='5px'
+                gap={ITEM_GAP_STYLE_SIZE}
                 padding='10px 0'>
                 <Flex
                   gap='5px'
@@ -114,7 +127,7 @@ export const ContributionCalendar = () => {
                       return (
                         <Text
                           key={item}
-                          height='11px'
+                          height={ITEM_STYLE_SIZE}
                           fontSize='xs'
                           lineHeight={1}>
                           {item}
@@ -126,7 +139,7 @@ export const ContributionCalendar = () => {
                       <Text
                         key={item}
                         opacity={0}
-                        height='11px'
+                        height={ITEM_STYLE_SIZE}
                         fontSize='xs'
                         lineHeight={1}>
                         {item}
@@ -135,47 +148,52 @@ export const ContributionCalendar = () => {
                   })}
                 </Flex>
 
-                {data?.user.contributionsCollection.contributionCalendar.weeks.map(
-                  (item, index) => {
-                    return (
-                      <Flex
-                        gap='5px'
-                        direction='column'
-                        key={index}>
-                        {item.contributionDays.map(i => {
-                          const currentTooltipLabel = `${
-                            i.contributionCount === 0
-                              ? `No`
-                              : i.contributionCount
-                          } contributions on ${daysOfWeek[i.weekday]}, ${format(
-                            new Date(`${i.date}`),
-                            'MMMM d, yyyy'
-                          )}`;
+                {data &&
+                data.user.contributionsCollection.contributionCalendar.weeks
+                  ? data.user.contributionsCollection.contributionCalendar.weeks.map(
+                      (item, index) => {
+                        return (
+                          <Flex
+                            gap='5px'
+                            direction='column'
+                            key={index}>
+                            {item.contributionDays.map(i => {
+                              const currentTooltipLabel = `${
+                                i.contributionCount === 0
+                                  ? `No`
+                                  : i.contributionCount
+                              } contributions on ${
+                                daysOfWeek[i.weekday]
+                              }, ${format(
+                                new Date(`${i.date}`),
+                                'MMMM d, yyyy'
+                              )}`;
 
-                          return (
-                            <Tooltip
-                              key={i.date}
-                              fontSize='xs'
-                              hasArrow
-                              arrowSize={10}
-                              placement='top'
-                              label={currentTooltipLabel}
-                              aria-label='A tooltip'>
-                              <Flex
-                                height='11px'
-                                width='11px'
-                                rounded='3px'
-                                border='1px solid'
-                                borderColor='blackAlpha.100'
-                                backgroundColor={i.color}
-                              />
-                            </Tooltip>
-                          );
-                        })}
-                      </Flex>
-                    );
-                  }
-                )}
+                              return (
+                                <Tooltip
+                                  key={i.date}
+                                  fontSize='xs'
+                                  hasArrow
+                                  arrowSize={10}
+                                  placement='top'
+                                  label={currentTooltipLabel}
+                                  aria-label='A tooltip'>
+                                  <Flex
+                                    height={ITEM_STYLE_SIZE}
+                                    width={ITEM_STYLE_SIZE}
+                                    rounded='3px'
+                                    backgroundColor={i.color}
+                                    border='1px solid'
+                                    borderColor={i.color}
+                                  />
+                                </Tooltip>
+                              );
+                            })}
+                          </Flex>
+                        );
+                      }
+                    )
+                  : null}
               </Flex>
             </Flex>
           </Flex>
@@ -184,7 +202,7 @@ export const ContributionCalendar = () => {
             gap='5px'
             ml='auto'>
             <Text
-              height='11px'
+              height={ITEM_STYLE_SIZE}
               fontSize='xs'
               lineHeight={1}>
               Less
@@ -198,23 +216,26 @@ export const ContributionCalendar = () => {
               borderColor='blackAlpha.100'
               backgroundColor='#ebedf0'
             />
-            {data?.user.contributionsCollection.contributionCalendar.colors.map(
-              item => {
-                return (
-                  <Flex
-                    key={item}
-                    height='10px'
-                    width='10px'
-                    rounded='3px'
-                    border='1px solid'
-                    borderColor='blackAlpha.100'
-                    backgroundColor={item}
-                  />
-                );
-              }
-            )}
+            {data &&
+            data.user.contributionsCollection.contributionCalendar.colors
+              ? data.user.contributionsCollection.contributionCalendar.colors.map(
+                  item => {
+                    return (
+                      <Flex
+                        key={item}
+                        height='10px'
+                        width='10px'
+                        rounded='3px'
+                        border='1px solid'
+                        borderColor='blackAlpha.100'
+                        backgroundColor={item}
+                      />
+                    );
+                  }
+                )
+              : null}
             <Text
-              height='11px'
+              height={ITEM_STYLE_SIZE}
               fontSize='xs'
               lineHeight={1}>
               More
@@ -222,7 +243,7 @@ export const ContributionCalendar = () => {
           </Flex>
         </Card>
 
-        {contributionsCollectionData && (
+        {contributionsCollectionData ? (
           <Flex
             direction='column'
             gap='10px'>
@@ -244,7 +265,7 @@ export const ContributionCalendar = () => {
               }
             )}
           </Flex>
-        )}
+        ) : null}
       </Grid>
     </>
   );
