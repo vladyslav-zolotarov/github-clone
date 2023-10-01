@@ -36,6 +36,19 @@ export interface IUser {
       totalCount: number;
     };
 
+    organizations: {
+      edges: [
+        {
+          node: {
+            avatarUrl: string;
+            id: string;
+            name: string;
+            login: string;
+          };
+        },
+      ];
+    };
+
     pronouns: string;
     websiteUrl: string;
     socialAccounts: {

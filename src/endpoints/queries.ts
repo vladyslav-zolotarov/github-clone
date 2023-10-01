@@ -40,6 +40,17 @@ export const GET_USER = gql`
         totalCount
       }
 
+      organizations(first: 5) {
+        edges {
+          node {
+            avatarUrl
+            id
+            name
+            login
+          }
+        }
+      }
+
       pronouns
       websiteUrl
       socialAccounts(first: 10) {

@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { GET_USER } from '../../../endpoints/queries';
 import { Link as RouterDomLink, useParams } from 'react-router-dom';
-import { Heading, Flex, Text, Link, Button } from '@chakra-ui/react';
+import { Heading, Flex, Text, Button, Avatar, Link } from '@chakra-ui/react';
 import { IUser } from '../../../utils/types/queryTypes';
 import { BiLink, BiLogoLinkedinSquare, BiLogoTwitter } from 'react-icons/bi';
 import { BsDot } from 'react-icons/bs';
@@ -153,7 +153,8 @@ export const User = () => {
           {/* User info */}
           <Flex
             direction='column'
-            gap='5px'>
+            gap='5px'
+            mb='20px'>
             {/* Company */}
             {data.user.company ? (
               <Flex
@@ -251,6 +252,33 @@ export const User = () => {
                 })
               : null}
           </Flex>
+
+          {data.user.organizations.edges ? (
+            <Flex
+              direction='column'
+              paddingTop='20px'
+              borderTop='1px solid'
+              borderColor='blackAlpha.100'>
+              <Heading
+                as='h2'
+                mb='10px'
+                size='sm'>
+                Organizations
+              </Heading>
+              <Flex gap='5px'>
+                {data.user.organizations.edges.map(item => {
+                  return (
+                    <RouterDomLink to={`/organization/${item.node.login}/`}>
+                      <Avatar
+                        size='sm'
+                        src={item.node.avatarUrl}
+                      />
+                    </RouterDomLink>
+                  );
+                })}
+              </Flex>
+            </Flex>
+          ) : null}
         </>
       ) : null}
     </Flex>
