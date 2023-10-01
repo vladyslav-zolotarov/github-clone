@@ -9,8 +9,18 @@ import {
 } from '@chakra-ui/react';
 import { Badge } from '..';
 import { StarButton } from '../Buttons';
+import { HTMLAttributes } from 'react';
 
-export const RepositoryCardSkeleton = () => {
+interface RepositoryCardSkeletonState
+  extends HTMLAttributes<HTMLButtonElement> {
+  hasButtonStar?: boolean;
+  hasDateInfo?: boolean;
+}
+
+export const RepositoryCardSkeleton = ({
+  hasButtonStar,
+  hasDateInfo,
+}: RepositoryCardSkeletonState) => {
   return (
     <Card
       size='sm'
@@ -25,14 +35,16 @@ export const RepositoryCardSkeleton = () => {
             width='100px'
           />
           <Badge visibility={'public'} />
-          <Flex ml='auto'>
-            <StarButton
-              id={''}
-              viewerHasStarred={false}
-              stargazerCount={0}
-              variant='starButton'
-            />
-          </Flex>
+          {hasButtonStar && (
+            <Flex ml='auto'>
+              <StarButton
+                id={''}
+                viewerHasStarred={false}
+                stargazerCount={0}
+                variant='starButton'
+              />
+            </Flex>
+          )}
         </Flex>
       </CardHeader>
       <CardBody p='5px'>
@@ -56,11 +68,12 @@ export const RepositoryCardSkeleton = () => {
               height='13px'
               width='100px'
             />
-
-            <Skeleton
-              height='13px'
-              width='100px'
-            />
+            {hasDateInfo && (
+              <Skeleton
+                height='13px'
+                width='100px'
+              />
+            )}
           </Flex>
         </Flex>
       </CardFooter>

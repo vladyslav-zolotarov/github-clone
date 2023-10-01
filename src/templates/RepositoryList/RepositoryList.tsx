@@ -18,7 +18,13 @@ export const RepositoryList = () => {
         direction='column'
         rowGap='20px'>
         {[...Array(6)].map((_, index) => {
-          return <RepositoryCardSkeleton key={index} />;
+          return (
+            <RepositoryCardSkeleton
+              hasButtonStar
+              hasDateInfo
+              key={index}
+            />
+          );
         })}
       </Flex>
     );

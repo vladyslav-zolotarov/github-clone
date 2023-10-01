@@ -39,6 +39,7 @@ export const ContributionCalendar = () => {
     variables: { login: userLogin },
   });
 
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const ITEM_STYLE_SIZE = '9px';
   const ITEM_GAP_STYLE_SIZE = '3px';
 
@@ -46,18 +47,18 @@ export const ContributionCalendar = () => {
 
   if (error || contributionsCollectionError) return <Text>Error...</Text>;
 
-  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
   return (
-    <>
+    <Grid
+      gridTemplateColumns='1fr 100px'
+      gap='20px'>
       {data &&
       data.user.contributionsCollection.contributionCalendar
         .totalContributions ? (
         <Heading
+          gridColumn={1}
           as='h2'
           size='sm'
-          fontWeight='medium'
-          mb='15px'>
+          fontWeight='medium'>
           {
             data.user.contributionsCollection.contributionCalendar
               .totalContributions
@@ -70,203 +71,201 @@ export const ContributionCalendar = () => {
         </Heading>
       ) : null}
 
-      <Grid
-        gridTemplateColumns='1fr 100px'
-        gap='20px'>
-        <Card
-          size='sm'
-          variant='outline'
-          p='15px'>
-          <Flex
-            direction='column'
-            // overflowX='scroll'
-          >
-            <Flex marginLeft='33px'>
-              <Flex gap={ITEM_GAP_STYLE_SIZE}>
-                {data &&
-                data.user.contributionsCollection.contributionCalendar.months
-                  ? data.user.contributionsCollection.contributionCalendar.months.map(
-                      item => {
-                        if (item.totalWeeks < 4) {
-                          return;
-                        }
-
-                        return (
-                          <Text
-                            key={`${item.name}${item.firstDay}`}
-                            height={ITEM_STYLE_SIZE}
-                            fontSize='xs'
-                            lineHeight={1}
-                            marginBottom='10px'
-                            w={`calc((${ITEM_STYLE_SIZE} * ${
-                              item.totalWeeks
-                            }) + ${ITEM_GAP_STYLE_SIZE} * ${
-                              item.totalWeeks - 1
-                            })`}>
-                            {item.name}
-                          </Text>
-                        );
+      <Card
+        gridColumn={1}
+        size='sm'
+        variant='outline'
+        p='15px'>
+        <Flex
+          direction='column'
+          // overflowX='scroll'
+        >
+          <Flex marginLeft='33px'>
+            <Flex gap={ITEM_GAP_STYLE_SIZE}>
+              {data &&
+              data.user.contributionsCollection.contributionCalendar.months
+                ? data.user.contributionsCollection.contributionCalendar.months.map(
+                    item => {
+                      if (item.totalWeeks < 4) {
+                        return;
                       }
-                    )
-                  : null}
-              </Flex>
-            </Flex>
 
-            <Flex
-              direction='column'
-              mb='20px'>
-              <Flex
-                gap={ITEM_GAP_STYLE_SIZE}
-                padding='10px 0'>
-                <Flex
-                  gap='5px'
-                  marginRight='5px'
-                  direction='column'>
-                  {daysOfWeek.map((item, index) => {
-                    if (index === 1 || index === 3 || index === 5) {
                       return (
                         <Text
-                          key={item}
+                          key={`${item.name}${item.firstDay}`}
                           height={ITEM_STYLE_SIZE}
                           fontSize='xs'
-                          lineHeight={1}>
-                          {item}
+                          lineHeight={1}
+                          marginBottom='10px'
+                          w={`calc((${ITEM_STYLE_SIZE} * ${
+                            item.totalWeeks
+                          }) + ${ITEM_GAP_STYLE_SIZE} * ${
+                            item.totalWeeks - 1
+                          })`}>
+                          {item.name}
                         </Text>
                       );
                     }
+                  )
+                : null}
+            </Flex>
+          </Flex>
 
+          <Flex
+            direction='column'
+            mb='20px'>
+            <Flex
+              gap={ITEM_GAP_STYLE_SIZE}
+              padding='10px 0'>
+              <Flex
+                gap='5px'
+                marginRight='5px'
+                direction='column'>
+                {daysOfWeek.map((item, index) => {
+                  if (index === 1 || index === 3 || index === 5) {
                     return (
                       <Text
                         key={item}
-                        opacity={0}
                         height={ITEM_STYLE_SIZE}
                         fontSize='xs'
                         lineHeight={1}>
                         {item}
                       </Text>
                     );
-                  })}
-                </Flex>
-
-                {data &&
-                data.user.contributionsCollection.contributionCalendar.weeks
-                  ? data.user.contributionsCollection.contributionCalendar.weeks.map(
-                      (item, index) => {
-                        return (
-                          <Flex
-                            gap='5px'
-                            direction='column'
-                            key={index}>
-                            {item.contributionDays.map(i => {
-                              const currentTooltipLabel = `${
-                                i.contributionCount === 0
-                                  ? `No`
-                                  : i.contributionCount
-                              } contributions on ${
-                                daysOfWeek[i.weekday]
-                              }, ${format(
-                                new Date(`${i.date}`),
-                                'MMMM d, yyyy'
-                              )}`;
-
-                              return (
-                                <Tooltip
-                                  key={i.date}
-                                  fontSize='xs'
-                                  hasArrow
-                                  arrowSize={10}
-                                  placement='top'
-                                  label={currentTooltipLabel}
-                                  aria-label='A tooltip'>
-                                  <Flex
-                                    height={ITEM_STYLE_SIZE}
-                                    width={ITEM_STYLE_SIZE}
-                                    rounded='3px'
-                                    backgroundColor={i.color}
-                                    border='1px solid'
-                                    borderColor={i.color}
-                                  />
-                                </Tooltip>
-                              );
-                            })}
-                          </Flex>
-                        );
-                      }
-                    )
-                  : null}
-              </Flex>
-            </Flex>
-          </Flex>
-          <Flex
-            alignItems='center'
-            gap='5px'
-            ml='auto'>
-            <Text
-              height={ITEM_STYLE_SIZE}
-              fontSize='xs'
-              lineHeight={1}>
-              Less
-            </Text>
-
-            <Flex
-              height='10px'
-              width='10px'
-              rounded='3px'
-              border='1px solid'
-              borderColor='blackAlpha.100'
-              backgroundColor='#ebedf0'
-            />
-            {data &&
-            data.user.contributionsCollection.contributionCalendar.colors
-              ? data.user.contributionsCollection.contributionCalendar.colors.map(
-                  item => {
-                    return (
-                      <Flex
-                        key={item}
-                        height='10px'
-                        width='10px'
-                        rounded='3px'
-                        border='1px solid'
-                        borderColor='blackAlpha.100'
-                        backgroundColor={item}
-                      />
-                    );
                   }
-                )
-              : null}
-            <Text
-              height={ITEM_STYLE_SIZE}
-              fontSize='xs'
-              lineHeight={1}>
-              More
-            </Text>
-          </Flex>
-        </Card>
 
-        {contributionsCollectionData ? (
-          <Flex
-            direction='column'
-            gap='10px'>
-            {contributionsCollectionData.user.contributionsCollection.contributionYears.map(
-              item => {
-                return (
-                  <Button
-                    key={item}
-                    size='xs'
-                    variant='ghost'
-                    justifyContent='flex-start'>
+                  return (
                     <Text
+                      key={item}
+                      opacity={0}
+                      height={ITEM_STYLE_SIZE}
                       fontSize='xs'
-                      fontWeight='medium'>
+                      lineHeight={1}>
                       {item}
                     </Text>
-                  </Button>
-                );
-              }
-            )}
+                  );
+                })}
+              </Flex>
+
+              {data &&
+              data.user.contributionsCollection.contributionCalendar.weeks
+                ? data.user.contributionsCollection.contributionCalendar.weeks.map(
+                    (item, index) => {
+                      return (
+                        <Flex
+                          gap='5px'
+                          direction='column'
+                          key={index}>
+                          {item.contributionDays.map(i => {
+                            const currentTooltipLabel = `${
+                              i.contributionCount === 0
+                                ? `No`
+                                : i.contributionCount
+                            } contributions on ${
+                              daysOfWeek[i.weekday]
+                            }, ${format(
+                              new Date(`${i.date}`),
+                              'MMMM d, yyyy'
+                            )}`;
+
+                            return (
+                              <Tooltip
+                                key={i.date}
+                                fontSize='xs'
+                                hasArrow
+                                arrowSize={10}
+                                placement='top'
+                                label={currentTooltipLabel}
+                                aria-label='A tooltip'>
+                                <Flex
+                                  height={ITEM_STYLE_SIZE}
+                                  width={ITEM_STYLE_SIZE}
+                                  rounded='3px'
+                                  backgroundColor={i.color}
+                                  border='1px solid'
+                                  borderColor={i.color}
+                                />
+                              </Tooltip>
+                            );
+                          })}
+                        </Flex>
+                      );
+                    }
+                  )
+                : null}
+            </Flex>
           </Flex>
-        ) : null}
-      </Grid>
-    </>
+        </Flex>
+        <Flex
+          alignItems='center'
+          gap='5px'
+          ml='auto'>
+          <Text
+            height={ITEM_STYLE_SIZE}
+            fontSize='xs'
+            lineHeight={1}>
+            Less
+          </Text>
+
+          <Flex
+            height='10px'
+            width='10px'
+            rounded='3px'
+            border='1px solid'
+            borderColor='blackAlpha.100'
+            backgroundColor='#ebedf0'
+          />
+          {data && data.user.contributionsCollection.contributionCalendar.colors
+            ? data.user.contributionsCollection.contributionCalendar.colors.map(
+                item => {
+                  return (
+                    <Flex
+                      key={item}
+                      height='10px'
+                      width='10px'
+                      rounded='3px'
+                      border='1px solid'
+                      borderColor='blackAlpha.100'
+                      backgroundColor={item}
+                    />
+                  );
+                }
+              )
+            : null}
+          <Text
+            height={ITEM_STYLE_SIZE}
+            fontSize='xs'
+            lineHeight={1}>
+            More
+          </Text>
+        </Flex>
+      </Card>
+
+      {contributionsCollectionData ? (
+        <Flex
+          gridColumn={2}
+          gridRow='1 / span 2'
+          direction='column'
+          gap='10px'>
+          {contributionsCollectionData.user.contributionsCollection.contributionYears.map(
+            item => {
+              return (
+                <Button
+                  key={item}
+                  size='xs'
+                  variant='ghost'
+                  justifyContent='flex-start'>
+                  <Text
+                    fontSize='xs'
+                    fontWeight='medium'>
+                    {item}
+                  </Text>
+                </Button>
+              );
+            }
+          )}
+        </Flex>
+      ) : null}
+    </Grid>
   );
 };
