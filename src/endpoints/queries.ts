@@ -45,6 +45,11 @@ export const GET_USER = gql`
       starredRepositories {
         totalCount
       }
+      itemShowcase {
+        items(first: 100) {
+          totalCount
+        }
+      }
 
       organizations(first: 5) {
         edges {

@@ -42,6 +42,12 @@ export interface IUser {
       totalCount: number;
     };
 
+    itemShowcase: {
+      items: {
+        totalCount: number;
+      };
+    };
+
     organizations: {
       edges: [
         {

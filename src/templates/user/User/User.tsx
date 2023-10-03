@@ -27,12 +27,14 @@ export const User = () => {
     setStarsCount,
     setFollowersCount,
     setFollowingCount,
+    setPinnedRepositoriesCount,
   } = useUserStore(state => ({
     setLogin: state.setLogin,
     setRepositoriesCount: state.setRepositoriesCount,
     setStarsCount: state.setStarsCount,
     setFollowersCount: state.setFollowersCount,
     setFollowingCount: state.setFollowingCount,
+    setPinnedRepositoriesCount: state.setPinnedRepositoriesCount,
   }));
 
   useEffect(() => {
@@ -44,6 +46,7 @@ export const User = () => {
     setStarsCount(data.user.starredRepositories.totalCount);
     setFollowersCount(data.user.followers.totalCount);
     setFollowingCount(data.user.following.totalCount);
+    setPinnedRepositoriesCount(data.user.itemShowcase.items.totalCount);
   }, [
     data,
     setLogin,
@@ -51,6 +54,7 @@ export const User = () => {
     setStarsCount,
     setFollowersCount,
     setFollowingCount,
+    setPinnedRepositoriesCount,
   ]);
 
   if (loading) return <UserSkeleton />;

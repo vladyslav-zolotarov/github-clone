@@ -4,6 +4,7 @@ import { IRepository } from '../../utils/types/queryTypes';
 import { Text, Flex } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { RepositoryCard, RepositoryCardSkeleton } from '../../components';
+import useUserStore from '../../utils/store/UserStore';
 
 export const RepositoryList = () => {
   const { userLogin } = useParams();
@@ -12,20 +13,26 @@ export const RepositoryList = () => {
     variables: { login: userLogin },
   });
 
+  const { repositoriesCount } = useUserStore(state => ({
+    repositoriesCount: state.repositoriesCount,
+  }));
+
   if (loading) {
     return (
       <Flex
         direction='column'
         rowGap='20px'>
-        {[...Array(6)].map((_, index) => {
-          return (
-            <RepositoryCardSkeleton
-              hasButtonStar
-              hasDateInfo
-              key={index}
-            />
-          );
-        })}
+        {[...Array(repositoriesCount ? repositoriesCount : 6)].map(
+          (_, index) => {
+            return (
+              <RepositoryCardSkeleton
+                hasButtonStar
+                hasDateInfo
+                key={index}
+              />
+            );
+          }
+        )}
       </Flex>
     );
   }

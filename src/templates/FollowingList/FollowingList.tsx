@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 import { Text, Flex } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { UserCard, UserCardSkeleton } from '../../components';
+import useUserStore from '../../utils/store/UserStore';
 
 export const FollowingList = () => {
   const { userLogin } = useParams();
@@ -12,12 +13,16 @@ export const FollowingList = () => {
     variables: { login: userLogin },
   });
 
+  const { followingCount } = useUserStore(state => ({
+    followingCount: state.followingCount,
+  }));
+
   if (loading) {
     return (
       <Flex
         direction='column'
         rowGap='20px'>
-        {[...Array(6)].map((_, index) => {
+        {[...Array(followingCount ? followingCount : 6)].map((_, index) => {
           return <UserCardSkeleton key={index} />;
         })}
       </Flex>

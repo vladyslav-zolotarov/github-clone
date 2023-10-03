@@ -8,6 +8,7 @@ import {
   RepositoryCard,
   RepositoryCardSkeleton,
 } from '../../../components';
+import useUserStore from '../../../utils/store/UserStore';
 
 export const Overview = () => {
   const { userLogin } = useParams();
@@ -18,6 +19,10 @@ export const Overview = () => {
   } = useQuery<IPinnedItemsRepository>(GET_PINNED_ITEMS_REPOSITORY, {
     variables: { login: userLogin },
   });
+
+  const { pinnedRepositoriesCount } = useUserStore(state => ({
+    pinnedRepositoriesCount: state.pinnedRepositoriesCount,
+  }));
 
   if (pinnedRepositoryError) return <Text>Error...</Text>;
 
@@ -63,7 +68,9 @@ export const Overview = () => {
             })
           ) : (
             <>
-              {[...Array(4)].map((_, index) => {
+              {[
+                ...Array(pinnedRepositoriesCount ? pinnedRepositoriesCount : 4),
+              ].map((_, index) => {
                 return <RepositoryCardSkeleton key={index} />;
               })}
             </>
