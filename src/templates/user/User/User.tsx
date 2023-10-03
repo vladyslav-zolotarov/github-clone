@@ -11,6 +11,8 @@ import { PiUsersBold } from 'react-icons/pi';
 import { LuBuilding } from 'react-icons/lu';
 import { UserAvatar, Status } from '../../../components';
 import { UserSkeleton } from '..';
+import useUserStore from '../../../utils/store/UserStore';
+import { useEffect } from 'react';
 
 export const User = () => {
   const { userLogin } = useParams();
@@ -18,6 +20,38 @@ export const User = () => {
   const { loading, error, data } = useQuery<IUser>(GET_USER, {
     variables: { login: userLogin },
   });
+
+  const {
+    setLogin,
+    setRepositoriesCount,
+    setStarsCount,
+    setFollowersCount,
+    setFollowingCount,
+  } = useUserStore(state => ({
+    setLogin: state.setLogin,
+    setRepositoriesCount: state.setRepositoriesCount,
+    setStarsCount: state.setStarsCount,
+    setFollowersCount: state.setFollowersCount,
+    setFollowingCount: state.setFollowingCount,
+  }));
+
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+    setLogin(data.user.login);
+    setRepositoriesCount(data.user.repositories.totalCount);
+    setStarsCount(data.user.starredRepositories.totalCount);
+    setFollowersCount(data.user.followers.totalCount);
+    setFollowingCount(data.user.following.totalCount);
+  }, [
+    data,
+    setLogin,
+    setRepositoriesCount,
+    setStarsCount,
+    setFollowersCount,
+    setFollowingCount,
+  ]);
 
   if (loading) return <UserSkeleton />;
 

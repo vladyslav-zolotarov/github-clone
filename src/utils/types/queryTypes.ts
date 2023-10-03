@@ -35,6 +35,12 @@ export interface IUser {
     following: {
       totalCount: number;
     };
+    repositories: {
+      totalCount: number;
+    };
+    starredRepositories: {
+      totalCount: number;
+    };
 
     organizations: {
       edges: [
