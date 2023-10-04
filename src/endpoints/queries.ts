@@ -114,6 +114,36 @@ export const GET_REPOSITORIES = gql`
   }
 `;
 
+export const GET_STARED_REPOSITORIES = gql`
+  query getRepositories($login: String!) {
+    user(login: $login) {
+      starredRepositories(first: 100) {
+        totalCount
+        edges {
+          node {
+            id
+            description
+            nameWithOwner
+            pushedAt
+            stargazerCount
+            viewerHasStarred
+            languages(first: 1, orderBy: { field: SIZE, direction: DESC }) {
+              edges {
+                node {
+                  name
+                  color
+                  id
+                }
+              }
+            }
+            visibility
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const GET_FOLLOWERS = gql`
   query getFollowers($login: String!) {
     user(login: $login) {

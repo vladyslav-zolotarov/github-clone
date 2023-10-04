@@ -84,6 +84,40 @@ export interface IUser {
   };
 }
 
+export interface IStaredRepository {
+  user: {
+    id: string;
+    repositories: {
+      edges: [
+        {
+          node: {
+            id: string;
+            nameWithOwner: string;
+            description: string;
+            pushedAt: string;
+
+            stargazerCount: number;
+            viewerHasStarred: boolean;
+
+            languages: {
+              edges: [
+                {
+                  node: {
+                    name: string;
+                    color: string;
+                    id: string;
+                  };
+                },
+              ];
+            };
+            visibility: string;
+          };
+        },
+      ];
+    };
+  };
+}
+
 export interface IRepository {
   user: {
     id: string;
