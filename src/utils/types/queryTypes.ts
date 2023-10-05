@@ -86,8 +86,7 @@ export interface IUser {
 
 export interface IStaredRepository {
   user: {
-    id: string;
-    repositories: {
+    starredRepositories: {
       edges: [
         {
           node: {

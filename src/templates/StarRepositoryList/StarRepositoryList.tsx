@@ -1,20 +1,23 @@
 import { useQuery } from '@apollo/client';
-import { GET_REPOSITORIES } from '../../endpoints/queries';
-import { IRepository } from '../../utils/types/queryTypes';
+import { GET_STARED_REPOSITORIES } from '../../endpoints/queries';
+import { IStaredRepository } from '../../utils/types/queryTypes';
 import { Text, Flex } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { RepositoryCard, RepositoryCardSkeleton } from '../../components';
 import useUserStore from '../../utils/store/UserStore';
 
-export const RepositoryList = () => {
+export const StarRepositoryList = () => {
   const { userLogin } = useParams();
 
-  const { data, loading, error } = useQuery<IRepository>(GET_REPOSITORIES, {
-    variables: { login: userLogin },
-  });
+  const { data, loading, error } = useQuery<IStaredRepository>(
+    GET_STARED_REPOSITORIES,
+    {
+      variables: { login: userLogin },
+    }
+  );
 
-  const { repositoriesCount } = useUserStore(state => ({
-    repositoriesCount: state.repositoriesCount,
+  const { starsCount } = useUserStore(state => ({
+    starsCount: state.starsCount,
   }));
 
   if (loading) {
@@ -22,17 +25,15 @@ export const RepositoryList = () => {
       <Flex
         direction='column'
         rowGap='20px'>
-        {[...Array(repositoriesCount ? repositoriesCount : 6)].map(
-          (_, index) => {
-            return (
-              <RepositoryCardSkeleton
-                hasButtonStar
-                hasDateInfo
-                key={index}
-              />
-            );
-          }
-        )}
+        {[...Array(starsCount ? starsCount : 6)].map((_, index) => {
+          return (
+            <RepositoryCardSkeleton
+              hasButtonStar
+              hasDateInfo
+              key={index}
+            />
+          );
+        })}
       </Flex>
     );
   }
@@ -43,7 +44,7 @@ export const RepositoryList = () => {
     <Flex
       direction='column'
       rowGap='20px'>
-      {data?.user.repositories.edges.map(item => {
+      {data?.user.starredRepositories.edges.map(item => {
         const currentItem = item.node;
 
         return (
@@ -53,11 +54,16 @@ export const RepositoryList = () => {
             description={currentItem.description}
             visibility={currentItem.visibility}
             languages={currentItem.languages}
-            name={currentItem.name}
+            name={currentItem.nameWithOwner}
             pushedAt={currentItem.pushedAt}
+            hasStarLink={{
+              stargazerCount: currentItem.stargazerCount,
+              viewerHasStarred: currentItem.viewerHasStarred,
+            }}
             hasStarButton={{
               stargazerCount: currentItem.stargazerCount,
               viewerHasStarred: currentItem.viewerHasStarred,
+              hideStargazerCount: true,
             }}
           />
         );

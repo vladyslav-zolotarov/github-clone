@@ -118,7 +118,6 @@ export const GET_STARED_REPOSITORIES = gql`
   query getRepositories($login: String!) {
     user(login: $login) {
       starredRepositories(first: 100) {
-        totalCount
         edges {
           node {
             id

@@ -15,6 +15,7 @@ interface StarButtonProps {
   id: string;
   viewerHasStarred: boolean;
   stargazerCount: number;
+  hideStargazerCount?: boolean;
   endpointQueryUpdate?: DocumentNode;
   variant: 'starButton' | 'starIcon';
 }
@@ -23,6 +24,7 @@ export const StarButton = ({
   id,
   viewerHasStarred,
   stargazerCount,
+  hideStargazerCount,
   endpointQueryUpdate,
   variant,
 }: StarButtonProps) => {
@@ -57,12 +59,14 @@ export const StarButton = ({
               <ImStarEmpty size='16px' />
             )}
             <Text fontSize='sm'>{viewerHasStarred ? 'Stared' : 'Star'}</Text>
-            <Circle
-              size='21px'
-              background='blackAlpha.100'
-              color='black'>
-              <Text fontSize='xs'>{stargazerCount}</Text>
-            </Circle>
+            {!hideStargazerCount ? (
+              <Circle
+                size='21px'
+                background='blackAlpha.100'
+                color='black'>
+                <Text fontSize='xs'>{stargazerCount}</Text>
+              </Circle>
+            ) : null}
           </Button>
           <IconButton
             aria-label='Add to friends'

@@ -7,6 +7,7 @@ import { UserLayout } from './layouts/UserLayout/UserLayout';
 import { Grid } from '@chakra-ui/react';
 import { FollowingList } from './templates/FollowingList/FollowingList';
 import { RepositoryList } from './templates/RepositoryList/RepositoryList';
+import { StarRepositoryList } from './templates/StarRepositoryList/StarRepositoryList';
 
 function App() {
   const router = createBrowserRouter([
@@ -23,6 +24,14 @@ function App() {
           element: (
             <UserLayout>
               <Overview />
+            </UserLayout>
+          ),
+        },
+        {
+          path: 'user/:userLogin/stars',
+          element: (
+            <UserLayout>
+              <StarRepositoryList />
             </UserLayout>
           ),
         },

@@ -59,7 +59,7 @@ export const Overview = () => {
                   languages={currentItem.languages}
                   name={currentItem.name}
                   icon={true}
-                  isStarIcon={{
+                  hasStarIcon={{
                     stargazerCount: currentItem.stargazerCount,
                     viewerHasStarred: currentItem.viewerHasStarred,
                   }}

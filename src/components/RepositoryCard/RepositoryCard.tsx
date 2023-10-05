@@ -19,6 +19,7 @@ import {
 } from 'date-fns';
 import { StarButton } from '../Buttons';
 import { GET_PINNED_ITEMS_REPOSITORY } from '../../endpoints/queries';
+import { StarLink } from '../Buttons/StarLink/StarLink';
 
 interface RepositoryCardProps {
   id: string;
@@ -38,14 +39,21 @@ interface RepositoryCardProps {
 
   visibility: string;
 
-  isStarIcon?: {
+  hasStarIcon?: {
     viewerHasStarred: boolean;
     stargazerCount: number;
   };
-  isStarButton?: {
+  hasStarButton?: {
+    viewerHasStarred: boolean;
+    stargazerCount: number;
+    hideStargazerCount?: boolean;
+  };
+
+  hasStarLink?: {
     viewerHasStarred: boolean;
     stargazerCount: number;
   };
+
   icon?: boolean;
   pushedAt?: string;
 }
@@ -59,8 +67,9 @@ export const RepositoryCard = (props: RepositoryCardProps) => {
     visibility,
     icon,
     pushedAt,
-    isStarIcon,
-    isStarButton,
+    hasStarIcon,
+    hasStarButton,
+    hasStarLink,
   } = props;
   const navigate = useNavigate();
   const { userLogin } = useParams();
@@ -71,7 +80,11 @@ export const RepositoryCard = (props: RepositoryCardProps) => {
         fontSize='12px'
         fontWeight='medium'
         color='blackAlpha.700'>
-        Updated
+        <Text
+          as='span'
+          mr='5px'>
+          Updated
+        </Text>
         {differenceInCalendarDays(new Date(), new Date(`${pushedAt}`)) < 14 ? (
           formatDistanceToNow(new Date(`${pushedAt}`), {
             includeSeconds: true,
@@ -116,17 +129,20 @@ export const RepositoryCard = (props: RepositoryCardProps) => {
           </Link>
           <Badge visibility={visibility} />
 
-          {isStarButton && (
+          {hasStarButton ? (
             <Flex ml='auto'>
               <StarButton
                 id={id}
-                viewerHasStarred={isStarButton.viewerHasStarred}
-                stargazerCount={isStarButton.stargazerCount}
+                viewerHasStarred={hasStarButton.viewerHasStarred}
+                stargazerCount={hasStarButton.stargazerCount}
                 endpointQueryUpdate={GET_PINNED_ITEMS_REPOSITORY}
                 variant='starButton'
+                hideStargazerCount={
+                  hasStarButton.hideStargazerCount ? true : false
+                }
               />
             </Flex>
-          )}
+          ) : null}
         </Flex>
       </CardHeader>
       <CardBody p='5px'>
@@ -161,15 +177,21 @@ export const RepositoryCard = (props: RepositoryCardProps) => {
               </Flex>
             );
           })}
-          {isStarIcon && (
+          {hasStarIcon ? (
             <StarButton
               id={id}
-              viewerHasStarred={isStarIcon.viewerHasStarred}
-              stargazerCount={isStarIcon.stargazerCount}
+              viewerHasStarred={hasStarIcon.viewerHasStarred}
+              stargazerCount={hasStarIcon.stargazerCount}
               endpointQueryUpdate={GET_PINNED_ITEMS_REPOSITORY}
               variant='starIcon'
             />
-          )}
+          ) : hasStarLink ? (
+            <StarLink
+              id={id}
+              viewerHasStarred={hasStarLink.viewerHasStarred}
+              stargazerCount={hasStarLink.stargazerCount}
+            />
+          ) : null}
           {pushedAt && dateContent()}
         </Flex>
       </CardFooter>
