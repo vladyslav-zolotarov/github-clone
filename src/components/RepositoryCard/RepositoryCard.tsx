@@ -23,7 +23,8 @@ import { StarLink } from '../Buttons/StarLink/StarLink';
 
 interface RepositoryCardProps {
   id: string;
-  name: string;
+  name?: string | null;
+  nameWithOwner?: string | null;
   description: string;
   languages: {
     edges: [
@@ -62,6 +63,7 @@ export const RepositoryCard = (props: RepositoryCardProps) => {
   const {
     id,
     name,
+    nameWithOwner,
     description,
     languages,
     visibility,
@@ -116,15 +118,19 @@ export const RepositoryCard = (props: RepositoryCardProps) => {
           {icon && <RiGitRepositoryLine color='#858585' />}
           <Link
             color='#0969da'
-            onClick={() =>
-              navigate(`/${userLogin}/${name}`, {
-                replace: true,
-              })
-            }>
+            onClick={() => {
+              nameWithOwner
+                ? navigate(`/${nameWithOwner}`, {
+                    replace: true,
+                  })
+                : navigate(`/${userLogin}/${name}`, {
+                    replace: true,
+                  });
+            }}>
             <Heading
               as='h3'
               size='sm'>
-              {name}
+              {nameWithOwner ? nameWithOwner : name ? name : null}
             </Heading>
           </Link>
           <Badge visibility={visibility} />
@@ -188,7 +194,6 @@ export const RepositoryCard = (props: RepositoryCardProps) => {
           ) : hasStarLink ? (
             <StarLink
               id={id}
-              viewerHasStarred={hasStarLink.viewerHasStarred}
               stargazerCount={hasStarLink.stargazerCount}
             />
           ) : null}

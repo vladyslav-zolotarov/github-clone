@@ -4,27 +4,20 @@ import { Link } from 'react-router-dom';
 
 interface StarLinkProps {
   id: string;
-  viewerHasStarred: boolean;
   stargazerCount: number;
 }
 
-export const StarLink = ({
-  id,
-  viewerHasStarred,
-  stargazerCount,
-}: StarLinkProps) => {
+export const StarLink = ({ id, stargazerCount }: StarLinkProps) => {
   return (
     <Link to={`/stars/${id}`}>
       <Flex
         alignItems='center'
         color='blackAlpha.700'
         gap='5px'>
-        {viewerHasStarred ? (
-          <ImStarEmpty
-            size='15px'
-            color='#eac54f'
-          />
-        ) : null}
+        <ImStarEmpty
+          size='15px'
+          color='#eac54f'
+        />
         <Text
           fontSize='sm'
           fontWeight='medium'>

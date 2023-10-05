@@ -93,6 +93,10 @@ export const GET_REPOSITORIES = gql`
           node {
             id
             name
+            nameWithOwner
+            owner {
+              login
+            }
             description
             pushedAt
             stargazerCount
@@ -122,7 +126,11 @@ export const GET_STARED_REPOSITORIES = gql`
           node {
             id
             description
+            name
             nameWithOwner
+            owner {
+              login
+            }
             pushedAt
             stargazerCount
             viewerHasStarred

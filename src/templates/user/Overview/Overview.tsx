@@ -58,10 +58,16 @@ export const Overview = () => {
                   description={currentItem.description}
                   visibility={currentItem.visibility}
                   languages={currentItem.languages}
+                  nameWithOwner={
+                    currentItem.owner.login !== userLogin &&
+                    currentItem.nameWithOwner
+                      ? currentItem.nameWithOwner
+                      : null
+                  }
                   name={
                     currentItem.owner.login === userLogin
                       ? currentItem.name
-                      : currentItem.nameWithOwner
+                      : null
                   }
                   icon={true}
                   hasStarIcon={{

@@ -92,6 +92,11 @@ export interface IStaredRepository {
           node: {
             id: string;
             nameWithOwner: string;
+            name: string;
+
+            owner: {
+              login: string;
+            };
             description: string;
             pushedAt: string;
 
@@ -126,6 +131,12 @@ export interface IRepository {
           node: {
             id: string;
             name: string;
+            nameWithOwner: string;
+
+            owner: {
+              login: string;
+            };
+
             description: string;
             pushedAt: string;
 

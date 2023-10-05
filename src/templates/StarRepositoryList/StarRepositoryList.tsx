@@ -54,7 +54,14 @@ export const StarRepositoryList = () => {
             description={currentItem.description}
             visibility={currentItem.visibility}
             languages={currentItem.languages}
-            name={currentItem.nameWithOwner}
+            nameWithOwner={
+              currentItem.owner.login !== userLogin && currentItem.nameWithOwner
+                ? currentItem.nameWithOwner
+                : null
+            }
+            name={
+              currentItem.owner.login === userLogin ? currentItem.name : null
+            }
             pushedAt={currentItem.pushedAt}
             hasStarLink={{
               stargazerCount: currentItem.stargazerCount,
