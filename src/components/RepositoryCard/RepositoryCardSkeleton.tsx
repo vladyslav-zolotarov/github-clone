@@ -49,11 +49,11 @@ export const RepositoryCardSkeleton = ({
       </CardHeader>
       <CardBody p='5px'>
         <Skeleton
-          height='13px'
+          height='18px'
           width='350px'
         />
       </CardBody>
-      <CardFooter p='5px'>
+      <CardFooter p='9px'>
         <Flex
           gap='10px'
           alignItems='center'>
