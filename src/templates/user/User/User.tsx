@@ -291,7 +291,7 @@ export const User = () => {
               : null}
           </Flex>
 
-          {data.user.organizations.edges ? (
+          {data.user.organizations.edges.length ? (
             <Flex
               direction='column'
               paddingTop='20px'
