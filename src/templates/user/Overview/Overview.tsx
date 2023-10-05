@@ -50,6 +50,7 @@ export const Overview = () => {
           pinnedRepositoryData.user.itemShowcase.items.edges.length ? (
             pinnedRepositoryData.user.itemShowcase.items.edges.map(item => {
               const currentItem = item.node;
+
               return (
                 <RepositoryCard
                   key={currentItem.id}
@@ -57,7 +58,11 @@ export const Overview = () => {
                   description={currentItem.description}
                   visibility={currentItem.visibility}
                   languages={currentItem.languages}
-                  name={currentItem.name}
+                  name={
+                    currentItem.owner.login === userLogin
+                      ? currentItem.name
+                      : currentItem.nameWithOwner
+                  }
                   icon={true}
                   hasStarIcon={{
                     stargazerCount: currentItem.stargazerCount,

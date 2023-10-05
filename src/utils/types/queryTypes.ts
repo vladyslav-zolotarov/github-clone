@@ -292,6 +292,10 @@ export interface IPinnedItemsRepository {
             node: {
               id: string;
               name: string;
+              nameWithOwner: string;
+              owner: {
+                login: string;
+              };
               description: string;
               stargazerCount: number;
               viewerHasStarred: boolean;

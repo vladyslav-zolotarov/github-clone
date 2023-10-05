@@ -289,6 +289,10 @@ export const GET_PINNED_ITEMS_REPOSITORY = gql`
               ... on Repository {
                 id
                 name
+                nameWithOwner
+                owner {
+                  login
+                }
                 description
                 stargazerCount
                 viewerHasStarred
