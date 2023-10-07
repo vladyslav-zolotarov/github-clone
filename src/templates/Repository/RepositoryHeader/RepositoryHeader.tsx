@@ -26,6 +26,7 @@ export const RepositoryHeader = ({ data }: RepositoryHeaderProps) => {
         gap='10px'
         alignItems='center'>
         <UserAvatar
+          size='xs'
           name={data?.repository.owner.login}
           src={data?.repository.owner.avatarUrl}
         />

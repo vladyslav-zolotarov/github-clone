@@ -271,13 +271,16 @@ export interface IRepositoryInfoTree {
 
 export interface IRepositoryInfoCommit {
   repository: {
-    owner: {
-      id: string;
-      avatarUrl: string;
-      login: string;
-    };
-
     object: {
+      author: {
+        avatarUrl: string;
+        user: {
+          login: string;
+        };
+      };
+      messageHeadline: string;
+      messageBody: string;
+
       message: string;
       abbreviatedOid: string;
       committedDate: string;

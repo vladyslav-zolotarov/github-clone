@@ -268,6 +268,16 @@ export const GET_REPOSITORY_INFO_COMMIT = gql`
     repository(name: $name, owner: $owner) {
       object(expression: "HEAD") {
         ... on Commit {
+          author {
+            avatarUrl
+            user {
+              login
+            }
+          }
+
+          messageHeadline
+          messageBody
+
           message
           abbreviatedOid
           committedDate

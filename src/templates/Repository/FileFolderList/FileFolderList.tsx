@@ -8,6 +8,7 @@ import {
   Tbody,
   Td,
   Link,
+  Button,
 } from '@chakra-ui/react';
 import {
   format,
@@ -26,9 +27,11 @@ import { useQuery } from '@apollo/client';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ReadMe, FileItem, FolderItem, UserAvatar } from '../../../components';
 import { VscGitCommit } from 'react-icons/vsc';
+import { useState } from 'react';
 
 export const FileFolderList = () => {
   const { userLogin, repositoryName } = useParams();
+  const [showedMessageBody, setShowedMessageBody] = useState<boolean>(false);
 
   const {
     data: dataTree,
@@ -82,34 +85,55 @@ export const FileFolderList = () => {
                   <Flex
                     gap='13px'
                     alignItems='center'>
-                    <Flex
-                      gap='10px'
-                      alignItems='center'>
-                      {dataCommit && dataCommit.repository.owner ? (
-                        <UserAvatar
-                          name={dataCommit?.repository?.owner?.login}
-                          src={dataCommit?.repository?.owner?.avatarUrl}
-                        />
-                      ) : null}
+                    {dataCommit && dataCommit.repository.object.author ? (
                       <Link
+                        display='flex'
+                        gap='10px'
+                        alignItems='center'
                         onClick={() =>
                           navigate(
-                            `/user/${dataCommit?.repository?.owner?.login}/overview`,
+                            `/user/${dataCommit.repository.object.author.user.login}/overview`,
                             {
                               replace: true,
                             }
                           )
                         }>
+                        <UserAvatar
+                          size='xs'
+                          name={dataCommit.repository.object.author.user.login}
+                          src={dataCommit.repository.object.author.avatarUrl}
+                        />
+
                         <Text
                           fontSize='sm'
                           fontWeight='semibold'>
-                          {dataCommit?.repository?.owner?.login}
+                          {dataCommit.repository.object.author.user.login}
                         </Text>
                       </Link>
+                    ) : null}
+                    <Flex
+                      alignItems='center'
+                      gap='10px'>
+                      {dataCommit ? (
+                        <Text
+                          fontSize='sm'
+                          fontWeight='medium'>
+                          {dataCommit.repository.object.messageHeadline}
+                        </Text>
+                      ) : null}
+
+                      {dataCommit &&
+                      dataCommit.repository.object.messageBody ? (
+                        <Button
+                          size='xs'
+                          colorScheme='gray'
+                          onClick={() =>
+                            setShowedMessageBody(!showedMessageBody)
+                          }>
+                          ...
+                        </Button>
+                      ) : null}
                     </Flex>
-                    <Text fontSize='sm'>
-                      {dataCommit?.repository.object.message}
-                    </Text>
                   </Flex>
                   <Flex
                     gap='13px'
@@ -172,6 +196,31 @@ export const FileFolderList = () => {
                     </Flex>
                   </Flex>
                 </Flex>
+
+                {showedMessageBody && (
+                  <Flex
+                    direction='column'
+                    gap='10px'
+                    paddingLeft='34px'
+                    maxWidth='60%'
+                    whiteSpace='break-spaces'>
+                    {dataCommit && dataCommit.repository.object.messageBody ? (
+                      <>
+                        <Text
+                          fontSize='sm'
+                          fontWeight='semibold'>
+                          {dataCommit.repository.object.messageHeadline}
+                        </Text>
+                        <Text
+                          fontSize='xs'
+                          fontWeight='medium'
+                          color='blackAlpha.600'>
+                          {dataCommit.repository.object.messageBody}
+                        </Text>
+                      </>
+                    ) : null}
+                  </Flex>
+                )}
               </Td>
             </Tr>
           </Thead>
