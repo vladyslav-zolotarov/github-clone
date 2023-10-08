@@ -27,11 +27,41 @@ import { useQuery } from '@apollo/client';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ReadMe, FileItem, FolderItem, UserAvatar } from '../../../components';
 import { VscGitCommit } from 'react-icons/vsc';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+// type RepositoryReadMeFileState =
+//   IRepositoryInfoTree['repository']['object']['entries'];
+
+// type RepositoryReadMeFileState = Pick<IRepositoryInfoTree, 'repository'> & {
+//   object?: Pick<IRepositoryInfoTree['repository'], 'object'> & {
+//     entries?: Pick<IRepositoryInfoTree['repository']['object'], 'entries'>[];
+//   };
+// };
+
+// type TenantManagePageQueryTenant =
+// Pick<Tenant, 'id' | 'description' | 'name'> & {
+//   approvedUsers: Array<Pick<Tenant['approvedUsers'][0], 'id' | 'alias'>>
+// }
+
+// type SimplifiedCompany = Pick<Company, 'name'> & {
+//   offices?: Pick<Office, 'city'>[];
+// }
 
 export const FileFolderList = () => {
+  const navigate = useNavigate();
   const { userLogin, repositoryName } = useParams();
   const [showedMessageBody, setShowedMessageBody] = useState<boolean>(false);
+  // const [fileForderData, setFileFolderData] = useState<{
+  //   RepositoryReadMeFile: RepositoryReadMeFileState[];
+  //   RepositoryFolders: IRepositoryInfoTree;
+  //   RepositoryFiles: IRepositoryInfoTree;
+  // }>({
+  //   RepositoryReadMeFile: {} as RepositoryReadMeFileState[],
+  //   RepositoryFolders: {},
+  //   RepositoryFiles: {},
+  // });
+
+  // as IRepositoryInfoTree['repository']['object']['entries'][]
 
   const {
     data: dataTree,
@@ -49,7 +79,30 @@ export const FileFolderList = () => {
     variables: { name: repositoryName, owner: userLogin },
   });
 
-  const navigate = useNavigate();
+  // useEffect(() => {
+  //   if (!dataTree) {
+  //     return;
+  //   }
+
+  //   setFileFolderData({
+  //     ...fileForderData,
+  //     RepositoryReadMeFile: RepositoryReadMeFile,
+  //   });
+
+  //   setFileFolderData({
+  //     ...fileForderData,
+  //     RepositoryFolders: RepositoryFolders,
+  //   });
+
+  //   setFileFolderData({ ...fileForderData, RepositoryFiles: RepositoryFiles });
+
+  //   setFileFolderData({
+  //     ...fileForderData,
+  //     RepositoryReadMeFile: RepositoryReadMeFile,
+  //     RepositoryFolders: RepositoryFolders,
+  //     RepositoryFiles: RepositoryFiles,
+  //   });
+  // }, [dataTree, fileForderData]);
 
   if (loadingTree || loadingCommit) return <Text>Loading...</Text>;
 
@@ -62,7 +115,6 @@ export const FileFolderList = () => {
   const RepositoryFolders = dataTree?.repository.object.entries.filter(
     rep => rep.extension === ''
   );
-
   const RepositoryFiles = dataTree?.repository.object.entries.filter(
     rep => rep.extension !== ''
   );
@@ -71,182 +123,192 @@ export const FileFolderList = () => {
     <Flex
       direction='column'
       gap='20px'>
-      <TableContainer
-        border='1px'
-        rounded='md'
-        borderColor='blackAlpha.300'>
-        <Table variant='simple'>
-          <Thead backgroundColor='blackAlpha.50'>
-            <Tr>
-              <Td padding='10px 20px'>
-                <Flex
-                  paddingBlock='4px'
-                  justifyContent='space-between'>
+      {dataCommit ? (
+        <TableContainer
+          border='1px'
+          rounded='md'
+          borderColor='blackAlpha.300'>
+          <Table variant='simple'>
+            <Thead backgroundColor='blackAlpha.50'>
+              <Tr>
+                <Td padding='10px 20px'>
                   <Flex
-                    gap='13px'
-                    alignItems='center'>
-                    {dataCommit && dataCommit.repository.object.author ? (
-                      <Link
-                        display='flex'
-                        gap='10px'
-                        alignItems='center'
-                        onClick={() =>
-                          navigate(
-                            `/user/${dataCommit.repository.object.author.user.login}/overview`,
-                            {
-                              replace: true,
-                            }
-                          )
-                        }>
-                        <UserAvatar
-                          size='xs'
-                          name={dataCommit.repository.object.author.user.login}
-                          src={dataCommit.repository.object.author.avatarUrl}
-                        />
-
-                        <Text
-                          fontSize='sm'
-                          fontWeight='semibold'>
-                          {dataCommit.repository.object.author.user.login}
-                        </Text>
-                      </Link>
-                    ) : null}
+                    paddingBlock='4px'
+                    justifyContent='space-between'>
                     <Flex
-                      alignItems='center'
-                      gap='10px'>
-                      {dataCommit ? (
-                        <Text
-                          fontSize='sm'
-                          fontWeight='medium'>
-                          {dataCommit.repository.object.messageHeadline}
-                        </Text>
-                      ) : null}
-
-                      {dataCommit &&
-                      dataCommit.repository.object.messageBody ? (
-                        <Button
-                          size='xs'
-                          colorScheme='gray'
+                      gap='13px'
+                      alignItems='center'>
+                      {dataCommit.repository.object.author ? (
+                        <Link
+                          display='flex'
+                          gap='10px'
+                          alignItems='center'
                           onClick={() =>
-                            setShowedMessageBody(!showedMessageBody)
+                            navigate(
+                              `/user/${dataCommit.repository.object.author?.user?.login}/overview`,
+                              {
+                                replace: true,
+                              }
+                            )
                           }>
-                          ...
-                        </Button>
-                      ) : null}
-                    </Flex>
-                  </Flex>
-                  <Flex
-                    gap='13px'
-                    alignItems='center'>
-                    <Text
-                      fontSize='sm'
-                      color='blackAlpha.600'
-                      fontWeight='medium'>
-                      {dataCommit?.repository.object.abbreviatedOid}
-                    </Text>
-                    <Text
-                      fontSize='sm'
-                      fontWeight='semibold'
-                      color='blackAlpha.600'>
-                      {differenceInCalendarDays(
-                        new Date(),
-                        new Date(
-                          `${dataCommit?.repository.object.committedDate}`
-                        )
-                      ) < 14 ? (
-                        formatDistanceToNow(
-                          new Date(
-                            `${dataCommit?.repository.object.committedDate}`
-                          ),
-                          {
-                            includeSeconds: true,
-                          }
-                        )
-                      ) : (
-                        <Text as='span'>
-                          on
-                          <Text
-                            ml='4px'
-                            as='span'>
-                            {format(
-                              new Date(
-                                `${dataCommit?.repository.object.committedDate}`
-                              ),
-                              'dd MMM yyyy'
-                            )}
-                          </Text>
-                        </Text>
-                      )}
-                    </Text>
-                    <Flex
-                      alignItems='center'
-                      gap='1px'>
-                      <VscGitCommit size='14px' />
-                      <Text
-                        fontSize='sm'
-                        fontWeight='semibold'>
-                        {dataCommit?.repository.object.history.totalCount}
-                        <Text
-                          ml='4px'
-                          as='span'
-                          color='blackAlpha.600'>
-                          commits
-                        </Text>
-                      </Text>
-                    </Flex>
-                  </Flex>
-                </Flex>
+                          <UserAvatar
+                            size='xs'
+                            name={
+                              dataCommit.repository.object.author?.user?.login
+                            }
+                            src={dataCommit.repository.object.author?.avatarUrl}
+                          />
 
-                {showedMessageBody && (
-                  <Flex
-                    direction='column'
-                    gap='10px'
-                    paddingLeft='34px'
-                    maxWidth='60%'
-                    whiteSpace='break-spaces'>
-                    {dataCommit && dataCommit.repository.object.messageBody ? (
-                      <>
+                          <Text
+                            fontSize='sm'
+                            fontWeight='semibold'>
+                            {dataCommit.repository.object.author?.user?.login}
+                          </Text>
+                        </Link>
+                      ) : null}
+                      <Flex
+                        alignItems='center'
+                        gap='10px'>
+                        {dataCommit.repository.object.messageHeadline ? (
+                          <Text
+                            fontSize='sm'
+                            fontWeight='medium'>
+                            {dataCommit.repository.object.messageHeadline}
+                          </Text>
+                        ) : null}
+
+                        {dataCommit.repository.object.messageBody ? (
+                          <Button
+                            size='xs'
+                            colorScheme='gray'
+                            onClick={() =>
+                              setShowedMessageBody(!showedMessageBody)
+                            }>
+                            ...
+                          </Button>
+                        ) : null}
+                      </Flex>
+                    </Flex>
+                    <Flex
+                      gap='13px'
+                      alignItems='center'>
+                      {dataCommit.repository.object.abbreviatedOid ? (
                         <Text
                           fontSize='sm'
-                          fontWeight='semibold'>
-                          {dataCommit.repository.object.messageHeadline}
+                          color='blackAlpha.600'
+                          fontWeight='medium'>
+                          {dataCommit.repository.object.abbreviatedOid}
                         </Text>
+                      ) : null}
+                      {dataCommit.repository.object.committedDate ? (
                         <Text
-                          fontSize='xs'
-                          fontWeight='medium'
+                          fontSize='sm'
+                          fontWeight='semibold'
                           color='blackAlpha.600'>
-                          {dataCommit.repository.object.messageBody}
+                          {differenceInCalendarDays(
+                            new Date(),
+                            new Date(
+                              `${dataCommit.repository.object.committedDate}`
+                            )
+                          ) < 14 ? (
+                            formatDistanceToNow(
+                              new Date(
+                                `${dataCommit.repository.object.committedDate}`
+                              ),
+                              {
+                                includeSeconds: true,
+                              }
+                            )
+                          ) : (
+                            <Text as='span'>
+                              on
+                              <Text
+                                ml='4px'
+                                as='span'>
+                                {format(
+                                  new Date(
+                                    `${dataCommit.repository.object.committedDate}`
+                                  ),
+                                  'dd MMM yyyy'
+                                )}
+                              </Text>
+                            </Text>
+                          )}
                         </Text>
-                      </>
-                    ) : null}
+                      ) : null}
+                      <Flex
+                        alignItems='center'
+                        gap='1px'>
+                        <VscGitCommit size='14px' />
+                        {dataCommit.repository.object.history.totalCount ? (
+                          <Text
+                            fontSize='sm'
+                            fontWeight='semibold'>
+                            {dataCommit.repository.object.history.totalCount}
+                            <Text
+                              ml='4px'
+                              as='span'
+                              color='blackAlpha.600'>
+                              commits
+                            </Text>
+                          </Text>
+                        ) : null}
+                      </Flex>
+                    </Flex>
                   </Flex>
-                )}
-              </Td>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {RepositoryFolders?.map(folder => {
-              return (
-                <Tr key={folder.name}>
-                  <Td padding='10px 20px'>
-                    <FolderItem data={folder} />
-                  </Td>
-                </Tr>
-              );
-            })}
-            {RepositoryFiles?.map(file => {
-              return (
-                <Tr key={file.name}>
-                  <Td padding='10px 20px'>
-                    <FileItem data={file} />
-                  </Td>
-                </Tr>
-              );
-            })}
-          </Tbody>
-        </Table>
-      </TableContainer>
 
+                  {showedMessageBody && (
+                    <Flex
+                      direction='column'
+                      gap='10px'
+                      paddingLeft='34px'
+                      maxWidth='60%'
+                      whiteSpace='break-spaces'>
+                      {dataCommit.repository.object.messageBody ? (
+                        <>
+                          {dataCommit.repository.object.messageHeadline ? (
+                            <Text
+                              fontSize='sm'
+                              fontWeight='semibold'>
+                              {dataCommit.repository.object.messageHeadline}
+                            </Text>
+                          ) : null}
+                          <Text
+                            fontSize='xs'
+                            fontWeight='medium'
+                            color='blackAlpha.00'>
+                            {dataCommit.repository.object.messageBody}
+                          </Text>
+                        </>
+                      ) : null}
+                    </Flex>
+                  )}
+                </Td>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {RepositoryFolders?.map(folder => {
+                return (
+                  <Tr key={folder.name}>
+                    <Td padding='10px 20px'>
+                      <FolderItem data={folder} />
+                    </Td>
+                  </Tr>
+                );
+              })}
+              {RepositoryFiles?.map(file => {
+                return (
+                  <Tr key={file.name}>
+                    <Td padding='10px 20px'>
+                      <FileItem data={file} />
+                    </Td>
+                  </Tr>
+                );
+              })}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      ) : null}
       {RepositoryReadMeFile?.map(file => {
         return (
           <ReadMe
