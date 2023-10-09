@@ -2,10 +2,11 @@ import { Text, Flex } from '@chakra-ui/react';
 import ReactMarkdown from 'react-markdown';
 import { IRepositoryInfoTree } from '../../../utils/types/queryTypes';
 import 'github-markdown-css';
+import { memo } from 'react';
 
 type ReadMeProps = IRepositoryInfoTree['repository']['object']['entries'][0];
 
-export const ReadMe = ({ data }: { data: ReadMeProps }) => {
+export const ReadMe = memo(({ data }: { data: ReadMeProps }) => {
   return (
     <Flex
       w='full'
@@ -22,4 +23,4 @@ export const ReadMe = ({ data }: { data: ReadMeProps }) => {
       <ReactMarkdown className='markdown'>{data.object.text}</ReactMarkdown>
     </Flex>
   );
-};
+});

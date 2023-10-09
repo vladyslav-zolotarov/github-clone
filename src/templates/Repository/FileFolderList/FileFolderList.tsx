@@ -96,7 +96,6 @@ export const FileFolderList = () => {
                                 dataCommit.repository.object.author?.avatarUrl
                               }
                             />
-
                             <Text
                               fontSize='sm'
                               fontWeight='semibold'>
@@ -226,7 +225,7 @@ export const FileFolderList = () => {
               </Thead>
               {dataTree.repository.object.entries ? (
                 <Tbody>
-                  {dataTree?.repository.object.entries
+                  {dataTree.repository.object.entries
                     .filter(rep => rep.extension === '')
                     .map(folder => {
                       return (
@@ -237,6 +236,7 @@ export const FileFolderList = () => {
                         </Tr>
                       );
                     })}
+
                   {dataTree.repository.object.entries
                     .filter(rep => rep.extension !== '')
                     .map(file => {
@@ -254,17 +254,15 @@ export const FileFolderList = () => {
           </TableContainer>
 
           {dataTree.repository.object.entries
-            ? dataTree.repository.object.entries
-                .filter(rep => rep.extension !== '')
-                .map(file => {
-                  return (
-                    <ReadMe
-                      key={file.name}
-                      data={file}
-                    />
-                  );
-                })
-            : null}
+            .filter(rep => rep.extension === '.md')
+            .map(file => {
+              return (
+                <ReadMe
+                  key={file.name}
+                  data={file}
+                />
+              );
+            })}
         </>
       ) : null}
     </Flex>
