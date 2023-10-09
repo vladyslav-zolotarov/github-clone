@@ -7,6 +7,10 @@ import { memo } from 'react';
 type ReadMeProps = IRepositoryInfoTree['repository']['object']['entries'][0];
 
 export const ReadMe = memo(({ data }: { data: ReadMeProps }) => {
+  if (data.name !== 'README.md') {
+    return;
+  }
+
   return (
     <Flex
       w='full'
