@@ -10,7 +10,7 @@ import { RiArrowDownSLine } from 'react-icons/ri';
 import { GoRepoForked } from 'react-icons/go';
 
 interface ForkButtonProps {
-  forkCount: number;
+  forkCount: number | string;
   forkingAllowed: boolean;
 }
 
@@ -30,10 +30,12 @@ export const ForkButton = ({ forkCount, forkingAllowed }: ForkButtonProps) => {
 
         <Text fontSize='sm'>Fork</Text>
         <Circle
-          size='21px'
+          minWidth='21px'
+          minHeight='21px'
+          padding='0 8px'
           background='blackAlpha.100'
           color='black'>
-          {forkCount}
+          <Text fontSize='xs'>{forkCount}</Text>
         </Circle>
       </Button>
       <IconButton

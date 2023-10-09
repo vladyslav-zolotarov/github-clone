@@ -4,7 +4,7 @@ import { RiArrowDownSLine } from 'react-icons/ri';
 import { LuEye } from 'react-icons/lu';
 
 interface WatchButtonProps {
-  totalCount: number;
+  totalCount: number | string;
 }
 
 export const WatchButton = ({ totalCount }: WatchButtonProps) => {
@@ -20,10 +20,12 @@ export const WatchButton = ({ totalCount }: WatchButtonProps) => {
 
       <Text fontSize='sm'>Watch</Text>
       <Circle
-        size='21px'
+        minWidth='21px'
+        minHeight='21px'
+        padding='0 8px'
         background='blackAlpha.100'
         color='black'>
-        {totalCount}
+        <Text fontSize='xs'>{totalCount}</Text>
       </Circle>
       <RiArrowDownSLine />
     </Button>

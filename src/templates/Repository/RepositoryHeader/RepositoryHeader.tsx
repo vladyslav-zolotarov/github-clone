@@ -9,6 +9,7 @@ import {
   WatchButton,
 } from '../../../components/Buttons';
 import { GET_REPOSITORY_INFO } from '../../../endpoints/queries';
+import { formatNumber } from '../../../utils/formatNumber/formatNumber';
 
 interface RepositoryHeaderProps {
   data: IRepositoryInfo;
@@ -38,15 +39,17 @@ export const RepositoryHeader = ({ data }: RepositoryHeaderProps) => {
         alignItems='center'
         gap='10px'>
         <PinButton />
-        <WatchButton totalCount={data?.repository.watchers.totalCount} />
+        <WatchButton
+          totalCount={formatNumber(data?.repository.watchers.totalCount)}
+        />
         <ForkButton
-          forkCount={data?.repository.forkCount}
+          forkCount={formatNumber(data?.repository.forkCount)}
           forkingAllowed={data?.repository.forkingAllowed}
         />
         <StarButton
           id={data?.repository.id}
           viewerHasStarred={data?.repository.viewerHasStarred}
-          stargazerCount={data?.repository.stargazerCount}
+          stargazerCount={formatNumber(data?.repository.stargazerCount)}
           endpointQueryUpdate={GET_REPOSITORY_INFO}
           variant='starButton'
         />

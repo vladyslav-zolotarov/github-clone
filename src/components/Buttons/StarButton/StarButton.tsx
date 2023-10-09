@@ -14,7 +14,7 @@ import { DocumentNode } from 'graphql';
 interface StarButtonProps {
   id: string;
   viewerHasStarred: boolean;
-  stargazerCount: number;
+  stargazerCount: number | string;
   hideStargazerCount?: boolean;
   endpointQueryUpdate?: DocumentNode;
   variant: 'starButton' | 'starIcon';
@@ -61,7 +61,9 @@ export const StarButton = ({
             <Text fontSize='sm'>{viewerHasStarred ? 'Stared' : 'Star'}</Text>
             {!hideStargazerCount ? (
               <Circle
-                size='21px'
+                minWidth='21px'
+                minHeight='21px'
+                padding='0 8px'
                 background='blackAlpha.100'
                 color='black'>
                 <Text fontSize='xs'>{stargazerCount}</Text>

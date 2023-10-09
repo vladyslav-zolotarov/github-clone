@@ -3,6 +3,7 @@ import { IRepositoryInfo } from '../../../utils/types/queryTypes';
 import { ImStarEmpty } from 'react-icons/im';
 import { LuEye } from 'react-icons/lu';
 import { GoRepoForked } from 'react-icons/go';
+import { formatNumber } from '../../../utils/formatNumber/formatNumber';
 
 interface AdditionalInformationProps {
   data: IRepositoryInfo;
@@ -43,7 +44,7 @@ export const AdditionalInformation = ({ data }: AdditionalInformationProps) => {
             <Text
               ml='3px'
               fontWeight='bold'>
-              {data.repository.stargazerCount}
+              {formatNumber(data.repository.stargazerCount)}
             </Text>
             <Text fontWeight='medium'>stars</Text>
           </Flex>
@@ -59,7 +60,7 @@ export const AdditionalInformation = ({ data }: AdditionalInformationProps) => {
             <Text
               ml='3px'
               fontWeight='bold'>
-              {data.repository.watchers.totalCount}
+              {formatNumber(data.repository.watchers.totalCount)}
             </Text>
             <Text fontWeight='medium'>watching</Text>
           </Flex>
@@ -75,7 +76,7 @@ export const AdditionalInformation = ({ data }: AdditionalInformationProps) => {
             <Text
               ml='3px'
               fontWeight='bold'>
-              {data.repository.forkCount}
+              {formatNumber(data.repository.forkCount)}
             </Text>
             <Text fontWeight='medium'>forks</Text>
           </Flex>
