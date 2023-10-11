@@ -127,7 +127,7 @@ export const FileFolderList = () => {
                         </Flex>
                       </Flex>
                       <Flex
-                        gap='13px'
+                        gap='8px'
                         alignItems='center'>
                         {dataCommit.repository.object.abbreviatedOid ? (
                           <Text
