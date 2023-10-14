@@ -1,97 +1,20 @@
-import { NavLink, useLocation, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { Flex, Button, Circle, Text } from '@chakra-ui/react';
 import { BiBookReader, BiBookBookmark } from 'react-icons/bi';
 import { GoProjectRoadmap } from 'react-icons/go';
 import { FiPackage, FiStar } from 'react-icons/fi';
 import { IUserInfoForNavigation } from '../../utils/types/queryTypes';
-import { ReactNode } from 'react';
 
 type IUserInfoForNavigationState = Partial<IUserInfoForNavigation>;
 
 export const Navigation = ({ user }: IUserInfoForNavigationState) => {
   const { userLogin } = useParams();
-  // const location = useLocation();
-  // const [{ route }] = matchRoutes(route, location);
 
   const activeNavLinkStyle = (isActive: boolean) => {
     return {
       borderBottom: isActive ? '2px solid' : '2px solid transparent',
     };
   };
-
-  // const repositoryNavigation = (): ReactNode => {
-  //   return (
-  //     <Flex>
-  //       <NavLink
-  //         to={`/user/${userLogin}/overview`}
-  //         style={({ isActive }) => activeNavLinkStyle(isActive)}>
-  //         <Button
-  //           marginBottom='10px'
-  //           variant='ghost'
-  //           gap='10px'>
-  //           <BiBookReader />
-  //           Code
-  //         </Button>
-  //       </NavLink>
-  //       <NavLink
-  //         to={`/user/${userLogin}/repositories`}
-  //         style={({ isActive }) => activeNavLinkStyle(isActive)}>
-  //         <Button
-  //           marginBottom='10px'
-  //           variant='ghost'
-  //           gap='10px'>
-  //           <BiBookBookmark />
-  //           Issues
-  //           <Circle
-  //             size='23px'
-  //             bg='blackAlpha.200'>
-  //             {user?.repositories.totalCount ? (
-  //               <Text
-  //                 fontSize='xs'
-  //                 fontWeight='semibold'>
-  //                 {user.repositories.totalCount - 1}
-  //               </Text>
-  //             ) : (
-  //               <Text
-  //                 fontSize='xs'
-  //                 fontWeight='semibold'>
-  //                 0
-  //               </Text>
-  //             )}
-  //           </Circle>
-  //         </Button>
-  //       </NavLink>
-  //       <NavLink
-  //         to={`/user/${userLogin}/projects`}
-  //         style={({ isActive }) => activeNavLinkStyle(isActive)}>
-  //         <Button
-  //           marginBottom='10px'
-  //           variant='ghost'
-  //           gap='10px'>
-  //           <GoProjectRoadmap />
-  //           Pull request
-  //           <Circle
-  //             size='23px'
-  //             bg='blackAlpha.200'>
-  //             {user?.projects.totalCount ? (
-  //               <Text
-  //                 fontSize='xs'
-  //                 fontWeight='semibold'>
-  //                 {user.projects.totalCount}
-  //               </Text>
-  //             ) : (
-  //               <Text
-  //                 fontSize='xs'
-  //                 fontWeight='semibold'>
-  //                 0
-  //               </Text>
-  //             )}
-  //           </Circle>
-  //         </Button>
-  //       </NavLink>
-  //     </Flex>
-  //   );
-  // };
 
   return (
     <Flex>
