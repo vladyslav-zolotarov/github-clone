@@ -295,6 +295,38 @@ export const GET_REPOSITORY_INFO_COMMIT = gql`
   }
 `;
 
+export const GET_REPOSITORY_COMMIT_LIST = gql`
+  query getRepositoryInfoCommit($name: String!, $owner: String!) {
+    repository(name: $name, owner: $owner) {
+      object(expression: "HEAD") {
+        ... on Commit {
+          history {
+            totalCount
+            edges {
+              node {
+                author {
+                  name
+                  avatarUrl
+                  date
+                  email
+                }
+                comments {
+                  totalCount
+                }
+                authoredDate
+                oid
+                abbreviatedOid
+                authoredByCommitter
+                message
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const GET_PINNED_ITEMS_REPOSITORY = gql`
   query getPinnedItemsRepository($login: String!) {
     user(login: $login) {

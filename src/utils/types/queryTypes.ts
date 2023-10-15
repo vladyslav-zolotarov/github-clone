@@ -296,6 +296,31 @@ export interface IRepositoryInfoCommit {
   };
 }
 
+export interface IRepositoryCommitList {
+  repository: {
+    object: {
+      history: {
+        edges: {
+          node: {
+            author: {
+              name: string;
+              avatarUrl: string;
+              date: string;
+              email: string;
+            };
+            authoredDate: string;
+            oid: string;
+            abbreviatedOid: string;
+            authoredByCommitter: string;
+            messageBody: string;
+            messageHeadline: string;
+          };
+        };
+      };
+    };
+  };
+}
+
 export interface IPinnedItemsRepository {
   user: {
     itemShowcase: {
