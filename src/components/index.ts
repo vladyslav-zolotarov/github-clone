@@ -13,3 +13,4 @@ export * from './HeaderTopBelt/HeaderTopBelt';
 export * from './UserCard/UserCard';
 export * from './UserCard/UserCardSkeleton';
 export * from './RepositoryCard/RepositoryCardSkeleton';
+export * from './Commit/CommitCard/CommitCard';

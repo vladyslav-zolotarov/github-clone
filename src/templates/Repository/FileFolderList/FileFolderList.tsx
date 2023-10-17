@@ -24,7 +24,7 @@ import {
   GET_REPOSITORY_INFO_TREE,
 } from '../../../endpoints/queries';
 import { useQuery } from '@apollo/client';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link as RouterLink } from 'react-router-dom';
 import { ReadMe, FileItem, FolderItem, UserAvatar } from '../../../components';
 import { VscGitCommit } from 'react-icons/vsc';
 import { useState } from 'react';
@@ -173,24 +173,30 @@ export const FileFolderList = () => {
                             )}
                           </Text>
                         ) : null}
-                        <Flex
-                          alignItems='center'
-                          gap='1px'>
-                          <VscGitCommit size='14px' />
-                          {dataCommit.repository.object.history.totalCount ? (
-                            <Text
-                              fontSize='sm'
-                              fontWeight='semibold'>
-                              {dataCommit.repository.object.history.totalCount}
+
+                        <RouterLink to={'commits'}>
+                          <Flex
+                            alignItems='center'
+                            gap='1px'>
+                            <VscGitCommit size='14px' />
+                            {dataCommit.repository.object.history.totalCount ? (
                               <Text
-                                ml='4px'
-                                as='span'
-                                color='blackAlpha.600'>
-                                commits
+                                fontSize='sm'
+                                fontWeight='semibold'>
+                                {
+                                  dataCommit.repository.object.history
+                                    .totalCount
+                                }
+                                <Text
+                                  ml='4px'
+                                  as='span'
+                                  color='blackAlpha.600'>
+                                  commits
+                                </Text>
                               </Text>
-                            </Text>
-                          ) : null}
-                        </Flex>
+                            ) : null}
+                          </Flex>
+                        </RouterLink>
                       </Flex>
                     </Flex>
 

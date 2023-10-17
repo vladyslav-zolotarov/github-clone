@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { HomePage, RepositoryPage } from './pages/index';
+import { CommitsPage, HomePage, RepositoryPage } from './pages/index';
 import { AppLayout } from './layouts/AppLayout';
 import { FollowersList } from './components';
 import { Overview } from './templates/User';
@@ -42,6 +42,16 @@ function App() {
               gap='20px'
               w='full'>
               <RepositoryPage />
+            </Grid>
+          ),
+        },
+        {
+          path: '/:userLogin/:repositoryName/commits',
+          element: (
+            <Grid
+              gap='20px'
+              w='full'>
+              <CommitsPage />
             </Grid>
           ),
         },

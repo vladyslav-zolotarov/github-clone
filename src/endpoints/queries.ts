@@ -301,7 +301,6 @@ export const GET_REPOSITORY_COMMIT_LIST = gql`
       object(expression: "HEAD") {
         ... on Commit {
           history {
-            totalCount
             edges {
               node {
                 author {
@@ -317,7 +316,8 @@ export const GET_REPOSITORY_COMMIT_LIST = gql`
                 oid
                 abbreviatedOid
                 authoredByCommitter
-                message
+                messageBody
+                messageHeadline
               }
             }
           }
