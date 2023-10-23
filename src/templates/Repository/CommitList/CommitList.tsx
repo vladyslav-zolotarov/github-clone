@@ -22,7 +22,6 @@ export const CommitList = () => {
   return (
     <div>
       <Grid gap='20px'>
-        CommitList
         {data?.repository.object.history.edges.map(element => {
           return <CommitCard node={element.node} />;
         })}
