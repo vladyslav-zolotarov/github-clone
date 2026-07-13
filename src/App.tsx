@@ -81,7 +81,7 @@ function App() {
         },
       ],
     },
-  ], basename: "/github-clone/");
+  ], { basename: "/github-clone/" });
 
   return (
     <RouterProvider
