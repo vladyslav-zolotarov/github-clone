@@ -1,5 +1,6 @@
 {
   "name": "app",
+  "homepage": "https://vladyslav-zolotarov.github.io/github-clone/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
